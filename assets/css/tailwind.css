@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-200;
+  }
+  html {
+    @apply font-roboto
+  }
+  body,
+  html {
+    height: 100%;
+    scroll-behavior: smooth;
+  }
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  #__nuxt {
+    @apply h-full;
+  }
+
+  .h-inherit {
+    height: inherit;
+  }
+
+  :root {
+    --el-color-primary-dark-2: theme('colors.amber.700') !important;
+    --el-color-primary: theme('colors.amber.600') !important;
+    --el-color-primary-light-3: theme('colors.amber.500') !important;
+    --el-color-primary-light-5: theme('colors.amber.400') !important;
+    --el-color-primary-light-7: theme('colors.amber.300') !important;
+    --el-color-primary-light-8: theme('colors.amber.200') !important;
+    --el-color-primary-light-9: theme('colors.amber.100') !important;
+  }
+}

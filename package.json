@@ -1,0 +1,42 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "packageManager": "yarn@3.6.3",
+  "scripts": {
+    "build": "nuxi build",
+    "dev": "nuxi dev",
+    "generate": "nuxi generate",
+    "preview": "nuxi preview",
+    "tsc": "nuxi typecheck",
+    "postinstall": "nuxi prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "@tiptap/extension-text-align": "2.6.6",
+    "@tiptap/html": "2.6.6",
+    "@tiptap/pm": "2.6.6",
+    "@tiptap/starter-kit": "2.6.6",
+    "@tiptap/vue-3": "2.6.6",
+    "element-plus": "2.8.1",
+    "vue": "3.4.38"
+  },
+  "devDependencies": {
+    "@element-plus/nuxt": "1.0.10",
+    "@nuxt/eslint": "0.5.1",
+    "@nuxt/icon": "1.4.10",
+    "@nuxtjs/google-fonts": "3.2.0",
+    "@nuxtjs/tailwindcss": "6.12.1",
+    "@tailwindcss/typography": "0.5.15",
+    "@vueuse/core": "11.0.3",
+    "@vueuse/nuxt": "11.0.3",
+    "eslint": "8.57.0",
+    "nuxt": "3.13.1",
+    "nuxt-mongoose": "1.0.6",
+    "prettier": "3.3.2",
+    "typescript": "5.3.3",
+    "vue-tsc": "2.0.29"
+  }
+}
