@@ -1,9 +1,9 @@
-import { NewsSchema } from '~/server/models/news.model'
+import { NewsModel } from '~/server/models/news.model'
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, 'id')
   try {
-    const res = await NewsSchema.findById(id)
+    const res = await NewsModel.findById(id)
 
     return {
       res

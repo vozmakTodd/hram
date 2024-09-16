@@ -1,20 +1,20 @@
 <script setup lang="ts">
 import GPlusIcon from '~/components/icons/GPlusIcon.vue'
 import type { FormInstance, FormRules, UploadProps, UploadUserFile } from 'element-plus'
-import type { ITextNewsForm } from '~/types/news'
 import { EAccept } from '~/types/files'
 import { required } from '~/utils/validators'
 import type { JSONContent } from '@tiptap/core'
 import GNewsDescriptionField from '~/components/GNewsDescriptionField/GNewsDescriptionField.vue'
+import type { ITextNewsBaseModel } from '~/types/news'
 
-const value = defineModel<ITextNewsForm>({ required: true })
+const value = defineModel<ITextNewsBaseModel<UploadUserFile>>({ required: true })
 
 const dialogImageUrl = ref('')
 const dialogVisible = ref(false)
 const ruleFormRef = ref<FormInstance>()
 const newsDescriptionFieldRef = ref<InstanceType<typeof GNewsDescriptionField>>()
 
-const rules = reactive<FormRules<ITextNewsForm>>({
+const rules = reactive<FormRules>({
   title: [required()],
   description: [
     {
@@ -47,12 +47,12 @@ const validate = async () => {
   }
 }
 
-const onDescriptionChange = (v: JSONContent | undefined) => {
+const onDescriptionChange = (v: JSONContent) => {
   value.value.description = v
   ruleFormRef.value!.validateField('description').catch(() => {})
 }
 
-const onImageChange = (v: UploadUserFile[] | undefined) => {
+const onImageChange = (v: UploadUserFile[]) => {
   value.value.images = v
   ruleFormRef.value!.validateField('images').catch(() => {})
 }

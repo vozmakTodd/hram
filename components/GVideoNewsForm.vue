@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import type { IVideoNewsForm } from '~/types/news'
 import { getYoutubeId } from '~/utils/string'
 import { EMBED_LINKS } from '~/constants'
 import type { FormInstance, FormRules } from 'element-plus'
 import { required } from '~/utils/validators'
+import type { IVideoNewsBaseModel } from '~/types/news'
 
-const value = defineModel<IVideoNewsForm>({ required: true })
+const value = defineModel<IVideoNewsBaseModel>({ required: true })
 
 const ruleFormRef = ref<FormInstance>()
 
-const rules = reactive<FormRules<IVideoNewsForm>>({
+const rules = reactive<FormRules>({
   title: [required()],
   link: [
     required(),

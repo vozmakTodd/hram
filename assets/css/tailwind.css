@@ -7,7 +7,7 @@
     @apply bg-slate-200;
   }
   html {
-    @apply font-roboto
+    @apply font-cormorant-unicase
   }
   body,
   html {

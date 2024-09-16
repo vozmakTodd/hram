@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { IVideoNewsModel } from '~/types/news'
 import { breakpointsTailwind } from '@vueuse/core'
+import type { IVideoNewsBaseModel } from '~/types/news'
 
-defineProps<{ news: IVideoNewsModel }>()
+defineProps<{ news: IVideoNewsBaseModel }>()
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
 

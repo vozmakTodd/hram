@@ -1,1 +1,1 @@
-export { ILink } from './ILink'
+export type { ILink } from './ILink'
