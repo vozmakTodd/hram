@@ -33,22 +33,27 @@ const drawer = ref<boolean>(false)
         <el-container direction="vertical">
           <el-carousel
             arrow="never"
-            class="self-center w-full"
-            height="200px"
+            class="common-layout__carousel self-center w-full"
+            height="300px"
+            :interval="9000"
             style="max-width: 1150px"
             motion-blur
           >
-            <el-carousel-item v-for="item in 4" :key="item" class="bg-gray-300">
-              <div class="flex justify-center items-center h-full my-2">
-                <h3>{{ item }}</h3>
-              </div>
+            <el-carousel-item>
+              <el-image fit="fill" src="/img/carousel/1.jpg" />
+            </el-carousel-item>
+            <el-carousel-item>
+              <el-image fit="fill" src="/img/carousel/2.jpg" />
+            </el-carousel-item>
+            <el-carousel-item>
+              <el-image fit="fill" src="/img/carousel/3.jpg" />
             </el-carousel-item>
           </el-carousel>
           <ElBacktop target="#main" />
           <el-main
             id="main"
             class="self-center w-full"
-            style="max-width: calc(1150px * 0.7); flex-basis: calc(100vh - 340px - 1rem)"
+            style="max-width: calc(1150px * 0.7); flex-basis: calc(100vh - 440px - 1rem)"
           >
             <div id="button-row" />
             <slot />
@@ -68,6 +73,10 @@ const drawer = ref<boolean>(false)
 .common-layout :deep(#button-row) {
   @apply flex justify-end items-center self-center w-full my-3;
   max-width: 1150px;
+}
+
+.common-layout :deep(.common-layout__carousel .el-carousel__indicators) {
+  display: none;
 }
 
 .common-layout :deep(#main) {

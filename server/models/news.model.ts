@@ -1,16 +1,26 @@
 import { defineMongooseModel } from '#nuxt/mongoose'
+import { ENewsType } from '~/types/news'
 import { Schema } from 'mongoose'
+import type { INewsMongoModel } from '~/types/news/INewsBaseModal'
 
-export const NewsSchema = defineMongooseModel({
+export const NewsModel = defineMongooseModel<
+  INewsMongoModel<Record<'name' | 'extension' | 'file', string>>
+>({
   name: 'News',
   schema: {
     title: {
+      type: String
+    },
+    type: {
       type: String,
-      required: true
+      enum: Object.values(ENewsType)
+    },
+    link: {
+      type: String
     },
     description: {
       type: Schema.Types.Mixed
     },
-    images: [{ name: { type: String }, extension: { type: String }, file: Schema.Types.Buffer }]
+    images: [{ name: String, extension: String, file: String }]
   }
 })

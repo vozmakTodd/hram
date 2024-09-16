@@ -1,7 +1,9 @@
-import type { TNews } from '~/types/news/INewsModel'
+import type { ITextNewsBaseModel, IVideoNewsBaseModel } from '~/types/news/INewsBaseModal'
 
 export interface IGetNewsRes {
-  content: TNews[]
+  content: Array<
+    ITextNewsBaseModel<Record<'name' | 'extension' | 'file', string>> | IVideoNewsBaseModel
+  >
   pagination: {
     page: number
     lastPage: number

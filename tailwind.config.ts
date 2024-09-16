@@ -3,7 +3,11 @@ import typography from '@tailwindcss/typography'
 
 export default {
   theme: {
-    extend: { fontFamily: { roboto: ['Roboto', 'sans-serif'] } }
+    extend: {
+      fontFamily: {
+        'cormorant-unicase': ['Cormorant Unicase', 'sans-serif']
+      }
+    }
   },
   plugins: [typography]
 }

@@ -1,20 +1,23 @@
 <script setup lang="ts">
 import GPlusIcon from '~/components/icons/GPlusIcon.vue'
-import { ENewsType, type TNewsForm } from '~/types/news'
-import { addNews } from '~/utils/api/addNews'
-import type { ICreateTextNewsReq, ICreateVideoNewsReq } from '~/types/news/api'
+import { ENewsType, type ITextNewsBaseModel, type IVideoNewsBaseModel } from '~/types/news'
+import type { UploadUserFile } from 'element-plus'
 import { parseFileName } from '~/utils/file'
 import type GVideoNewsForm from '~/components/GVideoNewsForm.vue'
 import type GTextNewsForm from '~/components/GTextNewsForm.vue'
+import { useNewsRepo } from '~/utils/api/useNewsRepo'
 
 const dialog = ref<boolean>(false)
 const loading = ref<boolean>(false)
 const videoNewsFormRef = ref<InstanceType<typeof GVideoNewsForm>>()
 const textNewsFormRef = ref<InstanceType<typeof GTextNewsForm>>()
 
-const news = reactive<TNewsForm>({
+const newsRepo = useNewsRepo()
+
+const news = reactive<ITextNewsBaseModel<UploadUserFile> | IVideoNewsBaseModel>({
   images: [],
   title: '',
+  description: {},
   type: ENewsType.TEXT
 })
 
@@ -28,28 +31,19 @@ const createTextNews = async () => {
         for (const image of news.images) {
           images.push({
             ...parseFileName(image.name),
-            file: new Uint8Array(await image.raw!.arrayBuffer())
+            file: Array.from(new Uint8Array(await image.raw!.arrayBuffer()))
           })
         }
       }
 
-      const data: ICreateTextNewsReq = {
+      const data: ITextNewsBaseModel<{ name: string; extension: string; file: number[] }> = {
         title: news.title,
         description: news.description,
         images,
         type: ENewsType.TEXT
       }
 
-      console.log(data)
-
-      const res = await $fetch<{ id: string }>('/api/news', {
-        method: 'POST',
-        body: data
-      })
-
-      const newsCard = await $fetch(`/api/news/${res.id}`)
-
-      console.log(newsCard)
+      await newsRepo.post(data)
     } catch (error) {
       console.log(error)
     } finally {
@@ -60,13 +54,20 @@ const createTextNews = async () => {
 
 const createVideoNews = async () => {
   if (news.type === ENewsType.VIDEO && (await videoNewsFormRef.value!.validate())) {
-    const data: ICreateVideoNewsReq = {
-      title: news.title,
-      link: news.link,
-      type: ENewsType.VIDEO
-    }
+    try {
+      loading.value = true
+      const data: IVideoNewsBaseModel = {
+        title: news.title,
+        link: news.link,
+        type: ENewsType.VIDEO
+      }
 
-    await addNews(data)
+      await newsRepo.post(data)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      loading.value = false
+    }
   }
 }
 </script>

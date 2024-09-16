@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { ITextNewsModel } from '~/types/news'
+import type { ITextNewsBaseModel } from '~/types/news'
 import { breakpointsTailwind } from '@vueuse/core'
 import { generateHTML } from '@tiptap/html'
 import { EXTENSIONS } from '~/components/GNewsDescriptionField/constants/extensions'
 
-defineProps<{ news: ITextNewsModel }>()
+defineProps<{ news: ITextNewsBaseModel<Record<'name' | 'extension' | 'file', string>> }>()
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
 
@@ -12,12 +12,6 @@ const smallerThanSm = breakpoints.smaller('sm')
 const isExpanded = ref<boolean>(false)
 const showBtn = ref<boolean>(false)
 const articleRef = ref<HTMLInputElement | null>(null)
-
-const arrayBufferToUrl = (file: Uint8Array, extension: string) => {
-  const blob = new Blob([file], { type: extension })
-
-  return URL.createObjectURL(blob)
-}
 
 onMounted(() => {
   showBtn.value = articleRef.value!.scrollHeight > articleRef.value!.clientHeight
@@ -28,10 +22,10 @@ onMounted(() => {
   <article ref="articleRef" :class="['news flex flex-col gap-3', { 'is-expanded': isExpanded }]">
     <div class="news__images">
       <ElCarousel height="200px" :class="[{ 'mx-24': !smallerThanSm }]">
-        <ElCarouselItem v-for="image in news.images" :key="image.id">
+        <ElCarouselItem v-for="(image, index) in news.images" :key="index">
           <ElImage
-            :src="arrayBufferToUrl(image.file!, image.extension)"
-            :preview-src-list="[arrayBufferToUrl(image.file!, image.extension)]"
+            :src="`/news/${image.file}${image.extension}`"
+            :preview-src-list="[`/news/${image.file}${image.extension}`]"
             fit="cover"
             class="h-inherit w-full"
             preview-teleported
