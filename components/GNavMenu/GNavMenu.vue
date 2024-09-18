@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import type { ILink } from '~/components/GNavMenu/types'
 
+defineProps<{
+  horizontal?: boolean
+}>()
+
 const route = useRoute()
 
 const links = ref<ILink[]>([
@@ -50,7 +54,14 @@ const links = ref<ILink[]>([
 </script>
 
 <template>
-  <ElMenu class="h-full" :default-active="route.path" router>
+  <ElMenu
+    :popper-class="horizontal ? 'g-popper--horizontal' : ''"
+    :class="['h-full g-menu', { 'g-menu--horizontal': horizontal }]"
+    :default-active="route.path"
+    :mode="horizontal ? 'horizontal' : 'vertical'"
+    :ellipsis="false"
+    router
+  >
     <template v-for="(link, index) in links" :key="index">
       <NuxtLink v-if="!link.child" :to="link.index">
         <ElMenuItem :index="link.index">
@@ -73,4 +84,15 @@ const links = ref<ILink[]>([
   </ElMenu>
 </template>
 
-<style scoped></style>
+<style lang="postcss" scoped>
+.g-menu--horizontal :deep(.el-menu-item),
+.g-menu--horizontal :deep(.el-sub-menu__title) {
+  @apply h-full text-lg;
+}
+</style>
+
+<style lang="postcss">
+.g-popper--horizontal .el-menu-item {
+  @apply text-lg;
+}
+</style>

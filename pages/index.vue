@@ -20,11 +20,13 @@ const fetchNews = async () => {
 }
 
 const load = () => {
-  if (page.value % 10 === 0 && page.value !== lastPage.value) {
-    page.value += 1
-  }
+  if (page.value !== lastPage.value) {
+    if (page.value % 10 === 0 && page.value !== lastPage.value) {
+      page.value += 1
+    }
 
-  fetchNews()
+    fetchNews()
+  }
 }
 
 onMounted(() => {

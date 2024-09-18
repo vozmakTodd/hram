@@ -22,5 +22,8 @@ export const NewsModel = defineMongooseModel<
       type: Schema.Types.Mixed
     },
     images: [{ name: String, extension: String, file: String }]
+  },
+  options: {
+    timestamps: true
   }
 })
