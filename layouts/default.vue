@@ -18,9 +18,9 @@ const drawer = ref<boolean>(false)
         </template>
       </GHeader>
       <el-container>
-        <GAsideBar v-if="!smallerThanLg" />
+        <!--        <GAsideBar v-if="!smallerThanLg" />-->
         <ElDrawer
-          v-else
+          v-if="smallerThanLg"
           v-model="drawer"
           direction="ltr"
           size="300px"

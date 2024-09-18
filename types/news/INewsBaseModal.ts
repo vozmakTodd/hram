@@ -1,8 +1,9 @@
 import type { ENewsType } from '~/types/news/ENewsType'
 import type { JSONContent } from '@tiptap/core'
 import type { ObjectId } from 'mongoose'
+import type { ITechnicalFields } from '~/types/common'
 
-interface INewsBaseModel {
+interface INewsBaseModel extends ITechnicalFields {
   _id?: ObjectId
   title: string
   type: ENewsType
