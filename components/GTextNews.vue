@@ -3,8 +3,11 @@ import type { ITextNewsBaseModel } from '~/types/news'
 import { breakpointsTailwind } from '@vueuse/core'
 import { generateHTML } from '@tiptap/html'
 import { EXTENSIONS } from '~/components/GNewsDescriptionField/constants/extensions'
+import GEditNewsDialog from '~/components/GEditNewsDialog/GEditNewsDialog.vue'
+import { EDropdownCommand } from '~/types/common/EDropdownCommand'
+import type { IFileMongoModel } from '~/types/files'
 
-defineProps<{ news: ITextNewsBaseModel<Record<'name' | 'extension' | 'file', string>> }>()
+defineProps<{ news: ITextNewsBaseModel<IFileMongoModel> }>()
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
 
@@ -12,6 +15,15 @@ const smallerThanSm = breakpoints.smaller('sm')
 const isExpanded = ref<boolean>(false)
 const showBtn = ref<boolean>(false)
 const articleRef = ref<HTMLInputElement | null>(null)
+const editNewsDialogRef = ref<InstanceType<typeof GEditNewsDialog> | null>(null)
+
+const handleCommand = (command: EDropdownCommand) => {
+  if (command === EDropdownCommand.EDIT && editNewsDialogRef.value) {
+    editNewsDialogRef.value.openDialog()
+  } else if (command === EDropdownCommand.DELETE) {
+    console.log(command)
+  }
+}
 
 onMounted(() => {
   showBtn.value = articleRef.value!.scrollHeight > articleRef.value!.clientHeight
@@ -20,6 +32,18 @@ onMounted(() => {
 
 <template>
   <article ref="articleRef" :class="['news flex flex-col gap-3', { 'is-expanded': isExpanded }]">
+    <GEditNewsDialog ref="editNewsDialogRef" :news />
+    <el-dropdown @command="handleCommand">
+      <el-icon class="el-icon--right">
+        <GBulletListIcon />
+      </el-icon>
+      <template #dropdown>
+        <el-dropdown-menu>
+          <el-dropdown-item :command="EDropdownCommand.EDIT">Редактировать</el-dropdown-item>
+          <el-dropdown-item :command="EDropdownCommand.DELETE">Удалить</el-dropdown-item>
+        </el-dropdown-menu>
+      </template>
+    </el-dropdown>
     <div class="news__images">
       <ElCarousel height="200px" :class="[{ 'mx-24': !smallerThanSm }]">
         <ElCarouselItem v-for="(image, index) in news.images" :key="index">

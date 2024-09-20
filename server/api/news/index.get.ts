@@ -13,7 +13,7 @@ export default defineEventHandler<{ query: { page: number } }>(async (event) => 
       content: res,
       pagination: {
         page: page,
-        lastPage: Math.ceil(count / PAGE_SIZE)
+        lastPage: Math.trunc(count / PAGE_SIZE)
       }
     }
   } catch (error) {

@@ -1,8 +1,8 @@
 import { NewsModel } from '~/server/models/news.model'
-import { v4 as uuidv4 } from 'uuid'
-import * as fs from 'node:fs'
 import type { ITextNewsBaseModel, IVideoNewsBaseModel } from '~/types/news'
 import { ENewsType } from '~/types/news'
+import type { IFileMongoModel } from '~/types/files'
+import { saveImages } from '~/server/utils/saveImages'
 
 export default defineEventHandler<{
   body:
@@ -19,23 +19,11 @@ export default defineEventHandler<{
 
       id = res.id
     } else {
-      const data: Omit<ITextNewsBaseModel<Record<'name' | 'extension' | 'file', string>>, '_id'> = {
+      const data: Omit<ITextNewsBaseModel<IFileMongoModel>, '_id'> = {
         title: body.title,
         description: body.description,
         type: body.type,
-        images: []
-      }
-
-      if (body.images) {
-        body.images.forEach((image) => {
-          const fileId = uuidv4()
-
-          fs.writeFileSync(
-            `public/news/${fileId}${image.extension}`,
-            Buffer.from(new Uint8Array(image.file))
-          )
-          data.images!.push({ ...image, file: fileId })
-        })
+        images: body.images ? saveImages(body.images) : []
       }
 
       const res = await new NewsModel(data).save()

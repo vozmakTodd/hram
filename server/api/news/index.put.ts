@@ -1,0 +1,74 @@
+import type { ITextNewsBaseModel, IVideoNewsBaseModel } from '~/types/news'
+import { NewsModel } from '~/server/models/news.model'
+import { ENewsType } from '~/types/news'
+import type { IFileMongoModel } from '~/types/files'
+import fs from 'node:fs'
+import { saveImages } from '~/server/utils/saveImages'
+
+export default defineEventHandler<{
+  body: {
+    news:
+      | IVideoNewsBaseModel
+      | ITextNewsBaseModel<{ name: string; extension: string; file: number[] }>
+    deleteFiles?: string[]
+  }
+}>(async (event) => {
+  const body = await readBody(event)
+
+  try {
+    const news = await NewsModel.findById(body.news._id)
+
+    if (!news) {
+      return createError({
+        statusCode: 400,
+        statusMessage: `News not found with id ${body.news._id}`
+      })
+    }
+
+    if (news.type === ENewsType.TEXT && body.news.type === ENewsType.TEXT) {
+      news.title = body.news.title
+      news.description = body.news.description
+
+      if (body.deleteFiles && body.deleteFiles.length && news.images) {
+        news.images = news.images.reduce((acc: IFileMongoModel[], val) => {
+          if (val._id && !body.deleteFiles!.includes(val._id)) {
+            acc.push(val)
+          } else {
+            fs.unlink(`public/news/${val.file}${val.extension}`, (err) => {
+              if (err) {
+                console.error(`Error removing file: ${err}`)
+                return
+              }
+            })
+          }
+
+          return acc
+        }, [])
+      }
+
+      news.images = [
+        ...(news.images ? news.images : []),
+        ...(body.news.images ? saveImages(body.news.images) : [])
+      ]
+    } else if (news.type === ENewsType.VIDEO && body.news.type === ENewsType.VIDEO) {
+      news.title = body.news.title
+      news.link = body.news.link
+    } else {
+      return createError({
+        statusCode: 400,
+        statusMessage: `News has wrong type`
+      })
+    }
+
+    news.save()
+
+    return {
+      res: true
+    }
+  } catch (error) {
+    return createError({
+      statusCode: 400,
+      statusMessage: `${error}`
+    })
+  }
+})

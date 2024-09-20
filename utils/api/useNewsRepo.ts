@@ -20,9 +20,15 @@ export const useNewsRepo = () => ({
       body
     })
   },
-  async get(id: number) {
-    return $fetch<IGetNewsRes>(`/api/news/${id}`, {
-      method: 'GET'
+  async put(body: {
+    news:
+      | IVideoNewsBaseModel
+      | ITextNewsBaseModel<{ name: string; extension: string; file: number[] }>
+    deleteFiles?: string[]
+  }) {
+    return $fetch<IGetNewsRes>(`/api/news`, {
+      method: 'PUT',
+      body
     })
   }
 })
