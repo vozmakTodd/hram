@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <Icon name="fa-solid:undo" />
+  <Icon name="bx:undo" />
 </template>
 
 <style scoped></style>

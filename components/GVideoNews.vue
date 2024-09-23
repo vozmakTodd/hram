@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import { breakpointsTailwind } from '@vueuse/core'
 import type { IVideoNewsBaseModel } from '~/types/news'
+import GEditNewsDialog from '~/components/GEditNewsDialog/GEditNewsDialog.vue'
 
 defineProps<{ news: IVideoNewsBaseModel }>()
+const emit = defineEmits<{
+  change: []
+}>()
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
 
@@ -11,6 +15,7 @@ const smallerThanSm = breakpoints.smaller('sm')
 
 <template>
   <article class="flex flex-col gap-3">
+    <GEditNewsDialog ref="editNewsDialogRef" :news @change="emit('change')" />
     <div :class="['video-container', { 'mx-24': !smallerThanSm }]">
       <iframe
         width="560"

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import GPlusIcon from '~/components/icons/GPlusIcon.vue'
-import type { FormInstance, FormRules, UploadProps, UploadUserFile } from 'element-plus'
+import type { FormInstance, FormRules, UploadFile, UploadProps, UploadUserFile } from 'element-plus'
 import { EAccept } from '~/types/files'
 import { required } from '~/utils/validators'
 import type { JSONContent } from '@tiptap/core'
@@ -8,6 +8,9 @@ import GNewsDescriptionField from '~/components/GNewsDescriptionField/GNewsDescr
 import type { ITextNewsBaseModel } from '~/types/news'
 
 const value = defineModel<ITextNewsBaseModel<UploadUserFile>>({ required: true })
+const emit = defineEmits<{
+  deleteFile: [file: UploadFile]
+}>()
 
 const dialogImageUrl = ref('')
 const dialogVisible = ref(false)
@@ -57,6 +60,10 @@ const onImageChange = (v: UploadUserFile[]) => {
   ruleFormRef.value!.validateField('images').catch(() => {})
 }
 
+const onRemove = (uploadFile: UploadFile) => {
+  emit('deleteFile', uploadFile)
+}
+
 defineExpose({
   validate
 })
@@ -79,6 +86,7 @@ defineExpose({
         :accept="[EAccept.JPG, EAccept.PNG, EAccept.JPEG].join(',')"
         :auto-upload="false"
         :on-preview="handlePictureCardPreview"
+        :on-remove="onRemove"
         @update:file-list="onImageChange"
       >
         <GPlusIcon />

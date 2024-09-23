@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <Icon name="fa:list-ul" />
+  <Icon name="bx:list-ul" />
 </template>
 
 <style scoped></style>

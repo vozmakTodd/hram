@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@element-plus/nuxt": "1.0.10",
+    "@iconify-json/bx": "1.2.0",
     "@nuxt/eslint": "0.5.1",
     "@nuxt/icon": "1.4.10",
     "@nuxtjs/google-fonts": "3.2.0",

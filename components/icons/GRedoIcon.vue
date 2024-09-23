@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <Icon name="fa-solid:redo" />
+  <Icon name="bx:redo" />
 </template>
 
 <style scoped></style>

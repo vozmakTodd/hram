@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <Icon name="fa:paragraph" />
+  <Icon name="bx:paragraph" />
 </template>
 
 <style scoped></style>
