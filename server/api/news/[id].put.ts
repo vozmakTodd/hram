@@ -14,9 +14,10 @@ export default defineEventHandler<{
   }
 }>(async (event) => {
   const body = await readBody(event)
+  const id = getRouterParam(event, 'id')
 
   try {
-    const news = await NewsModel.findById(body.news._id)
+    const news = await NewsModel.findById(id)
 
     if (!news) {
       return createError({
@@ -31,12 +32,12 @@ export default defineEventHandler<{
 
       if (body.deleteFiles && body.deleteFiles.length && news.images) {
         news.images = news.images.reduce((acc: IFileMongoModel[], val) => {
-          if (val._id && !body.deleteFiles!.includes(val._id)) {
+          if (val._id && !body.deleteFiles!.includes(val._id.toString())) {
             acc.push(val)
           } else {
             fs.unlink(`public/news/${val.file}${val.extension}`, (err) => {
               if (err) {
-                console.error(`Error removing file: ${err}`)
+                console.error(`Error removing file ${val.file}${val.extension}: ${err}`)
                 return
               }
             })

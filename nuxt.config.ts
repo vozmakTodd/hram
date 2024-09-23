@@ -31,5 +31,8 @@ export default defineNuxtConfig({
       dbName: 'hram_db'
     },
     devtools: true
+  },
+  icon: {
+    serverBundle: 'local'
   }
 })

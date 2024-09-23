@@ -8,6 +8,9 @@ import { EDropdownCommand } from '~/types/common/EDropdownCommand'
 import type { IFileMongoModel } from '~/types/files'
 
 defineProps<{ news: ITextNewsBaseModel<IFileMongoModel> }>()
+const emit = defineEmits<{
+  change: []
+}>()
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
 
@@ -32,7 +35,7 @@ onMounted(() => {
 
 <template>
   <article ref="articleRef" :class="['news flex flex-col gap-3', { 'is-expanded': isExpanded }]">
-    <GEditNewsDialog ref="editNewsDialogRef" :news />
+    <GEditNewsDialog ref="editNewsDialogRef" :news @change="emit('change')" />
     <el-dropdown @command="handleCommand">
       <el-icon class="el-icon--right">
         <GBulletListIcon />

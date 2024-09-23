@@ -1,8 +1,8 @@
-import { defineMongooseModel } from '#nuxt/mongoose'
 import { ENewsType } from '~/types/news'
 import { Schema } from 'mongoose'
 import type { INewsMongoModel } from '~/types/news/INewsBaseModal'
 import type { IFileMongoModel } from '~/types/files'
+import { defineMongooseModel } from '#nuxt/mongoose'
 
 export const NewsModel = defineMongooseModel<INewsMongoModel<IFileMongoModel>>({
   name: 'News',

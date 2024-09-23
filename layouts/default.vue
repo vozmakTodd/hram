@@ -12,12 +12,12 @@ const drawer = ref<boolean>(false)
 <template>
   <div class="common-layout h-full">
     <el-container class="h-full" direction="vertical">
-      <GHeader class="common-layout__header">
+      <GHeader class="common-layout__header fixed z-50 w-full">
         <template v-if="smallerThanLg" #append>
           <GBurger @click="drawer = true" />
         </template>
       </GHeader>
-      <el-container>
+      <el-container style="padding-top: 60px">
         <!--        <GAsideBar v-if="!smallerThanLg" />-->
         <ElDrawer
           v-if="smallerThanLg"
@@ -30,7 +30,7 @@ const drawer = ref<boolean>(false)
           <GNavMenu />
         </ElDrawer>
 
-        <el-container direction="vertical">
+        <el-container direction="vertical" class="overflow-y-auto" style="min-height: 700px">
           <el-carousel
             arrow="never"
             class="common-layout__carousel self-center w-full"
@@ -58,9 +58,9 @@ const drawer = ref<boolean>(false)
             <div id="button-row" />
             <slot />
           </el-main>
-          <GFooter />
         </el-container>
       </el-container>
+      <GFooter />
     </el-container>
   </div>
 </template>

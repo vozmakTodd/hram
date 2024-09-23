@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <Icon name="ci:line-break" />
+  <Icon name="bx:subdirectory-left" />
 </template>
 
 <style scoped></style>

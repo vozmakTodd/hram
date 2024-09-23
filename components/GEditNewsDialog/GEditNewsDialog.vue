@@ -10,6 +10,9 @@ import type { IFileMongoModel } from '~/types/files'
 const props = defineProps<{
   news: ITextNewsBaseModel<IFileMongoModel> | IVideoNewsBaseModel
 }>()
+const emit = defineEmits<{
+  change: []
+}>()
 
 const dialog = ref<boolean>(false)
 const loading = ref<boolean>(false)
@@ -50,10 +53,12 @@ const updateTextNews = async () => {
 
       if (localNews.images) {
         for (const image of localNews.images) {
-          images.push({
-            ...parseFileName(image.name),
-            file: Array.from(new Uint8Array(await image.raw!.arrayBuffer()))
-          })
+          if (image.status !== 'success') {
+            images.push({
+              ...parseFileName(image.name),
+              file: Array.from(new Uint8Array(await image.raw!.arrayBuffer()))
+            })
+          }
         }
       }
 
@@ -64,7 +69,9 @@ const updateTextNews = async () => {
         type: ENewsType.TEXT
       }
 
-      await newsRepo.put({ news: data, deleteFiles: removedImagesId.value })
+      await newsRepo.put(localNews._id!, { news: data, deleteFiles: removedImagesId.value })
+      emit('change')
+      dialog.value = false
     } catch (error) {
       console.log(error)
     } finally {
@@ -83,7 +90,9 @@ const updateVideoNews = async () => {
         type: ENewsType.VIDEO
       }
 
-      await newsRepo.put({ news: data })
+      await newsRepo.put(localNews._id!, { news: data })
+      emit('change')
+      dialog.value = false
     } catch (error) {
       console.log(error)
     } finally {

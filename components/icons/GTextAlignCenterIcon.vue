@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <Icon name="fa-solid:align-center" />
+  <Icon name="bx:align-middle" />
 </template>
 
 <style scoped></style>

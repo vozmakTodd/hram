@@ -7,6 +7,10 @@ import type GVideoNewsForm from '~/components/GVideoNewsForm.vue'
 import type GTextNewsForm from '~/components/GTextNewsForm.vue'
 import { useNewsRepo } from '~/utils/api/useNewsRepo'
 
+const emit = defineEmits<{
+  change: []
+}>()
+
 const dialog = ref<boolean>(false)
 const loading = ref<boolean>(false)
 const videoNewsFormRef = ref<InstanceType<typeof GVideoNewsForm>>()
@@ -44,6 +48,8 @@ const createTextNews = async () => {
       }
 
       await newsRepo.post(data)
+      emit('change')
+      dialog.value = false
     } catch (error) {
       console.log(error)
     } finally {
@@ -63,6 +69,8 @@ const createVideoNews = async () => {
       }
 
       await newsRepo.post(data)
+      emit('change')
+      dialog.value = false
     } catch (error) {
       console.log(error)
     } finally {

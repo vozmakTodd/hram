@@ -1145,6 +1145,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@iconify-json/bx@npm:1.2.0":
+  version: 1.2.0
+  resolution: "@iconify-json/bx@npm:1.2.0"
+  dependencies:
+    "@iconify/types": "*"
+  checksum: 2622296ae40c94af96ac2f760ada0d4b87530a718c19ac54ceac2cca787a5b25353dc34d6887ce41ac5a93ea47b89b02278b87f5ec1b1dece2edf0c1a5df39f0
+  languageName: node
+  linkType: hard
+
 "@iconify-json/carbon@npm:^1.1.27":
   version: 1.2.1
   resolution: "@iconify-json/carbon@npm:1.2.1"
@@ -8500,6 +8509,7 @@ __metadata:
   resolution: "nuxt-app@workspace:."
   dependencies:
     "@element-plus/nuxt": 1.0.10
+    "@iconify-json/bx": 1.2.0
     "@nuxt/eslint": 0.5.1
     "@nuxt/icon": 1.4.10
     "@nuxtjs/google-fonts": 3.2.0

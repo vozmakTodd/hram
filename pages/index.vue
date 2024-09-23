@@ -29,6 +29,12 @@ const load = () => {
   }
 }
 
+const resetList = () => {
+  news.value = []
+  page.value = 0
+  fetchNews()
+}
+
 onMounted(() => {
   fetchNews()
 })
@@ -37,12 +43,12 @@ onMounted(() => {
 <template>
   <div>
     <Teleport to="#button-row">
-      <GAddNewsDialog />
+      <GAddNewsDialog @change="resetList" />
     </Teleport>
     <ul v-infinite-scroll="load">
       <li v-for="(n, index) in news" :key="index" class="bg-white rounded p-4 mb-6">
-        <GTextNews v-if="n.type === ENewsType.TEXT" :news="n" />
-        <GVideoNews v-else :news="n" />
+        <GTextNews v-if="n.type === ENewsType.TEXT" :news="n" @change="resetList" />
+        <GVideoNews v-else :news="n" @change="resetList" />
       </li>
     </ul>
   </div>
