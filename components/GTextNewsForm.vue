@@ -83,6 +83,7 @@ defineExpose({
         :file-list="value.images"
         action=""
         list-type="picture-card"
+        multiple
         :accept="[EAccept.JPG, EAccept.PNG, EAccept.JPEG].join(',')"
         :auto-upload="false"
         :on-preview="handlePictureCardPreview"

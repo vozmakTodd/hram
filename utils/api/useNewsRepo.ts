@@ -33,5 +33,10 @@ export const useNewsRepo = () => ({
       method: 'PUT',
       body
     })
+  },
+  async delete(id: string) {
+    return $fetch<IGetNewsRes>(`/api/news/${id}`, {
+      method: 'DELETE'
+    })
   }
 })
