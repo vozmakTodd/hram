@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { ENewsType } from '~/types/news'
+import { ENewsType, type ITextNewsBaseModel, type IVideoNewsBaseModel } from '~/types/news'
 import GTextNews from '~/components/GTextNews.vue'
 import { useNewsRepo } from '~/utils/api/useNewsRepo'
 import type { IGetNewsRes } from '~/types/news/api'
+import GEditNewsDialog from '~/components/GEditNewsDialog/GEditNewsDialog.vue'
+import { EDropdownCommand } from '~/types/common/EDropdownCommand'
+import type { IFileMongoModel } from '~/types/files'
 
 const newsRepo = useNewsRepo()
 
@@ -10,6 +13,7 @@ const page = ref<number>(0)
 const lastPage = ref<number>(0)
 const loading = ref<boolean>(false)
 const news = ref<IGetNewsRes['content']>([])
+const editNewsDialogRef = ref<InstanceType<typeof GEditNewsDialog> | null>(null)
 
 const fetchNews = async () => {
   loading.value = true
@@ -35,6 +39,18 @@ const resetList = () => {
   fetchNews()
 }
 
+const handleCommand = (
+  command: EDropdownCommand,
+  news: ITextNewsBaseModel<IFileMongoModel> | IVideoNewsBaseModel
+) => {
+  if (command === EDropdownCommand.EDIT && editNewsDialogRef.value) {
+    editNewsDialogRef.value.openDialog(news)
+  } else if (command === EDropdownCommand.DELETE && news._id) {
+    newsRepo.delete(news._id)
+    resetList()
+  }
+}
+
 onMounted(() => {
   fetchNews()
 })
@@ -47,10 +63,11 @@ onMounted(() => {
     </Teleport>
     <ul v-infinite-scroll="load">
       <li v-for="(n, index) in news" :key="index" class="bg-white rounded p-4 mb-6">
-        <GTextNews v-if="n.type === ENewsType.TEXT" :news="n" @change="resetList" />
-        <GVideoNews v-else :news="n" @change="resetList" />
+        <GTextNews v-if="n.type === ENewsType.TEXT" :news="n" @command="handleCommand" />
+        <GVideoNews v-else :news="n" @command="handleCommand" />
       </li>
     </ul>
+    <GEditNewsDialog ref="editNewsDialogRef" @change="resetList" />
   </div>
 </template>
 

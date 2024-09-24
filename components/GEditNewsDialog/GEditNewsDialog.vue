@@ -7,9 +7,6 @@ import type GTextNewsForm from '~/components/GTextNewsForm.vue'
 import { useNewsRepo } from '~/utils/api/useNewsRepo'
 import type { IFileMongoModel } from '~/types/files'
 
-const props = defineProps<{
-  news: ITextNewsBaseModel<IFileMongoModel> | IVideoNewsBaseModel
-}>()
 const emit = defineEmits<{
   change: []
 }>()
@@ -23,11 +20,13 @@ const newsRepo = useNewsRepo()
 
 const imageCashMap = new Map<string, IFileMongoModel>()
 
-const getFormatedNews = (): ITextNewsBaseModel<UploadUserFile> | IVideoNewsBaseModel => {
-  if (props.news.type === ENewsType.TEXT) {
+const getFormatedNews = (
+  news: ITextNewsBaseModel<IFileMongoModel> | IVideoNewsBaseModel
+): ITextNewsBaseModel<UploadUserFile> | IVideoNewsBaseModel => {
+  if (news.type === ENewsType.TEXT) {
     return {
-      ...props.news,
-      images: props.news.images?.map((val) => {
+      ...news,
+      images: news.images?.map((val) => {
         const url = `/news/${val.file}${val.extension}`
 
         imageCashMap.set(url, val)
@@ -37,22 +36,20 @@ const getFormatedNews = (): ITextNewsBaseModel<UploadUserFile> | IVideoNewsBaseM
     }
   }
 
-  return props.news
+  return news
 }
 
-const localNews = reactive<ITextNewsBaseModel<UploadUserFile> | IVideoNewsBaseModel>(
-  getFormatedNews()
-)
+const localNews = ref<ITextNewsBaseModel<UploadUserFile> | IVideoNewsBaseModel | null>(null)
 const removedImagesId = ref<string[]>([])
 
 const updateTextNews = async () => {
-  if (localNews.type === ENewsType.TEXT && (await textNewsFormRef.value!.validate())) {
+  if (localNews.value?.type === ENewsType.TEXT && (await textNewsFormRef.value!.validate())) {
     try {
       loading.value = true
       const images = []
 
-      if (localNews.images) {
-        for (const image of localNews.images) {
+      if (localNews.value.images) {
+        for (const image of localNews.value.images) {
           if (image.status !== 'success') {
             images.push({
               ...parseFileName(image.name),
@@ -63,15 +60,16 @@ const updateTextNews = async () => {
       }
 
       const data: ITextNewsBaseModel<{ name: string; extension: string; file: number[] }> = {
-        title: localNews.title,
-        description: localNews.description,
+        title: localNews.value.title,
+        description: localNews.value.description,
         images,
         type: ENewsType.TEXT
       }
 
-      await newsRepo.put(localNews._id!, { news: data, deleteFiles: removedImagesId.value })
+      await newsRepo.put(localNews.value._id!, { news: data, deleteFiles: removedImagesId.value })
       emit('change')
       dialog.value = false
+      localNews.value = null
     } catch (error) {
       console.log(error)
     } finally {
@@ -81,18 +79,19 @@ const updateTextNews = async () => {
 }
 
 const updateVideoNews = async () => {
-  if (localNews.type === ENewsType.VIDEO && (await videoNewsFormRef.value!.validate())) {
+  if (localNews.value?.type === ENewsType.VIDEO && (await videoNewsFormRef.value!.validate())) {
     try {
       loading.value = true
       const data: IVideoNewsBaseModel = {
-        title: localNews.title,
-        link: localNews.link,
+        title: localNews.value.title,
+        link: localNews.value.link,
         type: ENewsType.VIDEO
       }
 
-      await newsRepo.put(localNews._id!, { news: data })
+      await newsRepo.put(localNews.value._id!, { news: data })
       emit('change')
       dialog.value = false
+      localNews.value = null
     } catch (error) {
       console.log(error)
     } finally {
@@ -101,7 +100,8 @@ const updateVideoNews = async () => {
   }
 }
 
-const openDialog = () => {
+const openDialog = (news: ITextNewsBaseModel<IFileMongoModel> | IVideoNewsBaseModel) => {
+  localNews.value = getFormatedNews(news)
   dialog.value = true
 }
 
@@ -122,14 +122,17 @@ defineExpose({
 
 <template>
   <el-dialog v-model="dialog" title="Добавление новости">
-    <GTextNewsForm
-      v-if="localNews.type === ENewsType.TEXT"
-      ref="textNewsFormRef"
-      v-model="localNews"
-      @delete-file="onFileRemove"
-    />
-    <GVideoNewsForm v-else ref="videoNewsFormRef" v-model="localNews" />
-    <template #footer>
+    <template v-if="localNews">
+      <GTextNewsForm
+        v-if="localNews.type === ENewsType.TEXT"
+        ref="textNewsFormRef"
+        v-model="localNews"
+        @delete-file="onFileRemove"
+      />
+      <GVideoNewsForm v-else ref="videoNewsFormRef" v-model="localNews" />
+    </template>
+
+    <template v-if="localNews" #footer>
       <ElButton
         v-if="localNews.type === ENewsType.TEXT"
         type="primary"

@@ -5,6 +5,7 @@ export default defineEventHandler<{ query: { page: number } }>(async (event) => 
   const { page } = getQuery(event)
   try {
     const res = await NewsModel.find()
+      .sort({ createdAt: -1 })
       .skip(page * PAGE_SIZE)
       .limit(PAGE_SIZE)
     const count = await NewsModel.countDocuments()
