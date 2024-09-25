@@ -57,6 +57,11 @@ const validate = async () => {
   }
 }
 
+onUnmounted(() => {
+  value.value.title = ''
+  value.value.link = ''
+})
+
 defineExpose({
   validate
 })

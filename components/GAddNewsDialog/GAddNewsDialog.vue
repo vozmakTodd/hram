@@ -18,21 +18,29 @@ const textNewsFormRef = ref<InstanceType<typeof GTextNewsForm>>()
 
 const newsRepo = useNewsRepo()
 
-const news = reactive<ITextNewsBaseModel<UploadUserFile> | IVideoNewsBaseModel>({
-  images: [],
-  title: '',
-  description: {},
-  type: ENewsType.TEXT
-})
+const getInitialDialogFieldsState = ():
+  | ITextNewsBaseModel<UploadUserFile>
+  | IVideoNewsBaseModel => {
+  return {
+    images: [],
+    title: '',
+    description: {},
+    type: ENewsType.TEXT
+  }
+}
+
+const news = ref<ITextNewsBaseModel<UploadUserFile> | IVideoNewsBaseModel>(
+  getInitialDialogFieldsState()
+)
 
 const createTextNews = async () => {
-  if (news.type === ENewsType.TEXT && (await textNewsFormRef.value!.validate())) {
+  if (news.value.type === ENewsType.TEXT && (await textNewsFormRef.value!.validate())) {
     try {
       loading.value = true
       const images = []
 
-      if (news.images) {
-        for (const image of news.images) {
+      if (news.value.images) {
+        for (const image of news.value.images) {
           images.push({
             ...parseFileName(image.name),
             file: Array.from(new Uint8Array(await image.raw!.arrayBuffer()))
@@ -41,8 +49,8 @@ const createTextNews = async () => {
       }
 
       const data: ITextNewsBaseModel<{ name: string; extension: string; file: number[] }> = {
-        title: news.title,
-        description: news.description,
+        title: news.value.title,
+        description: news.value.description,
         images,
         type: ENewsType.TEXT
       }
@@ -59,12 +67,12 @@ const createTextNews = async () => {
 }
 
 const createVideoNews = async () => {
-  if (news.type === ENewsType.VIDEO && (await videoNewsFormRef.value!.validate())) {
+  if (news.value.type === ENewsType.VIDEO && (await videoNewsFormRef.value!.validate())) {
     try {
       loading.value = true
       const data: IVideoNewsBaseModel = {
-        title: news.title,
-        link: news.link,
+        title: news.value.title,
+        link: news.value.link,
         type: ENewsType.VIDEO
       }
 
@@ -78,6 +86,10 @@ const createVideoNews = async () => {
     }
   }
 }
+
+watch(dialog, () => {
+  news.value = getInitialDialogFieldsState()
+})
 </script>
 
 <template>

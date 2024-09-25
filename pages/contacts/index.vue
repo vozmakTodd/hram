@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import GCard from '~/components/GCard.vue'
+import GCard from '~/components/content/GCard.vue'
 
 useHead({
   title: 'Контакты'
@@ -7,7 +7,10 @@ useHead({
 </script>
 
 <template>
-  <div class="flex flex-col gap-5 overflow-auto bg-white rounded p-4">
+  <div
+    class="flex flex-col gap-5 overflow-auto bg-white rounded p-4"
+    style="max-width: calc(1150px * 0.7)"
+  >
     <GCard title="Контакты">
       <template #content>
         <div class="flex gap-2 flex-col text-sm">

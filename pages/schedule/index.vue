@@ -1,7 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+useHead({
+  title: 'Главная'
+})
+</script>
 
 <template>
-  <ElSkeleton></ElSkeleton>
+  <div>sadasdas</div>
 </template>
 
 <style scoped></style>

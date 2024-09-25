@@ -21,27 +21,26 @@ const links = ref<ILink[]>([
     label: 'Духовенство'
   },
   {
-    index: '/our-business',
     label: 'Наша деятельность',
     child: [
       {
-        index: '/our-business/sunday-school',
+        index: '/sunday-school',
         label: 'Воскресная школа'
       },
       {
-        index: '/our-business/education-for-all',
+        index: '/education-for-all',
         label: 'Занятия для детей и взрослых'
       },
       {
-        index: '/our-business/rangers',
+        index: '/rangers',
         label: 'Дружина разведчиков-следопытов «Куркино»'
       },
       {
-        index: '/our-business/social-serve',
+        index: '/social-serve',
         label: 'Социальное служение'
       },
       {
-        index: '/our-business/war',
+        index: '/war',
         label: 'Помощь фронту'
       }
     ]
@@ -70,7 +69,7 @@ const links = ref<ILink[]>([
           </template>
         </ElMenuItem>
       </NuxtLink>
-      <ElSubMenu v-else :index="link.index">
+      <ElSubMenu v-else :index="link.index || ''">
         <template #title>{{ link.label }}</template>
         <NuxtLink v-for="(child, subIndex) in link.child" :key="subIndex" :to="child.index">
           <ElMenuItem :index="child.index">

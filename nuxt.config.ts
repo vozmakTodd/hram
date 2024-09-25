@@ -24,7 +24,9 @@ export default defineNuxtConfig({
         }
       }
     ],
-    'nuxt-mongoose'
+    'nuxt-mongoose',
+    '@nuxt/content',
+    '@nuxt/image'
   ],
   mongoose: {
     options: {

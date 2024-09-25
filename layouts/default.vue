@@ -3,6 +3,7 @@ import { breakpointsTailwind } from '@vueuse/core'
 import GBurger from '~/components/GBurger.vue'
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
+const route = useRoute()
 
 const smallerThanLg = breakpoints.smaller('lg')
 
@@ -11,6 +12,7 @@ const drawer = ref<boolean>(false)
 
 <template>
   <div class="common-layout h-full">
+    <ElBacktop />
     <el-container class="h-full" direction="vertical">
       <GHeader class="common-layout__header fixed z-50 w-full">
         <template v-if="smallerThanLg" #append>
@@ -32,11 +34,12 @@ const drawer = ref<boolean>(false)
 
         <el-container direction="vertical" class="overflow-y-auto" style="min-height: 700px">
           <el-carousel
+            v-if="route.name === 'index'"
             arrow="never"
             class="common-layout__carousel self-center w-full"
             height="300px"
             :interval="9000"
-            style="max-width: 1150px"
+            style="width: 100%"
             motion-blur
           >
             <el-carousel-item>
@@ -49,13 +52,7 @@ const drawer = ref<boolean>(false)
               <el-image fit="fill" src="/img/carousel/3.jpg" />
             </el-carousel-item>
           </el-carousel>
-          <ElBacktop target="#main" />
-          <el-main
-            id="main"
-            class="self-center w-full"
-            style="max-width: calc(1150px * 0.7); flex-basis: calc(100vh - 440px - 1rem)"
-          >
-            <div id="button-row" />
+          <el-main class="self-center w-full" style="max-width: calc(1150px * 0.7)">
             <slot />
           </el-main>
         </el-container>
@@ -77,9 +74,5 @@ const drawer = ref<boolean>(false)
 
 .common-layout :deep(.common-layout__carousel .el-carousel__indicators) {
   display: none;
-}
-
-.common-layout :deep(#main) {
-  --el-main-padding: 0px;
 }
 </style>

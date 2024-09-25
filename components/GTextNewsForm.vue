@@ -4,7 +4,7 @@ import type { FormInstance, FormRules, UploadFile, UploadProps, UploadUserFile }
 import { EAccept } from '~/types/files'
 import { required } from '~/utils/validators'
 import type { JSONContent } from '@tiptap/core'
-import GNewsDescriptionField from '~/components/GNewsDescriptionField/GNewsDescriptionField.vue'
+import GNewsDescriptionField from '~/components/GEditorField/GEditorField.vue'
 import type { ITextNewsBaseModel } from '~/types/news'
 
 const value = defineModel<ITextNewsBaseModel<UploadUserFile>>({ required: true })
@@ -63,6 +63,12 @@ const onImageChange = (v: UploadUserFile[]) => {
 const onRemove = (uploadFile: UploadFile) => {
   emit('deleteFile', uploadFile)
 }
+
+onUnmounted(() => {
+  value.value.images = []
+  value.value.title = ''
+  value.value.description = {}
+})
 
 defineExpose({
   validate
