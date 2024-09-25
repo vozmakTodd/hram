@@ -1,5 +1,5 @@
 export interface ILink {
-  index: string
+  index?: string
   label: string
   child?: Array<ILink>
 }

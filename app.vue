@@ -1,7 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import locale from 'element-plus/es/locale/lang/ru'
+</script>
 
 <template>
-  <NuxtLayout>
-    <NuxtPage />
-  </NuxtLayout>
+  <ElConfigProvider :locale="locale">
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+  </ElConfigProvider>
 </template>

@@ -1,7 +1,11 @@
 import type { IGetNewsRes } from '~/types/news/api'
 import type { ITextNewsBaseModel, IVideoNewsBaseModel } from '~/types/news'
+import type { IFileMongoModel } from '~/types/files'
 
 export const useNewsRepo = () => ({
+  async get(id: string) {
+    return $fetch<ITextNewsBaseModel<IFileMongoModel> | IVideoNewsBaseModel>(`/api/pages/${id}`)
+  },
   async getAll(page: number) {
     return $fetch<IGetNewsRes>(`/api/news`, {
       method: 'GET',

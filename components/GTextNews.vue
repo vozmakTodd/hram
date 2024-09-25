@@ -2,7 +2,7 @@
 import type { ITextNewsBaseModel } from '~/types/news'
 import { breakpointsTailwind } from '@vueuse/core'
 import { generateHTML } from '@tiptap/html'
-import { EXTENSIONS } from '~/components/GNewsDescriptionField/constants/extensions'
+import { EXTENSIONS } from '~/components/GEditorField/constants/extensions'
 import type { EDropdownCommand } from '~/types/common/EDropdownCommand'
 import type { IFileMongoModel } from '~/types/files'
 

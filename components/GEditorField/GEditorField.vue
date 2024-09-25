@@ -13,7 +13,7 @@ import GTextAlignLeftIcon from '~/components/icons/GTextAlignLeftIcon.vue'
 import GTextAlignRightIcon from '~/components/icons/GTextAlignRightIcon.vue'
 import GTextAlignCenterIcon from '~/components/icons/GTextAlignCenterIcon.vue'
 import GLineBreakIcon from '~/components/icons/GLineBreakIcon.vue'
-import { EXTENSIONS } from '~/components/GNewsDescriptionField/constants/extensions'
+import { EXTENSIONS } from '~/components/GEditorField/constants/extensions'
 
 const value = defineModel<JSONContent>()
 
@@ -46,7 +46,7 @@ defineExpose({
 <template>
   <div class="container">
     <div class="control-group">
-      <div class="button-group flex">
+      <div class="button-group flex gap-3">
         <el-button
           circle
           :icon="GBoldIcon"
@@ -122,6 +122,42 @@ defineExpose({
           @click="editor.chain().focus().redo().run()"
         />
       </div>
+      <div class="button-group flex flex-wrap gap-3">
+        <el-button
+          @click="
+            editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()
+          "
+        >
+          Добавить таблицу
+        </el-button>
+        <el-button @click="editor.chain().focus().addColumnBefore().run()">
+          Добавить колонку слева
+        </el-button>
+        <el-button @click="editor.chain().focus().addColumnAfter().run()">
+          Добавить колонку справа
+        </el-button>
+        <el-button @click="editor.chain().focus().deleteColumn().run()">
+          Удалить колонку
+        </el-button>
+        <el-button @click="editor.chain().focus().addRowBefore().run()">
+          Добавить строку выше
+        </el-button>
+        <el-button @click="editor.chain().focus().addRowAfter().run()">
+          Добавить строку ниже
+        </el-button>
+        <el-button @click="editor.chain().focus().deleteRow().run()"> Удалить строку </el-button>
+        <el-button @click="editor.chain().focus().deleteTable().run()"> Удалить таблицу </el-button>
+        <el-button @click="editor.chain().focus().mergeCells().run()">
+          Объединить ячейки
+        </el-button>
+        <el-button @click="editor.chain().focus().splitCell().run()"> Разделить ячейки </el-button>
+        <el-button @click="editor.chain().focus().toggleHeaderColumn().run()">
+          Выделить колонку
+        </el-button>
+        <el-button @click="editor.chain().focus().toggleHeaderRow().run()">
+          Выделить строку
+        </el-button>
+      </div>
     </div>
     <editor-content class="pt-3" :editor="editor" />
   </div>
@@ -136,6 +172,14 @@ defineExpose({
 .container :deep(.button-group) {
   @apply pb-3;
   border-bottom: var(--el-border);
+}
+
+.container :deep(.button-group + .button-group) {
+  @apply py-3;
+}
+
+.container :deep(.button-group .el-button) {
+  @apply m-0;
 }
 
 .container:hover {

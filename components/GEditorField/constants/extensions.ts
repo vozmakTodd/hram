@@ -10,6 +10,11 @@ import Italic from '@tiptap/extension-italic'
 import HardBreak from '@tiptap/extension-hard-break'
 import TextAlign from '@tiptap/extension-text-align'
 import History from '@tiptap/extension-history'
+import Gapcursor from '@tiptap/extension-gapcursor'
+import Table from '@tiptap/extension-table'
+import TableCell from '@tiptap/extension-table-cell'
+import TableHeader from '@tiptap/extension-table-header'
+import TableRow from '@tiptap/extension-table-row'
 
 export const EXTENSIONS = [
   Document,
@@ -25,5 +30,12 @@ export const EXTENSIONS = [
   TextAlign.configure({
     types: ['heading', 'paragraph']
   }),
-  History
+  History,
+  Gapcursor,
+  Table.configure({
+    resizable: true
+  }),
+  TableRow,
+  TableHeader,
+  TableCell
 ]

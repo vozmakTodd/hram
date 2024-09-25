@@ -5,6 +5,6 @@ export interface IGetNewsRes {
   content: Array<ITextNewsBaseModel<IFileMongoModel> | IVideoNewsBaseModel>
   pagination: {
     page: number
-    lastPage: number
+    total: number
   }
 }

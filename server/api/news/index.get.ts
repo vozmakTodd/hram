@@ -14,7 +14,7 @@ export default defineEventHandler<{ query: { page: number } }>(async (event) => 
       content: res,
       pagination: {
         page: page,
-        lastPage: Math.trunc(count / PAGE_SIZE)
+        total: count
       }
     }
   } catch (error) {
