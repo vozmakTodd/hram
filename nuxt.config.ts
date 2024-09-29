@@ -20,7 +20,8 @@ export default defineNuxtConfig({
     '@nuxt/content',
     '@nuxt/image',
     'nuxt-server-utils',
-    '@sidebase/nuxt-auth'
+    '@sidebase/nuxt-auth',
+    'nuxt-security'
   ],
   mongoose: {
     options: {

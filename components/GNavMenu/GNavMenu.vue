@@ -63,6 +63,10 @@ const links = ref<ILink[]>([
   {
     index: '/contacts',
     label: 'Контакты'
+  },
+  {
+    index: '/login',
+    label: 'Авторизация'
   }
 ])
 </script>

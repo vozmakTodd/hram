@@ -113,6 +113,7 @@ const createVideoNews = async () => {
 watch(dialog, () => {
   news.value = getInitialDialogFieldsState()
 })
+
 </script>
 
 <template>
