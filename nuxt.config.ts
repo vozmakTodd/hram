@@ -18,7 +18,9 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     'nuxt-mongoose',
     '@nuxt/content',
-    '@nuxt/image'
+    '@nuxt/image',
+    'nuxt-server-utils',
+    '@sidebase/nuxt-auth'
   ],
   mongoose: {
     options: {
@@ -29,6 +31,11 @@ export default defineNuxtConfig({
   icon: {
     serverBundle: 'local'
   },
+  auth: {
+    baseURL: process.env.AUTH_ORIGIN,
+    provider: {
+      type: "authjs",
+    },
   image: {
     format: ['jpeg', 'jpg', 'png']
   },
