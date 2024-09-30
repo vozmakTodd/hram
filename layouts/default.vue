@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { breakpointsTailwind } from '@vueuse/core'
-import GBurger from '~/components/GBurger.vue'
+import GBurger from '~/components/icons/GBurger.vue'
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const route = useRoute()

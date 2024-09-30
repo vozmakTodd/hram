@@ -3,9 +3,9 @@ import locale from 'element-plus/es/locale/lang/ru'
 </script>
 
 <template>
-  <ElConfigProvider :locale="locale">
-    <NuxtLayout>
+  <NuxtLayout>
+    <ElConfigProvider :locale="locale">
       <NuxtPage />
-    </NuxtLayout>
-  </ElConfigProvider>
+    </ElConfigProvider>
+  </NuxtLayout>
 </template>
