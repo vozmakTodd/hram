@@ -93,21 +93,32 @@ watch(dialog, () => {
 </script>
 
 <template>
-  <ElButton type="primary" :icon="GPlusIcon" @click="dialog = true">Добавить новость</ElButton>
-  <el-dialog v-model="dialog" title="Добавление новости">
-    <el-radio-group v-model="news.type" size="large" class="news-type-button-container w-full mb-3">
-      <el-radio-button label="Текст" :value="ENewsType.TEXT" class="flex-1" />
-      <el-radio-button label="Видео" :value="ENewsType.VIDEO" class="flex-1" />
-    </el-radio-group>
-    <GTextNewsForm v-if="news.type === ENewsType.TEXT" ref="textNewsFormRef" v-model="news" />
-    <GVideoNewsForm v-else ref="videoNewsFormRef" v-model="news" />
-    <template #footer>
-      <ElButton v-if="news.type === ENewsType.TEXT" type="primary" :loading @click="createTextNews">
-        Сохранить
-      </ElButton>
-      <ElButton v-else type="primary" :loading @click="createVideoNews">Сохранить</ElButton>
-    </template>
-  </el-dialog>
+  <div>
+    <ElButton type="primary" :icon="GPlusIcon" @click="dialog = true">Добавить новость</ElButton>
+    <el-dialog v-model="dialog" title="Добавление новости">
+      <el-radio-group
+        v-model="news.type"
+        size="large"
+        class="news-type-button-container w-full mb-3"
+      >
+        <el-radio-button label="Текст" :value="ENewsType.TEXT" class="flex-1" />
+        <el-radio-button label="Видео" :value="ENewsType.VIDEO" class="flex-1" />
+      </el-radio-group>
+      <GTextNewsForm v-if="news.type === ENewsType.TEXT" ref="textNewsFormRef" v-model="news" />
+      <GVideoNewsForm v-else ref="videoNewsFormRef" v-model="news" />
+      <template #footer>
+        <ElButton
+          v-if="news.type === ENewsType.TEXT"
+          type="primary"
+          :loading
+          @click="createTextNews"
+        >
+          Сохранить
+        </ElButton>
+        <ElButton v-else type="primary" :loading @click="createVideoNews">Сохранить</ElButton>
+      </template>
+    </el-dialog>
+  </div>
 </template>
 
 <style lang="postcss" scoped>

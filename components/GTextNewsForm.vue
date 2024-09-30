@@ -109,10 +109,10 @@ defineExpose({
         @update:model-value="onDescriptionChange"
       />
     </el-form-item>
+    <el-dialog v-model="dialogVisible">
+      <ElImage :src="dialogImageUrl" alt="Preview Image" />
+    </el-dialog>
   </el-form>
-  <el-dialog v-model="dialogVisible">
-    <ElImage :src="dialogImageUrl" alt="Preview Image" />
-  </el-dialog>
 </template>
 
 <style scoped></style>

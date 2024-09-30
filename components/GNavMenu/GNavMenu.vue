@@ -9,18 +9,25 @@ const route = useRoute()
 
 const links = ref<ILink[]>([
   {
-    index: '/',
-    label: 'Главная'
-  },
-  {
-    index: '/schedule',
-    label: 'Расписание'
+    index: 'schedule',
+    label: 'Расписание',
+    child: [
+      {
+        index: '/schedule/main',
+        label: 'Богослужение'
+      },
+      {
+        index: '/schedule/education-for-all',
+        label: 'Занятия для детей и взрослых'
+      }
+    ]
   },
   {
     index: '/priesthood',
     label: 'Духовенство'
   },
   {
+    index: 'our-business',
     label: 'Наша деятельность',
     child: [
       {
@@ -87,6 +94,15 @@ const links = ref<ILink[]>([
 .g-menu--horizontal :deep(.el-menu-item),
 .g-menu--horizontal :deep(.el-sub-menu__title) {
   @apply h-full text-lg;
+}
+
+.g-menu--horizontal :deep(.el-menu-item) {
+  border-bottom: 2px solid transparent;
+}
+
+.g-menu--horizontal :deep(.el-menu-item).is-active {
+  border-bottom: 2px solid var(--el-menu-active-color);
+  color: var(--el-menu-active-color);
 }
 </style>
 

@@ -197,6 +197,62 @@ defineExpose({
 .container :deep(.ProseMirror) {
   max-width: unset;
 }
+
+.container :deep(.tableWrapper table) {
+  border-collapse: collapse;
+  margin: 0;
+  overflow: hidden;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.container :deep(.tableWrapper td),
+.container :deep(.tableWrapper th) {
+  border: 1px solid theme('colors.amber.500');
+  box-sizing: border-box;
+  min-width: 1em;
+  padding: 6px 8px;
+  position: relative;
+  vertical-align: top;
+}
+
+.container :deep(.tableWrapper th > *),
+.container :deep(.tableWrapper td > *) {
+  margin-bottom: 0;
+}
+
+.container :deep(.tableWrapper th) {
+  background-color: theme('colors.amber.500');
+  font-weight: bold;
+  text-align: left;
+}
+
+.container :deep(.tableWrapper .selectedCell:after) {
+  background: theme('colors.amber.500');
+  content: '';
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 2;
+}
+
+.container :deep(.tableWrapper .column-resize-handle) {
+  background-color: theme('colors.amber.500');
+  bottom: -2px;
+  pointer-events: none;
+  position: absolute;
+  right: -2px;
+  top: 0;
+  width: 4px;
+}
+
+.container :deep(.tableWrapper) {
+  margin: 1.5rem 0;
+  overflow-x: auto;
+}
 </style>
 
 <style lang="postcss">

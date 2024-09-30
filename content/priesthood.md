@@ -49,7 +49,7 @@ description: 'Духовенство'
 ### Протоиерей
 
 #content
-![Протоиерей](/img/priesthood/p.jpg)
+![Протоиерей](/img/priesthood/om.jpeg)
 
 **Протоиерей Михаил Серопегин.**
 

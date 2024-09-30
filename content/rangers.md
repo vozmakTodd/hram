@@ -29,3 +29,4 @@ description: 'Дружина православных разведчиков –
 https://t.me/+1oaaUdT0t05hODAy
 
 https://vk.com/druzhina_kurkino
+::

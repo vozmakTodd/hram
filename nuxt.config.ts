@@ -36,5 +36,8 @@ export default defineNuxtConfig({
   },
   icon: {
     serverBundle: 'local'
+  },
+  image: {
+    format: ['jpeg', 'jpg', 'png']
   }
 })
