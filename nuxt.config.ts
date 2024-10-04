@@ -21,7 +21,6 @@ export default defineNuxtConfig({
     '@nuxt/image',
     'nuxt-server-utils',
     '@sidebase/nuxt-auth',
-    'nuxt-security'
   ],
   mongoose: {
     options: {
@@ -31,6 +30,9 @@ export default defineNuxtConfig({
   },
   icon: {
     serverBundle: 'local'
+  },
+  runtimeConfig: {
+    authSecret: process.env.AUTH_SECRET,
   },
   auth: {
     baseURL: process.env.AUTH_ORIGIN,

@@ -7,8 +7,7 @@ export default NuxtAuthHandler({
   secret: useRuntimeConfig().authSecret,
 
   pages: {
-    '/': { template: 'components/GAddNewsDialog/GAddNewsDialog.vue' },
-    signIn: "/login",
+    signIn: '/login',
   },
 
   providers: [
@@ -17,7 +16,7 @@ export default NuxtAuthHandler({
       credentials: {},
       async authorize(credentials: { username: string; password: string }) {
         // TODO: Fetch user from database
-
+        console.log(credentials.username, credentials.password)
         const user = await User.findOne({ username: credentials.username });
 
         if (!user) {

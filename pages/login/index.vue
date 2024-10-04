@@ -3,6 +3,8 @@ import type { ILoginReq } from '~/types/auth'
 import type { FormInstance, FormRules } from 'element-plus'
 import { required } from '~/utils/validators'
 
+const { status, data, signOut, signIn } = useAuth()
+
 const loginForm = reactive<ILoginReq>({
   login: '',
   password: ''
@@ -19,11 +21,12 @@ const onSubmit = async () => {
     await ruleFormRef.value.validate(async (valid) => {
       if (valid) {
         try {
+          await signIn('credentials', { username: loginForm.login, password: loginForm.password })
           // TODO поменять на правильный урл
-          await $fetch<ILoginReq>(`/api/login`, {
-            method: 'POST',
-            body: loginForm
-          })
+          // await $fetch<ILoginReq>(`/api/auth`, {
+          //   method: 'POST',
+          //   body: loginForm
+          // })
         } catch {
           ElNotification({
             title: 'Ошибка авторизации',

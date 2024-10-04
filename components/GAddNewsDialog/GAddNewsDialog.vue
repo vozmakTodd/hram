@@ -11,6 +11,7 @@ import { breakpointsTailwind } from '@vueuse/core'
 const emit = defineEmits<{
   change: []
 }>()
+const { status } = useAuth()
 
 const dialog = ref<boolean>(false)
 const loading = ref<boolean>(false)
@@ -115,10 +116,10 @@ watch(dialog, () => {
 })
 
 </script>
-
+<!-- v-if="user" -->
 <template>
   <div>
-    <ElButton type="primary" :icon="GPlusIcon" @click="dialog = true">Добавить новость</ElButton>
+    <ElButton v-if="status === 'authenticated'" type="primary" :icon="GPlusIcon" @click="dialog = true">Добавить новость</ElButton>
     <el-dialog v-model="dialog" title="Добавление новости" :fullscreen="isSm" width="70%">
       <el-radio-group
         v-model="news.type"
