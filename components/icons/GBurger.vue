@@ -7,10 +7,10 @@
 <style lang="postcss" scoped>
 .g-burger {
   @apply self-center cursor-pointer;
-  color: var(--el-text-color-regular);
+  color: var(--el-color-primary);
 }
 
 .g-burger:hover {
-  color: var(--el-color-info);
+  color: var(--el-color-primary-dark-2);
 }
 </style>

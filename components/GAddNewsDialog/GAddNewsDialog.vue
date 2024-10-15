@@ -6,6 +6,7 @@ import { parseFileName } from '~/utils/file'
 import type GVideoNewsForm from '~/components/GVideoNewsForm.vue'
 import type GTextNewsForm from '~/components/GTextNewsForm.vue'
 import { useNewsRepo } from '~/utils/api/useNewsRepo'
+import { breakpointsTailwind } from '@vueuse/core'
 
 const emit = defineEmits<{
   change: []
@@ -17,6 +18,9 @@ const videoNewsFormRef = ref<InstanceType<typeof GVideoNewsForm>>()
 const textNewsFormRef = ref<InstanceType<typeof GTextNewsForm>>()
 
 const newsRepo = useNewsRepo()
+const breakpoints = useBreakpoints({ ...breakpointsTailwind, sm: 320, md: 640 })
+
+const isSm = breakpoints.smaller('md')
 
 const getInitialDialogFieldsState = ():
   | ITextNewsBaseModel<UploadUserFile>
@@ -73,6 +77,7 @@ const createVideoNews = async () => {
       const data: IVideoNewsBaseModel = {
         title: news.value.title,
         link: news.value.link,
+        description: news.value.description,
         type: ENewsType.VIDEO
       }
 
@@ -95,7 +100,7 @@ watch(dialog, () => {
 <template>
   <div>
     <ElButton type="primary" :icon="GPlusIcon" @click="dialog = true">Добавить новость</ElButton>
-    <el-dialog v-model="dialog" title="Добавление новости">
+    <el-dialog v-model="dialog" title="Добавление новости" :fullscreen="isSm">
       <el-radio-group
         v-model="news.type"
         size="large"

@@ -82,6 +82,9 @@ defineExpose({
     <el-form-item label="Ссылка на видео" prop="link">
       <el-input :model-value="value.link" @update:model-value="onLinkChange" />
     </el-form-item>
+    <el-form-item label="Описание" prop="description" class="overflow-x-auto">
+      <GEditorField v-model="value.description" class="min-w-[500px]" />
+    </el-form-item>
   </el-form>
 </template>
 

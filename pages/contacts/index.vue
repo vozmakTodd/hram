@@ -8,7 +8,7 @@ useHead({
 
 <template>
   <div
-    class="flex flex-col gap-5 overflow-auto bg-white rounded p-4"
+    class="flex flex-col gap-4 overflow-auto bg-white rounded-2xl px-6 pb-6 pt-4 mx-4 lg:mx-0"
     style="max-width: calc(1150px * 0.7)"
   >
     <GCard title="Контакты">
@@ -28,6 +28,7 @@ useHead({
     <GCard title="Мы на карте">
       <template #content>
         <iframe
+          title="yandexMap"
           class="rounded"
           src="https://yandex.ru/map-widget/v1/?um=constructor%3A268184a913b0a3534b946397c71b21328b7938761cf8d54991913139e6768868&amp;source=constructor"
           width="100%"

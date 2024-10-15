@@ -1,0 +1,152 @@
+<script setup lang="ts">
+import { breakpointsTailwind } from '@vueuse/core'
+import { ENewsType } from '~/types/news'
+import { useNewsRepo } from '~/utils/api/useNewsRepo'
+import GEditNewsDialog from '~/components/GEditNewsDialog/GEditNewsDialog.vue'
+
+const route = useRoute()
+const router = useRouter()
+const newsRepo = useNewsRepo()
+const breakpoints = useBreakpoints({ ...breakpointsTailwind, sm: 320, md: 640 })
+
+const isSm = breakpoints.smaller('md')
+const editNewsDialogRef = ref<InstanceType<typeof GEditNewsDialog> | null>(null)
+
+const {
+  data: news,
+  status,
+  refresh
+} = await useAsyncData(
+  'news',
+  async () => {
+    const res = await newsRepo.get(route.params.id as string)
+
+    if (!res || !res.res) throw new Error('No data found')
+
+    return res
+  },
+  { lazy: true }
+)
+
+const deleteNews = async () => {
+  if (news.value?.res._id) {
+    try {
+      await newsRepo.delete(news.value.res._id)
+      ElNotification({
+        title: 'Успех',
+        message: 'Новость успешно удалена',
+        type: 'success'
+      })
+      router.push('/')
+    } catch {
+      ElNotification({
+        title: 'Ошибка',
+        message: 'Ошибка при удалении новости',
+        type: 'error'
+      })
+    }
+  }
+}
+
+const editNews = () => {
+  if (news.value?.res && editNewsDialogRef.value) {
+    editNewsDialogRef.value.openDialog(news.value.res)
+  }
+}
+</script>
+
+<template>
+  <div class="flex flex-col gap-5 items-center">
+    <div class="flex justify-end w-full px-4 md:px-6 lg:px-0">
+      <ElButton type="primary" @click="editNews">Редактировать</ElButton>
+      <ElButton type="primary" @click="deleteNews">Удалить</ElButton>
+    </div>
+    <article v-loading="status === 'pending'" class="news">
+      <GPageError v-if="status === 'error' || !news || !news.res" />
+      <template v-else-if="status === 'success' && news!.res">
+        <div v-if="news!.res.type === ENewsType.VIDEO" class="news__video">
+          <iframe
+            width="560"
+            height="240"
+            :src="news!.res.link"
+            :title="news!.res.title"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+            webkitAllowFullScreen
+            mozallowfullscreen
+          ></iframe>
+        </div>
+        <div v-else class="news__images">
+          <ElCarousel
+            v-if="news!.res.images"
+            :type="isSm ? '' : 'card'"
+            :arrow="news!.res.images.length > 1 ? 'hover' : 'never'"
+            :autoplay="false"
+          >
+            <ElCarouselItem v-for="(image, index) in news!.res.images" :key="index">
+              <ElImage
+                :src="`/news/${image.file}${image.extension}`"
+                :preview-src-list="[`/news/${image.file}${image.extension}`]"
+                fit="fill"
+                class="h-full w-full"
+                preview-teleported
+              ></ElImage>
+            </ElCarouselItem>
+          </ElCarousel>
+        </div>
+        <section class="news__content-wrapper">
+          <h2 class="news__title">{{ news!.res.title }}</h2>
+          <div class="news__content">
+            <GHtmlContent v-if="news!.res.description" :content="news!.res.description" />
+          </div>
+        </section>
+      </template>
+    </article>
+    <GEditNewsDialog ref="editNewsDialogRef" @change="refresh" />
+  </div>
+</template>
+
+<style scoped lang="postcss">
+.news {
+  @apply min-h-52 bg-white rounded-2xl px-6 pb-6 pt-4 mx-4 lg:mx-0 flex flex-col gap-4;
+}
+
+.news__video {
+  @apply relative;
+}
+
+.news__video iframe {
+  @apply absolute top-0 left-0 w-full h-full;
+}
+
+.news__images :deep(.el-carousel),
+.news__video {
+  @apply h-[160px] md:h-[323px] lg:h-[320px];
+}
+
+.news__images :deep(.el-carousel__container) {
+  @apply h-full;
+}
+
+.news__images :deep(.el-carousel__item:not(.is-active)) {
+  @apply opacity-50;
+}
+
+.news__images :deep(.el-carousel__item) {
+  transition: all 0.4s ease-in-out;
+}
+
+.news__images :deep(.el-image),
+.news__video iframe {
+  @apply rounded-2xl;
+}
+
+.news__content-wrapper {
+  @apply p-0 lg:px-32 flex flex-col gap-2;
+}
+
+.news__title {
+  @apply text-hram text-lg;
+}
+</style>

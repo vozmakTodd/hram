@@ -15,7 +15,7 @@ import GTextAlignCenterIcon from '~/components/icons/GTextAlignCenterIcon.vue'
 import GLineBreakIcon from '~/components/icons/GLineBreakIcon.vue'
 import { EXTENSIONS } from '~/components/GEditorField/constants/extensions'
 
-const value = defineModel<JSONContent>()
+const value = defineModel<JSONContent>({ required: true })
 
 const editor = new Editor({
   extensions: EXTENSIONS,
@@ -46,7 +46,7 @@ defineExpose({
 <template>
   <div class="container">
     <div class="control-group">
-      <div class="button-group flex gap-3">
+      <div class="button-group flex flex-wrap gap-3">
         <el-button
           circle
           :icon="GBoldIcon"
@@ -194,6 +194,7 @@ defineExpose({
   outline: none;
 }
 
+.container,
 .container :deep(.ProseMirror) {
   max-width: unset;
 }
@@ -208,12 +209,16 @@ defineExpose({
 
 .container :deep(.tableWrapper td),
 .container :deep(.tableWrapper th) {
-  border: 1px solid theme('colors.amber.500');
+  border: 1px solid theme('colors.hram.light-4');
   box-sizing: border-box;
   min-width: 1em;
   padding: 6px 8px;
   position: relative;
   vertical-align: top;
+}
+
+.container :deep(.tableWrapper p) {
+  @apply m-0;
 }
 
 .container :deep(.tableWrapper th > *),
@@ -222,13 +227,18 @@ defineExpose({
 }
 
 .container :deep(.tableWrapper th) {
-  background-color: theme('colors.amber.500');
+  background-color: theme('colors.hram.light-5');
   font-weight: bold;
   text-align: left;
 }
 
+.container :deep(.tableWrapper th) {
+  color: theme('colors.hram.DEFAULT');
+}
+
 .container :deep(.tableWrapper .selectedCell:after) {
-  background: theme('colors.amber.500');
+  background: theme('colors.hram.light-4');
+  opacity: 0.8;
   content: '';
   left: 0;
   right: 0;
@@ -239,8 +249,12 @@ defineExpose({
   z-index: 2;
 }
 
+.container :deep(.tableWrapper .selectedCell) {
+  color: theme('colors.hram.DEFAULT');
+}
+
 .container :deep(.tableWrapper .column-resize-handle) {
-  background-color: theme('colors.amber.500');
+  background-color: theme('colors.hram.light-2');
   bottom: -2px;
   pointer-events: none;
   position: absolute;
@@ -250,6 +264,7 @@ defineExpose({
 }
 
 .container :deep(.tableWrapper) {
+  @apply rounded;
   margin: 1.5rem 0;
   overflow-x: auto;
 }

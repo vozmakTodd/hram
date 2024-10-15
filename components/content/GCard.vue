@@ -5,16 +5,20 @@ defineProps<{
 </script>
 
 <template>
-  <section class="flex flex-col">
-    <header class="h-12 p-2 bg-amber-100 rounded-t flex items-center">
+  <section>
+    <header class="p-2 bg-hram-light-5 rounded-t flex items-center">
       <slot name="title">
         <span class="text-xl">{{ title?.toUpperCase() }}</span>
       </slot>
     </header>
-    <div class="p-3 border-b border-x border-amber-100 rounded-b">
+    <div class="p-3 border-b border-x border-hram-light-5 rounded-b overflow-y-auto">
       <slot name="content"></slot>
     </div>
   </section>
 </template>
 
-<style scoped></style>
+<style scoped lang="postcss">
+header :deep(*) {
+  @apply text-hram;
+}
+</style>

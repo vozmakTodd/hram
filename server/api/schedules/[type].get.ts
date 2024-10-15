@@ -6,9 +6,7 @@ export default defineEventHandler(async (event) => {
   try {
     const res = await ScheduleModel.findOne({ type })
 
-    return {
-      res
-    }
+    return { res }
   } catch (error) {
     return createError({
       statusCode: 400,
