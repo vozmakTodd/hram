@@ -4,7 +4,7 @@ import type { FormInstance, FormRules, UploadFile, UploadProps, UploadUserFile }
 import { EAccept } from '~/types/files'
 import { required } from '~/utils/validators'
 import type { JSONContent } from '@tiptap/core'
-import GNewsDescriptionField from '~/components/GEditorField/GEditorField.vue'
+import GEditorField from '~/components/GEditorField/GEditorField.vue'
 import type { ITextNewsBaseModel } from '~/types/news'
 
 const value = defineModel<ITextNewsBaseModel<UploadUserFile>>({ required: true })
@@ -15,7 +15,7 @@ const emit = defineEmits<{
 const dialogImageUrl = ref('')
 const dialogVisible = ref(false)
 const ruleFormRef = ref<FormInstance>()
-const newsDescriptionFieldRef = ref<InstanceType<typeof GNewsDescriptionField>>()
+const newsDescriptionFieldRef = ref<InstanceType<typeof GEditorField>>()
 
 const rules = reactive<FormRules>({
   title: [required()],
@@ -102,9 +102,10 @@ defineExpose({
     <el-form-item label="Заголовок" prop="title">
       <el-input v-model="value.title" />
     </el-form-item>
-    <el-form-item label="Описание" prop="description">
-      <GNewsDescriptionField
+    <el-form-item label="Описание" prop="description" class="overflow-x-auto">
+      <GEditorField
         ref="newsDescriptionFieldRef"
+        class="min-w-[500px]"
         :model-value="value.description"
         @update:model-value="onDescriptionChange"
       />

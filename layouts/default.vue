@@ -1,61 +1,38 @@
 <script setup lang="ts">
-import { breakpointsTailwind } from '@vueuse/core'
-import GBurger from '~/components/icons/GBurger.vue'
-
-const breakpoints = useBreakpoints(breakpointsTailwind)
 const route = useRoute()
-
-const smallerThanLg = breakpoints.smaller('lg')
-
-const drawer = ref<boolean>(false)
 </script>
 
 <template>
-  <div class="common-layout h-full">
+  <div class="common-layout min-h-[100vh]">
     <ElBacktop />
     <el-container class="h-full" direction="vertical">
-      <GHeader class="common-layout__header fixed z-50 w-full">
-        <template v-if="smallerThanLg" #append>
-          <GBurger @click="drawer = true" />
-        </template>
-      </GHeader>
-      <el-container style="padding-top: 60px">
-        <!--        <GAsideBar v-if="!smallerThanLg" />-->
-        <ElDrawer
-          v-if="smallerThanLg"
-          v-model="drawer"
-          direction="ltr"
-          size="300px"
-          class="common-layout__drawer"
-          :with-header="false"
+      <GHeader class="common-layout__header fixed z-50 w-full" />
+      <el-container class="pt-[70px] h-full items-end" direction="vertical">
+        <el-main
+          class="self-center w-full mx-auto max-w-[864px] p-0"
+          style="overflow: unset; min-height: calc(100vh - 70px - 60px)"
         >
-          <GNavMenu />
-        </ElDrawer>
-
-        <el-container direction="vertical" class="overflow-y-auto" style="min-height: 700px">
           <el-carousel
             v-if="route.name === 'index'"
             arrow="never"
-            class="common-layout__carousel self-center w-full"
-            height="300px"
-            :interval="9000"
-            style="width: 100%"
+            class="common-layout__carousel self-center w-full lg:rounded-2xl lg:mt-4 lg:h-[360px] md:h-[320px] h-[186px]"
+            :interval="60000"
             motion-blur
           >
-            <el-carousel-item>
+            <el-carousel-item class="h-auto">
               <el-image fit="fill" src="/img/carousel/1.jpg" />
             </el-carousel-item>
-            <el-carousel-item>
+            <el-carousel-item class="h-auto">
               <el-image fit="fill" src="/img/carousel/2.jpg" />
             </el-carousel-item>
-            <el-carousel-item>
+            <el-carousel-item class="h-auto">
               <el-image fit="fill" src="/img/carousel/3.jpg" />
             </el-carousel-item>
           </el-carousel>
-          <el-main class="self-center w-full" style="max-width: calc(1150px * 0.7)">
-            <slot />
-          </el-main>
-        </el-container>
+          <div class="py-4 lg:py-6 px-4 md:px-6 lg:px-0">
+            <slot></slot>
+          </div>
+        </el-main>
       </el-container>
       <GFooter />
     </el-container>
@@ -63,10 +40,6 @@ const drawer = ref<boolean>(false)
 </template>
 
 <style lang="postcss" scoped>
-.common-layout :deep(.common-layout__drawer) .el-drawer__body {
-  @apply p-0;
-}
-
 .common-layout :deep(#button-row) {
   @apply flex justify-end items-center self-center w-full my-3;
   max-width: 1150px;

@@ -16,14 +16,6 @@ export default defineNuxtConfig({
     '@element-plus/nuxt',
     '@vueuse/nuxt',
     '@nuxt/icon',
-    [
-      '@nuxtjs/google-fonts',
-      {
-        families: {
-          'Cormorant Unicase': true
-        }
-      }
-    ],
     'nuxt-mongoose',
     '@nuxt/content',
     '@nuxt/image'

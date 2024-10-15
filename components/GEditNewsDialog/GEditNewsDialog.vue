@@ -6,6 +6,7 @@ import type GVideoNewsForm from '~/components/GVideoNewsForm.vue'
 import type GTextNewsForm from '~/components/GTextNewsForm.vue'
 import { useNewsRepo } from '~/utils/api/useNewsRepo'
 import type { IFileMongoModel } from '~/types/files'
+import { breakpointsTailwind } from '@vueuse/core'
 
 const emit = defineEmits<{
   change: []
@@ -17,6 +18,9 @@ const videoNewsFormRef = ref<InstanceType<typeof GVideoNewsForm>>()
 const textNewsFormRef = ref<InstanceType<typeof GTextNewsForm>>()
 
 const newsRepo = useNewsRepo()
+const breakpoints = useBreakpoints({ ...breakpointsTailwind, sm: 320, md: 640 })
+
+const isSm = breakpoints.smaller('md')
 
 const imageCashMap = new Map<string, IFileMongoModel>()
 
@@ -67,10 +71,20 @@ const updateTextNews = async () => {
       }
 
       await newsRepo.put(localNews.value._id!, { news: data, deleteFiles: removedImagesId.value })
+      ElNotification({
+        title: 'Успех',
+        message: 'Новость успешно изменена',
+        type: 'success'
+      })
       emit('change')
       dialog.value = false
       localNews.value = null
     } catch (error) {
+      ElNotification({
+        title: 'Ошибка',
+        message: 'Ошибка при редактировании новости',
+        type: 'error'
+      })
       console.log(error)
     } finally {
       loading.value = false
@@ -84,6 +98,7 @@ const updateVideoNews = async () => {
       loading.value = true
       const data: IVideoNewsBaseModel = {
         title: localNews.value.title,
+        description: localNews.value.description,
         link: localNews.value.link,
         type: ENewsType.VIDEO
       }
@@ -121,7 +136,7 @@ defineExpose({
 </script>
 
 <template>
-  <el-dialog v-model="dialog" title="Добавление новости">
+  <el-dialog v-model="dialog" title="Редактирование новости" :fullscreen="isSm">
     <template v-if="localNews">
       <GTextNewsForm
         v-if="localNews.type === ENewsType.TEXT"

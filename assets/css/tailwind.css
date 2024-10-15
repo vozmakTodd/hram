@@ -4,18 +4,18 @@
 
 @layer base {
   body {
-    @apply bg-slate-200;
+    @apply bg-hram-light-4;
   }
   html {
-    @apply font-cormorant-unicase
+    @apply font-cormorant-unicase text-hram-dark-2
   }
   body,
   html {
-    height: 100%;
     scroll-behavior: smooth;
   }
   html {
     -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
   }
 
   #__nuxt {
@@ -27,12 +27,20 @@
   }
 
   :root {
-    --el-color-primary-dark-2: theme('colors.amber.700') !important;
-    --el-color-primary: theme('colors.amber.600') !important;
-    --el-color-primary-light-3: theme('colors.amber.500') !important;
-    --el-color-primary-light-5: theme('colors.amber.400') !important;
-    --el-color-primary-light-7: theme('colors.amber.300') !important;
-    --el-color-primary-light-8: theme('colors.amber.200') !important;
-    --el-color-primary-light-9: theme('colors.amber.100') !important;
+    --el-color-primary-dark-2: theme('colors.hram.dark-1') !important;
+    --el-color-primary: theme('colors.hram.DEFAULT') !important;
+    --el-color-primary-light-3: theme('colors.hram.light-1') !important;
+    --el-color-primary-light-5: theme('colors.hram.light-2') !important;
+    --el-color-primary-light-7: theme('colors.hram.light-3') !important;
+    --el-color-primary-light-8: theme('colors.hram.light-4') !important;
+    --el-color-primary-light-9: theme('colors.hram.light-5') !important;
+    --el-text-color-primary: theme('colors.hram.dark-2') !important;
+    --el-border-radius-base: theme('borderRadius.md') !important;
+  }
+}
+
+@layer components {
+  .el-button.is-link:hover {
+    color: theme('colors.hram.light-1') !important;
   }
 }

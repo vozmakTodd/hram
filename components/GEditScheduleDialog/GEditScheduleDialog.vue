@@ -1,0 +1,105 @@
+<script setup lang="ts">
+import type { JSONContent } from '@tiptap/core'
+import type { FormInstance, FormRules } from 'element-plus'
+import type { EScheduleType, IScheduleModel } from '~/types/schedule'
+import GEditorField from '~/components/GEditorField/GEditorField.vue'
+import { useScheduleRepo } from '~/utils/api/useScheduleRepo'
+import { breakpointsTailwind } from '@vueuse/core'
+
+const props = defineProps<{
+  data: {
+    id?: string
+    type: EScheduleType
+    description?: JSONContent
+  }
+}>()
+const value = defineModel<boolean>()
+const emit = defineEmits<{
+  change: []
+}>()
+
+const breakpoints = useBreakpoints({ ...breakpointsTailwind, sm: 320, md: 640 })
+
+const isSm = breakpoints.smaller('md')
+
+const loading = ref<boolean>(false)
+const newsDescriptionFieldRef = ref<InstanceType<typeof GEditorField>>()
+const ruleFormRef = ref<FormInstance>()
+
+const rules = reactive<FormRules>({
+  description: [
+    {
+      required: true,
+      validator: (rule, value: JSONContent, callback) => {
+        if (newsDescriptionFieldRef.value?.isEmpty()) {
+          callback(new Error('Поле обязательно для заполнения'))
+        } else {
+          callback()
+        }
+      },
+      trigger: 'change'
+    }
+  ]
+})
+const schedule = reactive<IScheduleModel>({
+  _id: props.data.id,
+  type: props.data.type,
+  description: props.data?.description || {}
+})
+const scheduleRepo = useScheduleRepo()
+
+const updateSchedule = async () => {
+  try {
+    await scheduleRepo.put(schedule)
+    ElNotification({
+      title: 'Успех',
+      message: 'Расписание успешно изменено',
+      type: 'success'
+    })
+    emit('change')
+    value.value = false
+  } catch {
+    ElNotification({
+      title: 'Ошибка',
+      message: 'Ошибка при редактировании расписания',
+      type: 'error'
+    })
+  }
+}
+
+const onDescriptionChange = (v: JSONContent) => {
+  schedule.description = v
+  ruleFormRef.value!.validateField('description').catch(() => {})
+}
+</script>
+
+<template>
+  <el-dialog v-model="value" title="Редактирование расписания" :fullscreen="isSm">
+    <el-form
+      ref="ruleFormRef"
+      :model="schedule"
+      :rules="rules"
+      label-width="auto"
+      label-position="top"
+      status-icon
+    >
+      <el-form-item label="Описание" prop="description" class="overflow-x-auto">
+        <GEditorField
+          ref="newsDescriptionFieldRef"
+          class="min-w-[500px]"
+          :model-value="schedule.description"
+          @update:model-value="onDescriptionChange"
+        />
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <ElButton type="primary" :loading @click="updateSchedule">Сохранить</ElButton>
+    </template>
+  </el-dialog>
+</template>
+
+<style lang="postcss" scoped>
+.news-type-button-container :deep(.el-radio-button__inner) {
+  @apply w-full;
+}
+</style>

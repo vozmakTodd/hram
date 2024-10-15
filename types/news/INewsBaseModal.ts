@@ -4,13 +4,13 @@ import type { ITechnicalFields } from '~/types/common'
 
 interface INewsBaseModel extends ITechnicalFields {
   _id?: string
+  description: JSONContent
   title: string
   type: ENewsType
 }
 
 export interface ITextNewsBaseModel<T> extends INewsBaseModel {
-  description: JSONContent
-  images?: T[]
+  images: T[]
   type: ENewsType.TEXT
 }
 

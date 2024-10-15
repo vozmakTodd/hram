@@ -4,10 +4,17 @@ import type { ILink } from '~/components/GNavMenu/types'
 defineProps<{
   horizontal?: boolean
 }>()
+const emits = defineEmits<{
+  click: []
+}>()
 
 const route = useRoute()
 
 const links = ref<ILink[]>([
+  {
+    index: '/',
+    label: 'Новости'
+  },
   {
     index: 'schedule',
     label: 'Расписание',
@@ -62,14 +69,14 @@ const links = ref<ILink[]>([
 <template>
   <ElMenu
     :popper-class="horizontal ? 'g-popper--horizontal' : ''"
-    :class="['h-full g-menu', { 'g-menu--horizontal': horizontal }]"
+    :class="['g-menu', { 'g-menu--horizontal h-full': horizontal }]"
     :default-active="route.path"
     :mode="horizontal ? 'horizontal' : 'vertical'"
     :ellipsis="false"
     router
   >
     <template v-for="(link, index) in links" :key="index">
-      <NuxtLink v-if="!link.child" :to="link.index">
+      <NuxtLink v-if="!link.child" :to="link.index" @click="emits('click')">
         <ElMenuItem :index="link.index">
           <template #title>
             {{ link.label }}
@@ -78,7 +85,12 @@ const links = ref<ILink[]>([
       </NuxtLink>
       <ElSubMenu v-else :index="link.index || ''">
         <template #title>{{ link.label }}</template>
-        <NuxtLink v-for="(child, subIndex) in link.child" :key="subIndex" :to="child.index">
+        <NuxtLink
+          v-for="(child, subIndex) in link.child"
+          :key="subIndex"
+          :to="child.index"
+          @click="emits('click')"
+        >
           <ElMenuItem :index="child.index">
             <template #title>
               <span class="text-wrap whitespace-normal leading-normal">{{ child.label }}</span>
@@ -91,13 +103,29 @@ const links = ref<ILink[]>([
 </template>
 
 <style lang="postcss" scoped>
+.g-menu {
+  border-right: unset;
+}
+
+.g-menu--horizontal {
+  --el-menu-horizontal-height: 70px;
+}
+
 .g-menu--horizontal :deep(.el-menu-item),
 .g-menu--horizontal :deep(.el-sub-menu__title) {
-  @apply h-full text-lg;
+  @apply h-full text-sm;
+}
+
+.g-menu--horizontal :deep(.el-menu) {
+  border-bottom: unset;
 }
 
 .g-menu--horizontal :deep(.el-menu-item) {
   border-bottom: 2px solid transparent;
+}
+
+.g-menu--horizontal {
+  border-bottom: unset;
 }
 
 .g-menu--horizontal :deep(.el-menu-item).is-active {
@@ -108,6 +136,6 @@ const links = ref<ILink[]>([
 
 <style lang="postcss">
 .g-popper--horizontal .el-menu-item {
-  @apply text-lg;
+  @apply text-sm;
 }
 </style>
