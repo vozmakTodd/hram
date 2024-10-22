@@ -2832,6 +2832,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/bcrypt@npm:5.0.2":
+  version: 5.0.2
+  resolution: "@types/bcrypt@npm:5.0.2"
+  dependencies:
+    "@types/node": "*"
+  checksum: b1f97532ffe6079cb57a464f28b5b37a30bc9620f43469e1f27ab9c979c8a114be5b667e7b115a5556fd5be463b65968da9bb32573c6faf74fecf6e565d8974b
+  languageName: node
+  linkType: hard
+
 "@types/debug@npm:^4.0.0":
   version: 4.1.12
   resolution: "@types/debug@npm:4.1.12"
@@ -9526,9 +9535,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-auth@npm:4.21.1":
-  version: 4.21.1
-  resolution: "next-auth@npm:4.21.1"
+"next-auth@npm:4.22.5":
+  version: 4.22.5
+  resolution: "next-auth@npm:4.22.5"
   dependencies:
     "@babel/runtime": ^7.20.13
     "@panva/hkdf": ^1.0.2
@@ -9547,7 +9556,7 @@ __metadata:
   peerDependenciesMeta:
     nodemailer:
       optional: true
-  checksum: d0000a5793fb3b7df271dc992af4aefe513a82f8b27d9d9f360c384cb84a4486be4bcaa5defabf1380437dd6f5a230a1be78c8920b3581de023d9f50d2539e2b
+  checksum: 94e8cb4d72a68636d2f26ba7cd330085c5589227449b180ee559fdb4100ee4e3d8f541776d2dc059c6878d640fe6e177a6ab22e375916529424ab0f6c369f482
   languageName: node
   linkType: hard
 

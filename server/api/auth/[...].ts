@@ -17,7 +17,8 @@ export default NuxtAuthHandler({
       async authorize(credentials: { username: string; password: string }) {
         // TODO: Fetch user from database
         console.log(credentials.username, credentials.password)
-        const user = await User.findOne({ username: credentials.username });
+        // const user = await User.findOne({ username: credentials.username });
+        const user:UserDocument = {username: 'admin', password: 'admin'};
 
         if (!user) {
           throw createError({
@@ -26,20 +27,21 @@ export default NuxtAuthHandler({
           });
         }
 
-        const isValid = await bcrypt.compare(
-          credentials.password,
-          user.password
-        );
+        // const isValid = await bcrypt.compare(
+        //   credentials.password,
+        //   user.password
+        // );
 
-        if (!isValid) {
-          throw createError({
-            statusCode: 401,
-            statusMessage: "Unauthorized",
-          });
-        }
+        // if (!isValid) {
+        //   throw createError({
+        //     statusCode: 401,
+        //     statusMessage: "Unauthorized",
+        //   });
+        // }
 
         return {
-          ...user.toObject(),
+          // ...user.toObject(),
+          ...user,
           password: undefined,
         };
       },
@@ -48,6 +50,8 @@ export default NuxtAuthHandler({
 
   session: {
     strategy: "jwt",
+    maxAge: 86400,
+    updateAge: 86400 / 4,
   },
 
   callbacks: {

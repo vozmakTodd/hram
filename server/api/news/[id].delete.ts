@@ -1,8 +1,10 @@
 import { NewsModel } from '~/server/models/news.model'
 import { ENewsType } from '~/types/news'
+import { getServerSession } from '#auth'
 import fs from 'node:fs'
 
 export default defineEventHandler(async (event) => {
+  const session = await getServerSession(event)
   const id = getRouterParam(event, 'id')
 
   try {
