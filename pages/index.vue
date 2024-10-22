@@ -3,7 +3,13 @@ import GNews from '~/components/GNews.vue'
 import { useNewsRepo } from '~/utils/api/useNewsRepo'
 
 useHead({
-  title: 'Новости'
+  title: 'Новости',
+  meta: [
+    {
+      name: 'description',
+      content: 'Актуальные события и новости из жизни храма вмч. Георгия Победоносца в Куркино'
+    }
+  ]
 })
 const newsRepo = useNewsRepo()
 const route = useRoute()
@@ -12,8 +18,6 @@ const router = useRouter()
 const page = ref<number>(1)
 
 if (Number(route.query.page)) {
-  console.log(Number(route.query.page))
-
   page.value = Number(route.query.page)
 }
 
@@ -33,6 +37,12 @@ const onPageChange = (val: number) => {
     <div class="flex justify-end w-full">
       <GAddNewsDialog @change="onPageChange(1)" />
     </div>
+    <p
+      v-if="!news?.content"
+      class="flex flex-col justify-center items-center h-full bg-white rounded-2xl w-full p-6"
+    >
+      <span class="text-xl">Новостей нет</span>
+    </p>
     <ul class="w-full">
       <li v-for="(n, index) in news?.content" :key="index" class="mb-6">
         <GNews :news="n" />

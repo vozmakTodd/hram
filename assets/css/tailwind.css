@@ -35,6 +35,7 @@
     --el-color-primary-light-8: theme('colors.hram.light-4') !important;
     --el-color-primary-light-9: theme('colors.hram.light-5') !important;
     --el-text-color-primary: theme('colors.hram.dark-2') !important;
+    --el-text-color-regular: theme('colors.hram.dark-2') !important;
     --el-border-radius-base: theme('borderRadius.md') !important;
   }
 }
@@ -42,5 +43,13 @@
 @layer components {
   .el-button.is-link:hover {
     color: theme('colors.hram.light-1') !important;
+  }
+
+  .el-button:focus-visible {
+    outline: unset !important;
+  }
+
+  .el-overlay-dialog .el-dialog.is-fullscreen {
+    --el-dialog-border-radius: 0;
   }
 }

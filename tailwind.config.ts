@@ -25,7 +25,8 @@ export default {
       },
       screens: {
         sm: '320px',
-        md: '640px'
+        md: '640px',
+        laptop: '1200px'
       },
       fontSize: {
         '2sm': '0.750rem'

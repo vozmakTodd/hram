@@ -60,10 +60,19 @@ const createTextNews = async () => {
       }
 
       await newsRepo.post(data)
+      ElNotification({
+        title: 'Успех',
+        message: 'Новость успешно создана',
+        type: 'success'
+      })
       emit('change')
       dialog.value = false
-    } catch (error) {
-      console.log(error)
+    } catch {
+      ElNotification({
+        title: 'Ошибка',
+        message: 'Ошибка при создании новости',
+        type: 'error'
+      })
     } finally {
       loading.value = false
     }
@@ -82,10 +91,19 @@ const createVideoNews = async () => {
       }
 
       await newsRepo.post(data)
+      ElNotification({
+        title: 'Успех',
+        message: 'Новость успешно создана',
+        type: 'success'
+      })
       emit('change')
       dialog.value = false
-    } catch (error) {
-      console.log(error)
+    } catch {
+      ElNotification({
+        title: 'Ошибка',
+        message: 'Ошибка при создании новости',
+        type: 'error'
+      })
     } finally {
       loading.value = false
     }
@@ -100,7 +118,7 @@ watch(dialog, () => {
 <template>
   <div>
     <ElButton type="primary" :icon="GPlusIcon" @click="dialog = true">Добавить новость</ElButton>
-    <el-dialog v-model="dialog" title="Добавление новости" :fullscreen="isSm">
+    <el-dialog v-model="dialog" title="Добавление новости" :fullscreen="isSm" width="70%">
       <el-radio-group
         v-model="news.type"
         size="large"

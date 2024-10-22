@@ -1764,7 +1764,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nuxt/kit@npm:3.13.2, @nuxt/kit@npm:^3.10.3, @nuxt/kit@npm:^3.11.1, @nuxt/kit@npm:^3.12.1, @nuxt/kit@npm:^3.12.2, @nuxt/kit@npm:^3.12.3, @nuxt/kit@npm:^3.12.4, @nuxt/kit@npm:^3.13.0, @nuxt/kit@npm:^3.13.1, @nuxt/kit@npm:^3.13.2, @nuxt/kit@npm:^3.9.1, @nuxt/kit@npm:^3.9.3":
+"@nuxt/kit@npm:3.13.2, @nuxt/kit@npm:^3.11.1, @nuxt/kit@npm:^3.12.1, @nuxt/kit@npm:^3.12.2, @nuxt/kit@npm:^3.12.3, @nuxt/kit@npm:^3.12.4, @nuxt/kit@npm:^3.13.0, @nuxt/kit@npm:^3.13.1, @nuxt/kit@npm:^3.13.2, @nuxt/kit@npm:^3.9.1, @nuxt/kit@npm:^3.9.3":
   version: 3.13.2
   resolution: "@nuxt/kit@npm:3.13.2"
   dependencies:
@@ -1893,17 +1893,6 @@ __metadata:
     pkg-types: ^1.2.0
     semver: ^7.6.3
   checksum: c8154b2450eccdb297d76f3aadc6b218830610046219fdb14a8808aa58cb09ec38e6c44b00323266783095ac5c2aff4807dc3a16988dba30882d540262933f64
-  languageName: node
-  linkType: hard
-
-"@nuxtjs/google-fonts@npm:3.2.0":
-  version: 3.2.0
-  resolution: "@nuxtjs/google-fonts@npm:3.2.0"
-  dependencies:
-    "@nuxt/kit": ^3.10.3
-    google-fonts-helper: ^3.5.0
-    pathe: ^1.1.2
-  checksum: a404ab92b88d3d1c19c54a791fadfb4d4d7e0c43b70345bfa4ff453e1dcce34e5488129c466ea3e6b8d18eafcb1c742239fc7ab6689b790200da98bf88ed3da1
   languageName: node
   linkType: hard
 
@@ -2895,6 +2884,15 @@ __metadata:
   dependencies:
     undici-types: ~6.19.2
   checksum: a40a013afb3d00c2246d6eca39885a5516216785e9c6668191fd836eefd9b3daed0c8865485ebab181838131dbded6b9ee3275b404202261c31a7f9fa51a871a
+  languageName: node
+  linkType: hard
+
+"@types/nodemailer@npm:6.4.16":
+  version: 6.4.16
+  resolution: "@types/nodemailer@npm:6.4.16"
+  dependencies:
+    "@types/node": "*"
+  checksum: ef34226b7b69a474a9b9b4681bcfb2461540aed92c54995b934f8072e28deff72aadd4c71522f6825938346048cfec077c69f18cfc2a3ec9f7432db11e5667a3
   languageName: node
   linkType: hard
 
@@ -5378,7 +5376,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deepmerge@npm:^4.2.2, deepmerge@npm:^4.3.1":
+"deepmerge@npm:^4.2.2":
   version: 4.3.1
   resolution: "deepmerge@npm:4.3.1"
   checksum: 2024c6a980a1b7128084170c4cf56b0fd58a63f2da1660dcfe977415f27b17dbe5888668b59d0b063753f3220719d5e400b7f113609489c90160bb9a5518d052
@@ -6939,18 +6937,6 @@ __metadata:
     slash: ^5.1.0
     unicorn-magic: ^0.1.0
   checksum: 2cee79efefca4383a825fc2fcbdb37e5706728f2d39d4b63851927c128fff62e6334ef7d4d467949d411409ad62767dc2d214e0f837a0f6d4b7290b6711d485c
-  languageName: node
-  linkType: hard
-
-"google-fonts-helper@npm:^3.5.0":
-  version: 3.6.0
-  resolution: "google-fonts-helper@npm:3.6.0"
-  dependencies:
-    deepmerge: ^4.3.1
-    hookable: ^5.5.3
-    ofetch: ^1.3.4
-    ufo: ^1.5.3
-  checksum: c188ef503b014e8e0d423ab253688b2e7b600a0e9280ecb54c8e32b3cc6d3123e70df11ec12aca9e4cbd264d91ee4ea3e1b4811ee12d96575e9985ffae69761e
   languageName: node
   linkType: hard
 
@@ -9528,6 +9514,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nodemailer@npm:6.9.15":
+  version: 6.9.15
+  resolution: "nodemailer@npm:6.9.15"
+  checksum: 2d975f5c60f84acde52d79d43287c70197fe94bde4a731682f306e9636a148c49de29a5dd92ce7dc5aac068a148cd91da3401ede80f8f52b9f2bc00439f36ced
+  languageName: node
+  linkType: hard
+
 "nopt@npm:^5.0.0":
   version: 5.0.0
   resolution: "nopt@npm:5.0.0"
@@ -9644,7 +9637,6 @@ __metadata:
     "@nuxt/eslint": 0.5.7
     "@nuxt/icon": 1.5.1
     "@nuxt/image": 1.8.0
-    "@nuxtjs/google-fonts": 3.2.0
     "@nuxtjs/tailwindcss": 6.12.1
     "@tailwindcss/typography": 0.5.15
     "@tiptap/core": 2.6.6
@@ -9668,11 +9660,13 @@ __metadata:
     "@tiptap/html": 2.6.6
     "@tiptap/pm": 2.6.6
     "@tiptap/vue-3": 2.6.6
+    "@types/nodemailer": 6.4.16
     "@types/uuid": 10.0.0
     "@vueuse/core": 11.1.0
     "@vueuse/nuxt": 11.1.0
     element-plus: 2.8.3
     eslint: 8.57.0
+    nodemailer: 6.9.15
     nuxt: 3.13.2
     nuxt-mongoose: 1.0.6
     prettier: 3.3.2

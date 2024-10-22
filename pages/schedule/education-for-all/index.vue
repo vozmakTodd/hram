@@ -2,7 +2,10 @@
 import { EScheduleType } from '~/types/schedule'
 
 useHead({
-  title: 'Расписание занятий для детей и взрослых'
+  title: 'Расписание занятий для детей и взрослых',
+  meta: [
+    { name: 'description', content: 'Актуальное расписание занятий для детей от 4 лет и взрослых.' }
+  ]
 })
 </script>
 
