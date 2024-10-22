@@ -79,13 +79,12 @@ const updateTextNews = async () => {
       emit('change')
       dialog.value = false
       localNews.value = null
-    } catch (error) {
+    } catch {
       ElNotification({
         title: 'Ошибка',
         message: 'Ошибка при редактировании новости',
         type: 'error'
       })
-      console.log(error)
     } finally {
       loading.value = false
     }
@@ -107,8 +106,12 @@ const updateVideoNews = async () => {
       emit('change')
       dialog.value = false
       localNews.value = null
-    } catch (error) {
-      console.log(error)
+    } catch {
+      ElNotification({
+        title: 'Ошибка',
+        message: 'Ошибка при редактировании новости',
+        type: 'error'
+      })
     } finally {
       loading.value = false
     }
@@ -136,7 +139,7 @@ defineExpose({
 </script>
 
 <template>
-  <el-dialog v-model="dialog" title="Редактирование новости" :fullscreen="isSm">
+  <el-dialog v-model="dialog" title="Редактирование новости" :fullscreen="isSm" width="70%">
     <template v-if="localNews">
       <GTextNewsForm
         v-if="localNews.type === ENewsType.TEXT"

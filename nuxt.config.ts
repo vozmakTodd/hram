@@ -24,12 +24,19 @@ export default defineNuxtConfig({
     options: {
       dbName: 'hram_db'
     },
-    devtools: true
+    devtools: process.env.NODE_ENV !== 'production'
   },
   icon: {
     serverBundle: 'local'
   },
   image: {
     format: ['jpeg', 'jpg', 'png']
+  },
+  runtimeConfig: {
+    mailHost: '',
+    mailPort: '',
+    mailUser: '',
+    mailPass: '',
+    mailOrderRecipient: ''
   }
 })

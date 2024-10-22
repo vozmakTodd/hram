@@ -23,7 +23,7 @@ const breakpoints = useBreakpoints({ ...breakpointsTailwind, sm: 320, md: 640 })
 const isSm = breakpoints.smaller('md')
 
 const loading = ref<boolean>(false)
-const newsDescriptionFieldRef = ref<InstanceType<typeof GEditorField>>()
+const scheduleDescriptionFieldRef = ref<InstanceType<typeof GEditorField>>()
 const ruleFormRef = ref<FormInstance>()
 
 const rules = reactive<FormRules>({
@@ -31,7 +31,7 @@ const rules = reactive<FormRules>({
     {
       required: true,
       validator: (rule, value: JSONContent, callback) => {
-        if (newsDescriptionFieldRef.value?.isEmpty()) {
+        if (scheduleDescriptionFieldRef.value?.isEmpty()) {
           callback(new Error('Поле обязательно для заполнения'))
         } else {
           callback()
@@ -85,7 +85,7 @@ const onDescriptionChange = (v: JSONContent) => {
     >
       <el-form-item label="Описание" prop="description" class="overflow-x-auto">
         <GEditorField
-          ref="newsDescriptionFieldRef"
+          ref="scheduleDescriptionFieldRef"
           class="min-w-[500px]"
           :model-value="schedule.description"
           @update:model-value="onDescriptionChange"
@@ -98,8 +98,4 @@ const onDescriptionChange = (v: JSONContent) => {
   </el-dialog>
 </template>
 
-<style lang="postcss" scoped>
-.news-type-button-container :deep(.el-radio-button__inner) {
-  @apply w-full;
-}
-</style>
+<style lang="postcss" scoped></style>

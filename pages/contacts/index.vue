@@ -2,7 +2,14 @@
 import GCard from '~/components/content/GCard.vue'
 
 useHead({
-  title: 'Контакты'
+  title: 'Контакты',
+  meta: [
+    {
+      name: 'description',
+      content:
+        'Адрес храма: Москва район Куркино ул. Воротынская д. 14 с. 1 Ближайшая станция метро: Планерная.'
+    }
+  ]
 })
 </script>
 

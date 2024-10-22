@@ -2,7 +2,10 @@
 import { EScheduleType } from '~/types/schedule'
 
 useHead({
-  title: 'Расписание богослужений'
+  title: 'Расписание богослужений',
+  meta: [
+    { name: 'description', content: 'Актуальное расписание богослужений в храме на текущий месяц' }
+  ]
 })
 </script>
 

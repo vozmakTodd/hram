@@ -3,6 +3,7 @@ import type { ILink } from '~/components/GNavMenu/types'
 
 defineProps<{
   horizontal?: boolean
+  ellipsis?: boolean
 }>()
 const emits = defineEmits<{
   click: []
@@ -72,7 +73,7 @@ const links = ref<ILink[]>([
     :class="['g-menu', { 'g-menu--horizontal h-full': horizontal }]"
     :default-active="route.path"
     :mode="horizontal ? 'horizontal' : 'vertical'"
-    :ellipsis="false"
+    :ellipsis
     router
   >
     <template v-for="(link, index) in links" :key="index">
@@ -109,6 +110,10 @@ const links = ref<ILink[]>([
 
 .g-menu--horizontal {
   --el-menu-horizontal-height: 70px;
+}
+
+.g-menu--horizontal :deep(.el-sub-menu__hide-arrow .el-sub-menu__title) {
+  padding: 0 var(--el-menu-base-level-padding);
 }
 
 .g-menu--horizontal :deep(.el-menu-item),
