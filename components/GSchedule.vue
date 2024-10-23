@@ -8,7 +8,11 @@ const props = defineProps<{
 }>()
 
 const scheduleRepo = useScheduleRepo()
-const { data: schedule } = await useAsyncData('news', () => scheduleRepo.get(props.type))
+const {
+  data: schedule,
+  refresh,
+  status
+} = await useAsyncData('news', () => scheduleRepo.get(props.type), { lazy: true })
 
 const isEdit = ref<boolean>(false)
 </script>
@@ -18,11 +22,14 @@ const isEdit = ref<boolean>(false)
     <div class="flex justify-end w-full px-4 md:px-6 lg:px-0">
       <ElButton type="primary" @click="isEdit = true">Редактировать</ElButton>
     </div>
-    <div class="bg-white rounded-2xl px-6 pb-6 pt-4 w-full">
+    <div
+      v-loading="status === 'pending'"
+      class="bg-white rounded-2xl px-6 pb-6 pt-4 w-full min-h-[350px]"
+    >
       <GCard :title>
         <template #content>
           <GHtmlContent
-            v-if="schedule?.res"
+            v-if="status === 'success' && schedule?.res"
             :content="schedule.res.description"
             class="min-w-[500px]"
           />
@@ -33,6 +40,7 @@ const isEdit = ref<boolean>(false)
     <GEditScheduleDialog
       v-model="isEdit"
       :data="{ id: schedule?.res?._id, description: schedule?.res?.description, type }"
+      @change="refresh"
     />
   </div>
 </template>

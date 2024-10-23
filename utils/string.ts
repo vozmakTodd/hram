@@ -4,5 +4,5 @@ export const getYoutubeId = (val: string) => {
   )
 }
 export const getRutubeId = (val: string) => {
-  return val.match(/(?:https?:)?(?:\/\/)?rutube\.ru\/video\/([\w-]{32})/)
+  return val.match(/(?:https?:)?(?:\/\/)?rutube\.ru\/(?:video|play\/embed)\/([\w-]{32})/)
 }
