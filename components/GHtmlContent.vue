@@ -26,7 +26,7 @@ defineProps<{
 }
 
 .prose :deep(table td) {
-  @apply h-10;
+  @apply h-10 break-words;
 }
 
 .prose :deep(table td),

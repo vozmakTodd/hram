@@ -14,7 +14,7 @@ const handleClose = () => {
 
 <template>
   <el-dialog v-model="value" title="Помочь храму" :fullscreen="isSm">
-    <div class="flex flex-col w-full">
+    <div class="flex flex-col w-full gap-4">
       <GDonationForm />
       <el-button class="mt-auto ml-auto" type="primary" @click="handleClose">Закрыть</el-button>
     </div>

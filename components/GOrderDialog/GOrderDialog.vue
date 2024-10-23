@@ -29,7 +29,7 @@ const handleClose = () => {
       <GCandleForm v-if="type === EOrderDropdownCommand.CANDLE" @accept="formAccept" />
     </template>
     <template v-else>
-      <div class="flex flex-col w-full">
+      <div class="flex flex-col w-full gap-4">
         <GDonationForm />
         <el-button class="mt-auto ml-auto" type="primary" @click="handleClose">Закрыть</el-button>
       </div>
