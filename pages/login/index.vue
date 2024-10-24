@@ -3,6 +3,20 @@ import type { ILoginReq } from '~/types/auth'
 import type { FormInstance, FormRules } from 'element-plus'
 import { required } from '~/utils/validators'
 
+useHead({
+  title: 'Авторизация'
+})
+useSeoMeta({
+  robots: {
+    index: false,
+    follow: false
+  }
+})
+
+const auth = useAuth()
+const route = useRoute()
+const router = useRouter()
+
 const loginForm = reactive<ILoginReq>({
   login: '',
   password: ''
@@ -12,42 +26,48 @@ const rules = reactive<FormRules<ILoginReq>>({
   password: [required()]
 })
 
+if (route.query.error) {
+  ElNotification({
+    title: 'Ошибка авторизации',
+    message: 'Неправильный логин или пароль',
+    type: 'error'
+  })
+  router.replace({ query: {} })
+}
+
 const ruleFormRef = ref<FormInstance>()
 
 const onSubmit = async () => {
   if (ruleFormRef.value) {
     await ruleFormRef.value.validate(async (valid) => {
       if (valid) {
-        try {
-          // TODO поменять на правильный урл
-          await $fetch<ILoginReq>(`/api/login`, {
-            method: 'POST',
-            body: loginForm
-          })
-        } catch {
-          ElNotification({
-            title: 'Ошибка авторизации',
-            message: 'Неправильный логин или пароль',
-            type: 'error'
-          })
-        }
+        await auth.signIn('credentials', {
+          username: loginForm.login,
+          password: loginForm.password,
+          callbackUrl: '/'
+        })
       }
     })
   }
+}
+
+const onLogout = async () => {
+  await auth.signOut()
 }
 </script>
 
 <template>
   <div class="flex flex-col gap-5 overflow-auto bg-white rounded p-4">
-    <GCard title="Авторизация">
+    <GCard v-if="auth.status.value === 'unauthenticated'" title="Авторизация">
       <template #content>
         <el-form
           ref="ruleFormRef"
           :model="loginForm"
           :rules="rules"
-          label-width="auto"
           label-position="top"
+          label-width="auto"
           status-icon
+          @keydown.enter.prevent="onSubmit"
         >
           <el-form-item label="Логин" prop="login">
             <el-input v-model="loginForm.login" />
@@ -59,6 +79,11 @@ const onSubmit = async () => {
             <el-button type="primary" @click="onSubmit">Войти</el-button>
           </el-form-item>
         </el-form>
+      </template>
+    </GCard>
+    <GCard v-if="auth.status.value === 'authenticated'" title="Вы уже авторизованы">
+      <template #content>
+        <el-button type="primary" @click="onLogout">Выйти</el-button>
       </template>
     </GCard>
   </div>

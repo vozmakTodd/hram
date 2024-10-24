@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { breakpointsTailwind } from '@vueuse/core'
+import { generateText } from '@tiptap/core'
 import { ENewsType } from '~/types/news'
 import { useNewsRepo } from '~/utils/api/useNewsRepo'
 import GEditNewsDialog from '~/components/GEditNewsDialog/GEditNewsDialog.vue'
+import { EXTENSIONS } from '~/components/GEditorField/constants/extensions'
 
 const route = useRoute()
 const router = useRouter()
 const newsRepo = useNewsRepo()
-const breakpoints = useBreakpoints({ ...breakpointsTailwind, sm: 320, md: 640 })
+const auth = useAuth()
+const viewport = useViewport()
 
-const isSm = breakpoints.smaller('md')
 const editNewsDialogRef = ref<InstanceType<typeof GEditNewsDialog> | null>(null)
 
 const {
@@ -27,6 +28,23 @@ const {
   },
   { lazy: true }
 )
+
+useServerSeoMeta({
+  title: () => `${news.value?.res?.title}`,
+  ogTitle: () => `${news.value?.res?.title}`,
+  description: () =>
+    `${news.value?.res ? generateText(news.value?.res.description, EXTENSIONS) : ''}`,
+  ogDescription: () =>
+    `${news.value?.res ? generateText(news.value?.res.description, EXTENSIONS) : ''}`,
+  ogImage: () =>
+    news.value?.res?.type === ENewsType.TEXT
+      ? `/news/${news.value?.res.images[0].file}${news.value?.res.images[0].extension}`
+      : undefined,
+  robots: {
+    index: true,
+    follow: true
+  }
+})
 
 const deleteNews = async () => {
   if (news.value?.res._id) {
@@ -57,7 +75,10 @@ const editNews = () => {
 
 <template>
   <div class="flex flex-col gap-5 items-center">
-    <div class="flex justify-end w-full px-4 md:px-6 lg:px-0">
+    <div
+      v-if="auth.status.value === 'authenticated'"
+      class="flex justify-end w-full px-4 md:px-6 lg:px-0"
+    >
       <ElButton type="primary" @click="editNews">Редактировать</ElButton>
       <ElButton type="primary" @click="deleteNews">Удалить</ElButton>
     </div>
@@ -80,7 +101,7 @@ const editNews = () => {
         <div v-else class="news__images">
           <ElCarousel
             v-if="news!.res.images"
-            :type="isSm ? '' : 'card'"
+            :type="viewport.isLessThan('md') ? '' : 'card'"
             :arrow="news!.res.images.length > 1 ? 'hover' : 'never'"
             :autoplay="false"
           >

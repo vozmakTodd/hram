@@ -11,7 +11,7 @@ const emits = defineEmits<{
 
 const route = useRoute()
 
-const links = ref<ILink[]>([
+const links = useState<ILink[]>('links', () => [
   {
     index: '/',
     label: 'Новости'

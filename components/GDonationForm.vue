@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import { breakpointsTailwind } from '@vueuse/core'
-
-const breakpoints = useBreakpoints({ ...breakpointsTailwind, sm: 320, md: 640, laptop: 1200 })
-
-const smallerThanLaptop = breakpoints.smaller('laptop')
+const viewport = useViewport()
 </script>
 
 <template>
@@ -11,7 +7,7 @@ const smallerThanLaptop = breakpoints.smaller('laptop')
     title="Храм существует только за счет ваших пожертвований. Внести пожертвования можно:"
     border
     direction="vertical"
-    :column="smallerThanLaptop ? 1 : 3"
+    :column="viewport.isLessThan('laptop') ? 1 : 3"
   >
     <el-descriptions-item label="На карту Сбербанк"
       >4276 4000 4479 9105 (Дмитрий Алексеевич Михайлюк)</el-descriptions-item

@@ -7,6 +7,7 @@ const props = defineProps<{
   title: string
 }>()
 
+const auth = useAuth()
 const scheduleRepo = useScheduleRepo()
 const {
   data: schedule,
@@ -20,7 +21,9 @@ const isEdit = ref<boolean>(false)
 <template>
   <div class="flex flex-col gap-5 items-center">
     <div class="flex justify-end w-full px-4 md:px-6 lg:px-0">
-      <ElButton type="primary" @click="isEdit = true">Редактировать</ElButton>
+      <ElButton v-if="auth.status.value === 'authenticated'" type="primary" @click="isEdit = true"
+        >Редактировать</ElButton
+      >
     </div>
     <div
       v-loading="status === 'pending'"

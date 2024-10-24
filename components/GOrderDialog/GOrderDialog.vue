@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { breakpointsTailwind } from '@vueuse/core'
 import GDemandForm from '../GDemandForm.vue'
 import { EOrderDropdownCommand } from '~/types/common'
 
@@ -8,9 +7,8 @@ defineProps<{
 }>()
 const value = defineModel<boolean>()
 
-const breakpoints = useBreakpoints({ ...breakpointsTailwind, sm: 320, md: 640 })
+const viewport = useViewport()
 
-const isSm = breakpoints.smaller('md')
 const active = ref<number>(0)
 
 const formAccept = async () => {
@@ -23,7 +21,13 @@ const handleClose = () => {
 </script>
 
 <template>
-  <el-dialog v-model="value" title="Заказ" destroy-on-close :fullscreen="isSm" @open="active = 0">
+  <el-dialog
+    v-model="value"
+    title="Заказ"
+    destroy-on-close
+    :fullscreen="viewport.isLessThan('md')"
+    @open="active = 0"
+  >
     <template v-if="active === 0">
       <GDemandForm v-if="type === EOrderDropdownCommand.DEMAND" @accept="formAccept" />
       <GCandleForm v-if="type === EOrderDropdownCommand.CANDLE" @accept="formAccept" />

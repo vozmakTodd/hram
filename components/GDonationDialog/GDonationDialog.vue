@@ -1,11 +1,7 @@
 <script setup lang="ts">
-import { breakpointsTailwind } from '@vueuse/core'
-
 const value = defineModel<boolean>()
 
-const breakpoints = useBreakpoints({ ...breakpointsTailwind, sm: 320, md: 640 })
-
-const isSm = breakpoints.smaller('md')
+const viewport = useViewport()
 
 const handleClose = () => {
   value.value = false
@@ -13,7 +9,7 @@ const handleClose = () => {
 </script>
 
 <template>
-  <el-dialog v-model="value" title="Помочь храму" :fullscreen="isSm">
+  <el-dialog v-model="value" title="Помочь храму" :fullscreen="viewport.isLessThan('md')">
     <div class="flex flex-col w-full gap-4">
       <GDonationForm />
       <el-button class="mt-auto ml-auto" type="primary" @click="handleClose">Закрыть</el-button>

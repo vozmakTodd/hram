@@ -3,12 +3,22 @@ import type { ITextNewsBaseModel, IVideoNewsBaseModel } from '~/types/news'
 import { ENewsType } from '~/types/news'
 import type { IFileMongoModel } from '~/types/files'
 import { saveImages } from '~/server/utils/saveImages'
+import { getToken } from '#auth'
 
 export default defineEventHandler<{
   body:
     | IVideoNewsBaseModel
     | ITextNewsBaseModel<{ name: string; extension: string; file: number[] }>
 }>(async (event) => {
+  const token = await getToken({ event })
+
+  if (!token) {
+    return createError({
+      statusCode: 403,
+      statusMessage: 'Forbidden'
+    })
+  }
+
   const body = await readBody(event)
 
   try {
