@@ -1,6 +1,18 @@
 <script setup lang="ts">
 import GCard from '~/components/content/GCard.vue'
 
+useSeoMeta({
+  title: 'Контакты',
+  ogTitle: 'Контакты',
+  description:
+    'Адрес храма: Москва район Куркино ул. Воротынская д. 14 с. 1 Ближайшая станция метро: Планерная.',
+  ogDescription:
+    'Адрес храма: Москва район Куркино ул. Воротынская д. 14 с. 1 Ближайшая станция метро: Планерная.',
+  robots: {
+    index: true,
+    follow: true
+  }
+})
 useHead({
   title: 'Контакты',
   meta: [

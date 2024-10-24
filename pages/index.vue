@@ -2,6 +2,16 @@
 import GNews from '~/components/GNews.vue'
 import { useNewsRepo } from '~/utils/api/useNewsRepo'
 
+useSeoMeta({
+  title: 'Новости',
+  ogTitle: 'Новости',
+  description: 'Актуальные события и новости из жизни храма вмч. Георгия Победоносца в Куркино',
+  ogDescription: 'Актуальные события и новости из жизни храма вмч. Георгия Победоносца в Куркино',
+  robots: {
+    index: true,
+    follow: true
+  }
+})
 useHead({
   title: 'Новости',
   meta: [
@@ -11,6 +21,7 @@ useHead({
     }
   ]
 })
+const auth = useAuth()
 const newsRepo = useNewsRepo()
 const route = useRoute()
 const router = useRouter()
@@ -34,11 +45,11 @@ const onPageChange = (val: number) => {
 
 <template>
   <div class="flex flex-col gap-5 items-center">
-    <div class="flex justify-end w-full">
+    <div v-if="auth.status.value === 'authenticated'" class="flex justify-end w-full">
       <GAddNewsDialog @change="onPageChange(1)" />
     </div>
     <p
-      v-if="!news?.content"
+      v-if="!news?.content?.length"
       class="flex flex-col justify-center items-center h-full bg-white rounded-2xl w-full p-6"
     >
       <span class="text-xl">Новостей нет</span>
@@ -50,6 +61,7 @@ const onPageChange = (val: number) => {
     </ul>
     <el-pagination
       background
+      hide-on-single-page
       layout="prev, pager, next, total"
       :current-page="page"
       :total="news?.pagination?.total"

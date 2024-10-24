@@ -1,15 +1,11 @@
 <script setup lang="ts">
-import { breakpointsTailwind } from '@vueuse/core'
 import { EOrderDropdownCommand } from '~/types/common'
 
-const breakpoints = useBreakpoints({ ...breakpointsTailwind, sm: 320, md: 640, laptop: 1200 })
-
-const smallerThanLaptop = breakpoints.smaller('laptop')
-const smallerThanMd = breakpoints.smaller('md')
-const drawer = ref<boolean>(false)
-const orderType = ref<EOrderDropdownCommand>()
-const orderDialog = ref<boolean>(false)
-const donationDialog = ref<boolean>(false)
+const viewport = useViewport()
+const drawer = useState<boolean>('drawer', () => false)
+const orderType = useState<EOrderDropdownCommand>('orderType')
+const orderDialog = useState<boolean>('orderDialog', () => false)
+const donationDialog = useState<boolean>('donationDialog', () => false)
 
 const handleCommand = (type: EOrderDropdownCommand) => {
   orderType.value = type
@@ -28,9 +24,9 @@ const handleCommand = (type: EOrderDropdownCommand) => {
           <span>в Куркине г. Москвы</span>
         </div>
       </NuxtLink>
-      <GNavMenu v-if="!smallerThanLaptop" horizontal />
+      <GNavMenu v-if="!viewport.isLessThan('laptop')" horizontal />
       <div
-        v-if="!smallerThanMd"
+        v-if="!viewport.isLessThan('md')"
         class="flex items-center h-full lg:border-b-2 px-5 laptop:px-0 gap-3"
         style="border-color: transparent"
       >
@@ -51,18 +47,18 @@ const handleCommand = (type: EOrderDropdownCommand) => {
           </template>
         </el-dropdown>
       </div>
-      <GBurger v-if="smallerThanLaptop" @click="drawer = true" />
+      <GBurger v-if="viewport.isLessThan('laptop')" @click="drawer = true" />
       <ElDrawer
-        v-if="smallerThanLaptop"
+        v-if="viewport.isLessThan('laptop')"
         v-model="drawer"
         direction="rtl"
         title="Меню"
-        :size="smallerThanMd ? '100%' : '300px'"
+        :size="viewport.isLessThan('md') ? '100%' : '300px'"
         class="common-layout__drawer"
       >
         <GNavMenu @click="drawer = false" />
         <div
-          v-if="smallerThanMd"
+          v-if="viewport.isLessThan('md')"
           class="flex flex-col gap-4 items-start lg:h-full lg:border-b-2 mt-5"
         >
           <ElButton type="primary" class="my-auto h-[56px] w-full" @click="donationDialog = true">

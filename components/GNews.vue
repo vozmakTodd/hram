@@ -68,7 +68,8 @@ const articleRef = ref<HTMLInputElement | null>(null)
             fit="fill"
             class="h-inherit w-full"
             preview-teleported
-          ></ElImage>
+            lazy
+          />
         </ElCarouselItem>
       </ElCarousel>
     </div>

@@ -1,6 +1,16 @@
 <script setup lang="ts">
 import { EScheduleType } from '~/types/schedule'
 
+useSeoMeta({
+  title: 'Расписание занятий для детей и взрослых',
+  ogTitle: 'Расписание занятий для детей и взрослых',
+  description: 'Актуальное расписание занятий для детей от 4 лет и взрослых.',
+  ogDescription: 'Актуальное расписание занятий для детей от 4 лет и взрослых.',
+  robots: {
+    index: true,
+    follow: true
+  }
+})
 useHead({
   title: 'Расписание занятий для детей и взрослых',
   meta: [

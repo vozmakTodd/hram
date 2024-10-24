@@ -1,78 +1,62 @@
-import { NuxtAuthHandler } from "#auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { User } from "~/server/models/user.model";
-import bcrypt from "bcrypt";
+import { NuxtAuthHandler } from '#auth'
+import CredentialsProvider from 'next-auth/providers/credentials'
 
 export default NuxtAuthHandler({
   secret: useRuntimeConfig().authSecret,
 
   pages: {
-    signIn: '/login',
+    signIn: '/login'
   },
 
   providers: [
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     CredentialsProvider.default({
-      name: "credentials",
+      name: 'credentials',
       credentials: {},
       async authorize(credentials: { username: string; password: string }) {
-        // TODO: Fetch user from database
-        console.log(credentials.username, credentials.password)
-        // const user = await User.findOne({ username: credentials.username });
-        const user:UserDocument = {username: 'admin', password: 'admin'};
+        const config = useRuntimeConfig()
 
-        if (!user) {
-          throw createError({
-            statusCode: 401,
-            statusMessage: "Unauthorized",
-          });
+        if (
+          credentials?.username === config.rootLogin &&
+          credentials?.password === config.rootPass
+        ) {
+          return {
+            id: '1',
+            name: credentials!.username
+          }
         }
 
-        // const isValid = await bcrypt.compare(
-        //   credentials.password,
-        //   user.password
-        // );
-
-        // if (!isValid) {
-        //   throw createError({
-        //     statusCode: 401,
-        //     statusMessage: "Unauthorized",
-        //   });
-        // }
-
-        return {
-          // ...user.toObject(),
-          ...user,
-          password: undefined,
-        };
-      },
-    }),
+        return null
+      }
+    })
   ],
 
   session: {
-    strategy: "jwt",
+    strategy: 'jwt',
     maxAge: 86400,
-    updateAge: 86400 / 4,
+    updateAge: 86400 / 4
   },
 
   callbacks: {
-    async jwt({ token, user, account }) {
+    async jwt({ token, user }) {
       if (user) {
         token = {
           ...token,
-          ...user,
-        };
+          ...user
+        }
       }
 
-      return token;
+      return token
     },
 
     async session({ session, token }) {
       session.user = {
         ...token,
-        ...session.user,
-      };
+        ...session.user
+      }
 
-      return session;
-    },
-  },
-});
+      return session
+    }
+  }
+})

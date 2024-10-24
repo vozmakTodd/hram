@@ -4,6 +4,7 @@ import { ENewsType } from '~/types/news'
 import type { IFileMongoModel } from '~/types/files'
 import fs from 'node:fs'
 import { saveImages } from '~/server/utils/saveImages'
+import { getToken } from '#auth'
 
 export default defineEventHandler<{
   body: {
@@ -13,6 +14,15 @@ export default defineEventHandler<{
     deleteFiles?: string[]
   }
 }>(async (event) => {
+  const token = await getToken({ event })
+
+  if (!token) {
+    return createError({
+      statusCode: 403,
+      statusMessage: 'Forbidden'
+    })
+  }
+
   const body = await readBody(event)
   const id = getRouterParam(event, 'id')
 

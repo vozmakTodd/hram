@@ -4,7 +4,6 @@ import type { FormInstance, FormRules } from 'element-plus'
 import type { EScheduleType, IScheduleModel } from '~/types/schedule'
 import GEditorField from '~/components/GEditorField/GEditorField.vue'
 import { useScheduleRepo } from '~/utils/api/useScheduleRepo'
-import { breakpointsTailwind } from '@vueuse/core'
 
 const props = defineProps<{
   data: {
@@ -18,9 +17,7 @@ const emit = defineEmits<{
   change: []
 }>()
 
-const breakpoints = useBreakpoints({ ...breakpointsTailwind, sm: 320, md: 640 })
-
-const isSm = breakpoints.smaller('md')
+const viewport = useViewport()
 
 const loading = ref<boolean>(false)
 const scheduleDescriptionFieldRef = ref<InstanceType<typeof GEditorField>>()
@@ -74,7 +71,11 @@ const onDescriptionChange = (v: JSONContent) => {
 </script>
 
 <template>
-  <el-dialog v-model="value" title="Редактирование расписания" :fullscreen="isSm">
+  <el-dialog
+    v-model="value"
+    title="Редактирование расписания"
+    :fullscreen="viewport.isLessThan('md')"
+  >
     <el-form
       ref="ruleFormRef"
       :model="schedule"

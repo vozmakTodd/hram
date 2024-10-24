@@ -1,10 +1,18 @@
 import { NewsModel } from '~/server/models/news.model'
 import { ENewsType } from '~/types/news'
-import { getServerSession } from '#auth'
 import fs from 'node:fs'
+import { getToken } from '#auth'
 
 export default defineEventHandler(async (event) => {
-  const session = await getServerSession(event)
+  const token = await getToken({ event })
+
+  if (!token) {
+    return createError({
+      statusCode: 403,
+      statusMessage: 'Forbidden'
+    })
+  }
+
   const id = getRouterParam(event, 'id')
 
   try {

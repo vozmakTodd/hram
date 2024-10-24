@@ -1,7 +1,17 @@
 import type { IScheduleModel } from '~/types/schedule'
 import { ScheduleModel } from '~/server/models/schedule.model'
+import { getToken } from '#auth'
 
 export default defineEventHandler<{ body: IScheduleModel }>(async (event) => {
+  const token = await getToken({ event })
+
+  if (!token) {
+    return createError({
+      statusCode: 403,
+      statusMessage: 'Forbidden'
+    })
+  }
+
   const body = await readBody(event)
   const type = getRouterParam(event, 'type')
 
