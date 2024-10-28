@@ -102,13 +102,15 @@ defineExpose({
     <el-form-item label="Заголовок" prop="title">
       <el-input v-model="value.title" />
     </el-form-item>
-    <el-form-item label="Описание" prop="description" class="overflow-x-auto">
-      <GEditorField
-        ref="newsDescriptionFieldRef"
-        class="min-w-[500px]"
-        :model-value="value.description"
-        @update:model-value="onDescriptionChange"
-      />
+    <el-form-item label="Описание" prop="description">
+      <div class="overflow-x-auto">
+        <GEditorField
+          ref="newsDescriptionFieldRef"
+          class="min-w-[500px]"
+          :model-value="value.description"
+          @update:model-value="onDescriptionChange"
+        />
+      </div>
     </el-form-item>
     <el-dialog v-model="dialogVisible">
       <ElImage :src="dialogImageUrl" alt="Preview Image" />

@@ -46,6 +46,7 @@ const schedule = reactive<IScheduleModel>({
 const scheduleRepo = useScheduleRepo()
 
 const updateSchedule = async () => {
+  if (!(await ruleFormRef.value?.validate())) return
   try {
     await scheduleRepo.put(schedule)
     ElNotification({
@@ -84,13 +85,15 @@ const onDescriptionChange = (v: JSONContent) => {
       label-position="top"
       status-icon
     >
-      <el-form-item label="Описание" prop="description" class="overflow-x-auto">
-        <GEditorField
-          ref="scheduleDescriptionFieldRef"
-          class="min-w-[500px]"
-          :model-value="schedule.description"
-          @update:model-value="onDescriptionChange"
-        />
+      <el-form-item label="Описание" prop="description">
+        <div class="overflow-x-auto">
+          <GEditorField
+            ref="scheduleDescriptionFieldRef"
+            class="min-w-[500px]"
+            :model-value="schedule.description"
+            @update:model-value="onDescriptionChange"
+          />
+        </div>
       </el-form-item>
     </el-form>
     <template #footer>
