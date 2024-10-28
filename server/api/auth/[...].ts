@@ -34,8 +34,8 @@ export default NuxtAuthHandler({
 
   session: {
     strategy: 'jwt',
-    maxAge: 86400,
-    updateAge: 86400 / 4
+    maxAge: 14400,
+    updateAge: 7200
   },
 
   callbacks: {

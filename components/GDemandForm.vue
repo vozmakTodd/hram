@@ -15,6 +15,7 @@ const ruleFormRef = ref<FormInstance>()
 const demand = ref<{ type?: EDemandType; email?: string; names: Array<{ value: string | null }> }>({
   names: Array.from({ length: 10 }, () => ({ value: null }))
 })
+const loading = ref<boolean>(false)
 
 const rules = reactive<FormRules>({
   type: [required()],
@@ -39,9 +40,9 @@ const rules = reactive<FormRules>({
 })
 
 const accept = async () => {
-  if (!ruleFormRef.value) return
+  if (!(await ruleFormRef.value?.validate())) return
   try {
-    await ruleFormRef.value.validate()
+    loading.value = true
     await demandRepo.post({
       type: demand.value.type!,
       email: demand.value.email,
@@ -64,6 +65,8 @@ const accept = async () => {
       message: 'Ошибка при отправке заказа',
       type: 'error'
     })
+  } finally {
+    loading.value = false
   }
 }
 </script>
@@ -107,7 +110,9 @@ const accept = async () => {
       <el-input v-model="demand.email" />
     </el-form-item>
     <el-form-item>
-      <el-button class="ml-auto" type="primary" @click="accept">Подтвердить</el-button>
+      <el-button class="ml-auto" type="primary" :loading="loading" @click="accept"
+        >Подтвердить</el-button
+      >
     </el-form-item>
   </el-form>
 </template>

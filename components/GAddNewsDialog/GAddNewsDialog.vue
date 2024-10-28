@@ -120,6 +120,7 @@ watch(dialog, () => {
       title="Добавление новости"
       :fullscreen="viewport.isLessThan('md')"
       width="70%"
+      destroy-on-close
     >
       <el-radio-group
         v-model="news.type"

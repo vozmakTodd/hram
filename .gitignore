@@ -6,7 +6,7 @@
 .cache
 .yarn
 dist
-public/news
+server/uploads
 
 # Node dependencies
 node_modules

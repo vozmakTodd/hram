@@ -21,6 +21,11 @@ export default defineNuxtConfig({
     '@sidebase/nuxt-auth',
     'nuxt-viewport'
   ],
+  app: {
+    head: {
+      script: [{ src: 'https://yookassa.ru/checkout-widget/v1/checkout-widget.js' }]
+    }
+  },
   viewport: {
     breakpoints: {
       xs: 320,

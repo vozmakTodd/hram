@@ -13,6 +13,7 @@ const candleRepo = useCandleRepo()
 
 const ruleFormRef = ref<FormInstance>()
 const candles = ref<ICandleModel>({ list: [] })
+const loading = ref<boolean>(false)
 
 const rules = reactive<FormRules>({
   list: [required()],
@@ -25,9 +26,9 @@ const rules = reactive<FormRules>({
 })
 
 const accept = async () => {
-  if (!ruleFormRef.value) return
+  if (!(await ruleFormRef.value?.validate())) return
   try {
-    await ruleFormRef.value.validate()
+    loading.value = true
     await candleRepo.post(candles.value)
     ElNotification({
       title: 'Успех',
@@ -41,6 +42,8 @@ const accept = async () => {
       message: 'Ошибка при отправке заказа',
       type: 'error'
     })
+  } finally {
+    loading.value = false
   }
 }
 </script>
@@ -73,7 +76,7 @@ const accept = async () => {
       <el-input v-model="candles.email" />
     </el-form-item>
     <el-form-item>
-      <el-button class="ml-auto" type="primary" @click="accept">Подтвердить</el-button>
+      <el-button class="ml-auto" type="primary" :loading @click="accept">Подтвердить</el-button>
     </el-form-item>
   </el-form>
 </template>

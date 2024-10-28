@@ -74,7 +74,7 @@ head:
 
 ![QR](/img/war/QR.jpg)
 
-### Результаты
+### Благодарности
 
 :::GDocViewer{:links='["/img/war/1.jpeg", "/img/war/2.jpeg", "/img/war/3.jpeg", "/img/war/4.jpeg", "/img/war/5.jpeg", "/img/war/6.jpeg", "/img/war/7.jpeg", "/img/war/8.jpeg", "/img/war/9.jpeg"]'}
 A nested card
