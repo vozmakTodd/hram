@@ -107,9 +107,9 @@ const editNews = () => {
           >
             <ElCarouselItem v-for="(image, index) in news!.res.images" :key="index">
               <ElImage
-                :src="`/news/${image.file}${image.extension}`"
-                :preview-src-list="[`/news/${image.file}${image.extension}`]"
-                fit="fill"
+                :src="`/api/files/${image.file}${image.extension}`"
+                :preview-src-list="[`/api/files/${image.file}${image.extension}`]"
+                fit="cover"
                 class="h-full w-full"
                 preview-teleported
               ></ElImage>
@@ -143,7 +143,7 @@ const editNews = () => {
 
 .news__images :deep(.el-carousel),
 .news__video {
-  @apply h-[160px] md:h-[323px] lg:h-[320px];
+  @apply h-[230px] md:h-[323px] lg:h-[320px];
 }
 
 .news__images :deep(.el-carousel__container) {

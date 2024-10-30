@@ -39,6 +39,7 @@ useHead({
             </ElLink>
           </p>
           <p>Пн-Вс: с 08.00 до 20.00</p>
+          <p>ТРАПЕЗНАЯ открыта с 11.00 до 17.00</p>
           <p><ElLink href="tel:+79165000810">+ 7 (916) 500-08-10</ElLink></p>
           <p><ElLink href="mailto:info@georgkurkino.ru">info@georgkurkino.ru</ElLink></p>
         </div>

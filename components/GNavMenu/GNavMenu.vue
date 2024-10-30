@@ -22,7 +22,7 @@ const links = useState<ILink[]>('links', () => [
     child: [
       {
         index: '/schedule/main',
-        label: 'Богослужение'
+        label: 'Богослужения'
       },
       {
         index: '/schedule/education-for-all',
@@ -118,7 +118,7 @@ const links = useState<ILink[]>('links', () => [
 
 .g-menu--horizontal :deep(.el-menu-item),
 .g-menu--horizontal :deep(.el-sub-menu__title) {
-  @apply h-full text-sm;
+  @apply h-full text-base;
 }
 
 .g-menu--horizontal :deep(.el-menu) {

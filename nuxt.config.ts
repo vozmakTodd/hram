@@ -32,7 +32,7 @@ export default defineNuxtConfig({
       sm: 640,
       md: 768,
       lg: 1024,
-      laptop: 1200,
+      laptop: 1300,
       xl: 1280,
       '2xl': 1536
     },
@@ -52,7 +52,15 @@ export default defineNuxtConfig({
     devtools: process.env.NODE_ENV !== 'production'
   },
   icon: {
-    serverBundle: 'local'
+    serverBundle: {
+      collections: ['bx', 'fa']
+    },
+    customCollections: [
+      {
+        prefix: 'gkurk',
+        dir: './assets/gIcons'
+      }
+    ]
   },
   image: {
     format: ['jpeg', 'jpg', 'png']
