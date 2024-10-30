@@ -45,6 +45,10 @@
     color: theme('colors.hram.light-1') !important;
   }
 
+  .el-button.is-link:hover :deep(path) {
+    fill: currentColor;
+  }
+
   .el-button:focus-visible {
     outline: unset !important;
   }

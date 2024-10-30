@@ -83,23 +83,26 @@ const accept = async () => {
   >
     <el-form-item label="Требы" prop="type">
       <el-radio-group v-model="demand.type">
-        <el-radio :value="EDemandType.MOLEBEN">{{
-          DEMAND_TYPE_MESSAGE[EDemandType.MOLEBEN]
+        <el-radio :value="EDemandType.LITURGIYA_ZDRAV">{{
+          DEMAND_TYPE_MESSAGE[EDemandType.LITURGIYA_ZDRAV]
         }}</el-radio>
-        <el-radio :value="EDemandType.MOLEBEN_S_AKAFISTOM">{{
-          DEMAND_TYPE_MESSAGE[EDemandType.MOLEBEN_S_AKAFISTOM]
+        <el-radio :value="EDemandType.LITURGIYA_YPOK">{{
+          DEMAND_TYPE_MESSAGE[EDemandType.LITURGIYA_YPOK]
         }}</el-radio>
         <el-radio :value="EDemandType.PANIHIDA">{{
           DEMAND_TYPE_MESSAGE[EDemandType.PANIHIDA]
         }}</el-radio>
-        <el-radio :value="EDemandType.POMINOVENIE_L">{{
-          DEMAND_TYPE_MESSAGE[EDemandType.POMINOVENIE_L]
+        <el-radio :value="EDemandType.MOLEBEN">{{
+          DEMAND_TYPE_MESSAGE[EDemandType.MOLEBEN]
         }}</el-radio>
-        <el-radio :value="EDemandType.POMINOVENIE_POST">{{
-          DEMAND_TYPE_MESSAGE[EDemandType.POMINOVENIE_POST]
+        <el-radio :value="EDemandType.MOLEBEN_SUTERDAY">{{
+          DEMAND_TYPE_MESSAGE[EDemandType.MOLEBEN_SUTERDAY]
         }}</el-radio>
-        <el-radio :value="EDemandType.SOROKOUST">{{
-          DEMAND_TYPE_MESSAGE[EDemandType.SOROKOUST]
+        <el-radio :value="EDemandType.SOROKOUST_ZDRAV">{{
+          DEMAND_TYPE_MESSAGE[EDemandType.SOROKOUST_ZDRAV]
+        }}</el-radio>
+        <el-radio :value="EDemandType.SOROKOUST_YPOK">{{
+          DEMAND_TYPE_MESSAGE[EDemandType.SOROKOUST_YPOK]
         }}</el-radio>
       </el-radio-group>
     </el-form-item>

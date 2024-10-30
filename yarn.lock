@@ -1358,6 +1358,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@iconify-json/fa@npm:1.2.0":
+  version: 1.2.0
+  resolution: "@iconify-json/fa@npm:1.2.0"
+  dependencies:
+    "@iconify/types": "*"
+  checksum: 587ccd15adb2630753f63625dd582e9ffa6217045bd8cc7c333941c44ce396e8c2cb6b64378bc2704882e7b02d5038bccf78339514037c5e6b03388d556dc591
+  languageName: node
+  linkType: hard
+
 "@iconify-json/logos@npm:^1.1.42":
   version: 1.2.3
   resolution: "@iconify-json/logos@npm:1.2.3"
@@ -10095,6 +10104,7 @@ __metadata:
   dependencies:
     "@element-plus/nuxt": 1.0.10
     "@iconify-json/bx": 1.2.0
+    "@iconify-json/fa": 1.2.0
     "@nuxt/content": 2.13.4
     "@nuxt/eslint": 0.5.7
     "@nuxt/icon": 1.5.1
@@ -10132,7 +10142,6 @@ __metadata:
     next-auth: 4.22.5
     nodemailer: 6.9.15
     nuxt: 3.13.2
-    nuxt-file-storage: ^0.2.8
     nuxt-mongoose: 1.0.6
     nuxt-viewport: 2.2.0
     prettier: 3.3.2
@@ -10142,16 +10151,6 @@ __metadata:
     vue-tsc: 2.1.6
   languageName: unknown
   linkType: soft
-
-"nuxt-file-storage@npm:^0.2.8":
-  version: 0.2.8
-  resolution: "nuxt-file-storage@npm:0.2.8"
-  dependencies:
-    "@nuxt/kit": ^3.9.3
-    defu: ^6.1.4
-  checksum: 45d66b85c500282c2be6369186cc50fbed633d3bc68d2d518910dbcb50e0ae1a0111dea63bbf802c23f2959e654d92c56e99acdeb5d05cd0414b32951a761fbe
-  languageName: node
-  linkType: hard
 
 "nuxt-mongoose@npm:1.0.6":
   version: 1.0.6

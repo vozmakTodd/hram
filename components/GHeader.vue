@@ -35,13 +35,15 @@ const handleCommand = (type: EOrderDropdownCommand) => {
         </ElButton>
         <el-dropdown @command="handleCommand">
           <el-button type="primary">
-            Заказать<el-icon class="el-icon--right"><Icon name="bx:chevron-down" /></el-icon>
+            Заказать требы<el-icon class="el-icon--right"><Icon name="bx:chevron-down" /></el-icon>
           </el-button>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item :command="EOrderDropdownCommand.DEMAND">Требы</el-dropdown-item>
+              <el-dropdown-item :command="EOrderDropdownCommand.DEMAND"
+                >Подать записку</el-dropdown-item
+              >
               <el-dropdown-item :command="EOrderDropdownCommand.CANDLE">
-                Поставить свечки
+                Поставить свечу
               </el-dropdown-item>
             </el-dropdown-menu>
           </template>
@@ -69,14 +71,14 @@ const handleCommand = (type: EOrderDropdownCommand) => {
             class="my-auto ml-0 h-[56px] w-full"
             @click="handleCommand(EOrderDropdownCommand.DEMAND)"
           >
-            Заказать требы
+            Подать записку
           </ElButton>
           <ElButton
             type="primary"
             class="my-auto ml-0 h-[56px] w-full"
             @click="handleCommand(EOrderDropdownCommand.CANDLE)"
           >
-            Поставить свечки
+            Поставить свечу
           </ElButton>
         </div>
       </ElDrawer>

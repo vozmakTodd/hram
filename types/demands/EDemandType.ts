@@ -1,8 +1,9 @@
 export enum EDemandType {
   MOLEBEN = 'moleben',
-  SOROKOUST = 'sorokoust',
+  MOLEBEN_SUTERDAY = 'molebenSuterday',
+  SOROKOUST_ZDRAV = 'sorokoustZdrav',
+  SOROKOUST_YPOK = 'sorokoustYpok',
   PANIHIDA = 'panihida',
-  POMINOVENIE_L = 'pominovenieL',
-  POMINOVENIE_POST = 'pominoveniePost',
-  MOLEBEN_S_AKAFISTOM = 'molbenAkafist'
+  LITURGIYA_ZDRAV = 'liturgiyaZdrav',
+  LITURGIYA_YPOK = 'liturgiyaYpok'
 }
