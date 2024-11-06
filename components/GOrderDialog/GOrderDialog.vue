@@ -11,7 +11,11 @@ const viewport = useViewport()
 
 const active = ref<number>(0)
 
-const formAccept = async () => {
+const orderData = reactive<{ id?: string; price?: number }>({})
+
+const formAccept = async (id: string, recommendedPrice: number) => {
+  orderData.id = id
+  orderData.price = recommendedPrice
   active.value = 1
 }
 
@@ -34,8 +38,11 @@ const handleClose = () => {
     </template>
     <template v-else>
       <div class="flex flex-col w-full gap-4">
-        <GDonationForm />
-        <el-button class="mt-auto ml-auto" type="primary" @click="handleClose">Закрыть</el-button>
+        <GDonationForm
+          :order-id="orderData.id"
+          :default-price="orderData.price"
+          @close="handleClose"
+        />
       </div>
     </template>
   </el-dialog>

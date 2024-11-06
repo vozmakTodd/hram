@@ -18,7 +18,7 @@ const handleCommand = (type: EOrderDropdownCommand) => {
     <div class="flex h-full gap-3">
       <NuxtLink class="flex h-full gap-3 mr-auto" to="/">
         <ElImage class="p-1" src="/img/logo.png" style="width: 70px" />
-        <div class="flex flex-col justify-center laptop:text-sm text-2sm">
+        <div class="flex flex-col justify-center md:text-sm text-2sm">
           <span>Храм вмч.</span>
           <span>Георгия Победоносца</span>
           <span>в Куркине г. Москвы</span>

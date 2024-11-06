@@ -18,6 +18,7 @@ export default defineEventHandler<{ query: { page: number } }>(async (event) => 
       }
     }
   } catch (error) {
+    console.error(`News - Error: ${error} :: `, new Date())
     return createError({
       statusCode: 400,
       statusMessage: `${error}`

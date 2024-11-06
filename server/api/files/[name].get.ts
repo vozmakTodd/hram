@@ -9,6 +9,7 @@ export default defineEventHandler(async (event) => {
     if (fs.existsSync(filePath)) {
       return sendStream(event, fs.createReadStream(filePath))
     } else {
+      console.error('Files - Error: File not found :: ', new Date())
       throw createError({ statusCode: 404, message: 'File not found' })
     }
   }

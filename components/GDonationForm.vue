@@ -1,41 +1,73 @@
 <script setup lang="ts">
-const viewport = useViewport()
+import type { FormInstance, FormRules } from 'element-plus'
+import { usePaymentRepo } from '~/utils/api'
+
+const emits = defineEmits<{
+  close: []
+}>()
+const props = defineProps<{
+  orderId?: string
+  defaultPrice?: number
+}>()
+
+const paymentRepo = usePaymentRepo()
+
+const ruleFormRef = ref<FormInstance>()
+const loading = ref<boolean>(false)
+
+const form = reactive<{ price: number | undefined }>({
+  price: props.defaultPrice
+})
+const rules = reactive<FormRules>({
+  price: [required()]
+})
+
+const makePayment = async () => {
+  if (!(await ruleFormRef.value?.validate())) return
+  try {
+    loading.value = true
+
+    const res = await paymentRepo.post({
+      id: props.orderId,
+      price: form.price!.toString()
+    })
+
+    await navigateTo(res.confirmationUrl, {
+      external: true
+    })
+  } catch {
+    ElNotification({
+      title: 'Ошибка',
+      message: 'Ошибка при создании оплаты',
+      type: 'error'
+    })
+  } finally {
+    loading.value = false
+  }
+}
 </script>
 
 <template>
-  <el-descriptions
-    title="Храм существует только за счет ваших пожертвований. Внести пожертвования можно:"
-    border
-    direction="vertical"
-    :column="viewport.isLessThan('laptop') ? 1 : 3"
+  <el-form
+    ref="ruleFormRef"
+    :model="form"
+    :rules="rules"
+    label-width="auto"
+    label-position="top"
+    status-icon
   >
-    <el-descriptions-item label="На карту Сбербанк"
-      >4276 4000 4479 9105 (Дмитрий Алексеевич Михайлюк)</el-descriptions-item
-    >
-    <el-descriptions-item label="По номеру телефона"
-      >+7 (916) 500 08-10 (Дмитрий Алексеевич Михайлюк)</el-descriptions-item
-    >
-    <el-descriptions-item label="По реквизитам">
-      <div class="flex flex-col gap-2">
-        <span>Банк получателя: ПАО «Сбербанк России» г. Москва</span>
-        <span>БИК: 044525225</span>
-        <span>Счет банка получателя: № 30101810400000000225</span>
-        <span>Счет получателя: № 40703810840000005258</span>
-        <span>ИНН: 9725002040</span>
-        <span>КПП: 772501001</span>
-        <span>ОКПО: 35857501</span>
-        <span>ОГРН: 1197700001795</span>
-        <span
-          >Получатель: РЕЛИГИОЗНАЯ ОРГАНИЗАЦИЯ ПОДВОРЬЕ ПАТРИАРХА МОСКОВСКОГО И ВСЕЯ РУСИ ПРИ ХРАМЕ
-          ВМЧ. ГЕОРГИЯ ПОБЕДОНОСЦА В КУРКИНЕ Г. МОСКВЫ РУССКОЙ ПРАВОСЛАВНОЙ ЦЕРКВИ (МОСКОВСКИЙ
-          ПАТРИАРХАТ)</span
-        >
-      </div>
-    </el-descriptions-item>
-    <el-descriptions-item label="по QR">
-      <NuxtImg class="mx-auto h-[196px]" src="/img/donationQR.png" />
-    </el-descriptions-item>
-  </el-descriptions>
+    <el-form-item label="Сумма рекомендованного пожертвования" prop="price" class="min-h-24">
+      <el-input-number v-model="form.price" :controls="false">
+        <template #suffix>
+          <span>РУБ.</span>
+        </template>
+      </el-input-number>
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" @click="emits('close')">Закрыть</el-button>
+      <el-button class="ml-auto" type="primary" @click="makePayment">Пожертвовать</el-button>
+    </el-form-item>
+  </el-form>
 </template>
 
 <style lang="postcss" scoped>

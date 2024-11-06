@@ -13,6 +13,7 @@ export default defineEventHandler<{
   const token = await getToken({ event })
 
   if (!token) {
+    console.error(`News - Error: Forbidden :: `, new Date())
     return createError({
       statusCode: 403,
       statusMessage: 'Forbidden'
@@ -45,6 +46,7 @@ export default defineEventHandler<{
       id
     }
   } catch (error) {
+    console.error(`News - Error: ${error} :: `, new Date())
     return createError({
       statusCode: 400,
       statusMessage: `${error}`

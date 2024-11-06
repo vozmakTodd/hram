@@ -1,4 +1,4 @@
-import type { ECandle } from '~/types/candles'
+import type { ECandle } from '~/types/order'
 import { CANDLE_MESSAGE } from '~/constants'
 
 export const getCandleMailMessage = (candels: ECandle[]) => {

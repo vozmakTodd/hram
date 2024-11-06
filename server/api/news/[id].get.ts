@@ -9,6 +9,7 @@ export default defineEventHandler(async (event) => {
       res
     }
   } catch (error) {
+    console.error(`News - Error: ${error} :: `, new Date())
     return createError({
       statusCode: 400,
       statusMessage: `${error}`

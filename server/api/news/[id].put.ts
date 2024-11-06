@@ -17,6 +17,7 @@ export default defineEventHandler<{
   const token = await getToken({ event })
 
   if (!token) {
+    console.error(`News - Error: Forbidden :: `, new Date())
     return createError({
       statusCode: 403,
       statusMessage: 'Forbidden'
@@ -30,6 +31,7 @@ export default defineEventHandler<{
     const news = await NewsModel.findById(id)
 
     if (!news) {
+      console.error(`News - Error: News not found with id ${body.news._id} :: `, new Date())
       return createError({
         statusCode: 400,
         statusMessage: `News not found with id ${body.news._id}`
@@ -47,7 +49,10 @@ export default defineEventHandler<{
           } else {
             fs.unlink(`public/news/${val.file}${val.extension}`, (err) => {
               if (err) {
-                console.error(`Error removing file ${val.file}${val.extension}: ${err}`)
+                console.error(
+                  `News - Error: Can't remove file ${val.file}${val.extension}: ${err} :: `,
+                  new Date()
+                )
                 return
               }
             })
@@ -65,6 +70,7 @@ export default defineEventHandler<{
       news.title = body.news.title
       news.link = body.news.link
     } else {
+      console.error(`News - Error: News has wrong type :: `, new Date())
       return createError({
         statusCode: 400,
         statusMessage: `News has wrong type`
@@ -77,6 +83,7 @@ export default defineEventHandler<{
       res: true
     }
   } catch (error) {
+    console.error(`News - Error: ${error} :: `, new Date())
     return createError({
       statusCode: 400,
       statusMessage: `${error}`

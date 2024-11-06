@@ -7,17 +7,8 @@ Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introdu
 Make sure to install the dependencies:
 
 ```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
 # yarn
 yarn install
-
-# bun
-bun install
 ```
 
 ## Development Server
@@ -25,17 +16,8 @@ bun install
 Start the development server on `http://localhost:3000`:
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
 # yarn
 yarn dev
-
-# bun
-bun run dev
 ```
 
 ## Production
@@ -43,33 +25,30 @@ bun run dev
 Build the application for production:
 
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
 # yarn
 yarn build
-
-# bun
-bun run build
 ```
 
 Locally preview production build:
 
 ```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
 # yarn
 yarn preview
-
-# bun
-bun run preview
 ```
+
+Make sure that you filled all necessary environment variables
+
+MONGODB_URI - Mongo db address (ex. "mongodb://admin:password@localhost:27017")
+NUXT_MAIL_HOST - smtp host (ex. "smtp.example.email")
+NUXT_MAIL_PORT - smtp port (ex. "587")
+NUXT_MAIL_USER - mail-box address (ex. "info@example.com")
+NUXT_MAIL_PASS - mail-box password
+NUXT_MAIL_ORDER_RECIPIENT - mail-box address that will receive information about orders
+NUXT_AUTH_SECRET - secret key for auth
+NUXT_ROOT_LOGIN - root user login (for administrator)
+NUXT_ROOT_PASS - root user password (for administrator)
+ORIGIN_URL - origin url (ex. example.com)
+SHOP_ID - shop id from yookassa shop
+SECRET_KEY - shop secret auth key for yookassa shop
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

@@ -8,6 +8,7 @@ export default defineEventHandler(async (event) => {
 
     return { res }
   } catch (error) {
+    console.error(`Schedules - Error: ${error} :: `, new Date())
     return createError({
       statusCode: 400,
       statusMessage: `${error}`
