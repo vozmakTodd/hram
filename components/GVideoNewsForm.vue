@@ -15,7 +15,6 @@ const rules = reactive<FormRules>({
     required(),
     {
       validator: (rule, value: string, callback) => {
-        console.log(value)
         const youtubeId = getYoutubeId(value)
         const rutubeId = getRutubeId(value)
 

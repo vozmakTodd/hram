@@ -41,6 +41,24 @@
 }
 
 @layer components {
+:root {
+  --el-font-size-base: 14px !important;
+}
+
+.el-checkbox {
+  --el-checkbox-font-size: 14px !important;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --el-font-size-base: 16px !important;
+  }
+
+  .el-checkbox {
+    --el-checkbox-font-size: 16px !important;
+  }
+}
+
   .el-button.is-link:hover {
     color: theme('colors.hram.light-1') !important;
   }

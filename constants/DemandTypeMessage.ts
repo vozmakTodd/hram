@@ -1,4 +1,4 @@
-import { EDemandType } from '~/types/demands'
+import { EDemandType } from '~/types/order'
 
 export const DEMAND_TYPE_MESSAGE: Record<EDemandType, string> = {
   [EDemandType.MOLEBEN]: 'Молебен (по средам согласно расписанию)',

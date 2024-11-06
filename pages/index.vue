@@ -24,7 +24,6 @@ useHead({
 const auth = useAuth()
 const newsRepo = useNewsRepo()
 const route = useRoute()
-const router = useRouter()
 
 const page = ref<number>(1)
 
@@ -36,9 +35,9 @@ const { data: news, refresh } = await useAsyncData('news', () => newsRepo.getAll
   lazy: true
 })
 
-const onPageChange = (val: number) => {
+const onPageChange = async (val: number) => {
   page.value = val
-  router.push({ query: { page: val } })
+  await navigateTo({ query: { page: val } })
   refresh()
 }
 </script>

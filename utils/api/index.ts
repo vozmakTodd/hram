@@ -1,4 +1,4 @@
-export { useDemandRepo } from './useDemandRepo'
+export { useOrderRepo } from './useOrderRepo'
 export { useNewsRepo } from './useNewsRepo'
 export { useScheduleRepo } from './useScheduleRepo'
-export { useCandleRepo } from './useCandleRepo'
+export { usePaymentRepo } from './usePaymentRepo'

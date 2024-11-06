@@ -1,4 +1,4 @@
-import { ECandle } from '~/types/candles'
+import { ECandle } from '~/types/order'
 
 export const CANDLE_MESSAGE: Record<ECandle, string> = {
   [ECandle.CHRIST]: 'Икона Господа Иисуса Христа (иконостас)',

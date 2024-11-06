@@ -6,7 +6,6 @@ import GEditNewsDialog from '~/components/GEditNewsDialog/GEditNewsDialog.vue'
 import { EXTENSIONS } from '~/components/GEditorField/constants/extensions'
 
 const route = useRoute()
-const router = useRouter()
 const newsRepo = useNewsRepo()
 const auth = useAuth()
 const viewport = useViewport()
@@ -55,7 +54,7 @@ const deleteNews = async () => {
         message: 'Новость успешно удалена',
         type: 'success'
       })
-      router.push('/')
+      await navigateTo('/')
     } catch {
       ElNotification({
         title: 'Ошибка',

@@ -38,17 +38,17 @@ const rules = reactive<FormRules>({
     }
   ]
 })
-const schedule = reactive<IScheduleModel>({
+const schedule = computed<IScheduleModel>(() => ({
   _id: props.data.id,
   type: props.data.type,
   description: props.data?.description || {}
-})
+}))
 const scheduleRepo = useScheduleRepo()
 
 const updateSchedule = async () => {
   if (!(await ruleFormRef.value?.validate())) return
   try {
-    await scheduleRepo.put(schedule)
+    await scheduleRepo.put(schedule.value)
     ElNotification({
       title: 'Успех',
       message: 'Расписание успешно изменено',
@@ -66,7 +66,7 @@ const updateSchedule = async () => {
 }
 
 const onDescriptionChange = (v: JSONContent) => {
-  schedule.description = v
+  schedule.value.description = v
   ruleFormRef.value!.validateField('description').catch(() => {})
 }
 </script>

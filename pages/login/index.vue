@@ -15,7 +15,6 @@ useSeoMeta({
 
 const auth = useAuth()
 const route = useRoute()
-const router = useRouter()
 
 const loginForm = reactive<ILoginReq>({
   login: '',
@@ -32,7 +31,7 @@ if (route.query.error) {
     message: 'Неправильный логин или пароль',
     type: 'error'
   })
-  router.replace({ query: {} })
+  await navigateTo({ query: {} }, { replace: true })
 }
 
 const ruleFormRef = ref<FormInstance>()

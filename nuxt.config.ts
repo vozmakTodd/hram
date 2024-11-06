@@ -76,7 +76,7 @@ export default defineNuxtConfig({
     rootPass: ''
   },
   auth: {
-    baseURL: process.env.AUTH_ORIGIN,
+    baseURL: process.env.ORIGIN_URL,
     provider: {
       type: 'authjs'
     }
