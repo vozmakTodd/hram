@@ -33,6 +33,14 @@ export const OrderModel = defineMongooseModel<IOrderModel | IDemandModel | ICand
         },
         status: {
           type: String
+        },
+        amount: {
+          value: {
+            type: String
+          },
+          currency: {
+            type: String
+          }
         }
       }
     }

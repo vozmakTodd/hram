@@ -5,7 +5,7 @@
     class="g-page-content flex flex-col gap-4 overflow-auto bg-white rounded-2xl px-6 pb-6 pt-4"
     style="max-width: calc(1150px * 0.7)"
   >
-    <ContentDoc class="prose max-w-full">
+    <ContentDoc class="prose text-sm lg:text-base max-w-full">
       <template #not-found>
         <GPageError />
       </template>

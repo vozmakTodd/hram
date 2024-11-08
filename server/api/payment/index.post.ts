@@ -16,6 +16,8 @@ export default defineEventHandler<{
         value: body.order.price,
         currency: 'RUB'
       },
+      save_payment_method: false,
+      description: 'Пожертвование храму',
       confirmation: {
         type: 'redirect',
         return_url: process.env.ORIGIN_URL
