@@ -196,6 +196,7 @@ defineExpose({
 
 .container,
 .container :deep(.ProseMirror) {
+  @apply text-sm lg:text-base;
   max-width: unset;
 }
 

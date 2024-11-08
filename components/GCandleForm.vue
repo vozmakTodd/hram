@@ -45,7 +45,7 @@ const accept = async () => {
 <template>
   <el-form
     ref="ruleFormRef"
-    :model="candles"
+    :model="candles.candle"
     :rules="rules"
     label-width="auto"
     label-position="top"

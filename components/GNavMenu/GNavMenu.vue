@@ -118,7 +118,7 @@ const links = useState<ILink[]>('links', () => [
 
 .g-menu--horizontal :deep(.el-menu-item),
 .g-menu--horizontal :deep(.el-sub-menu__title) {
-  @apply h-full text-base;
+  @apply h-full text-sm lg:text-base;
 }
 
 .g-menu--horizontal :deep(.el-menu) {
@@ -141,6 +141,6 @@ const links = useState<ILink[]>('links', () => [
 
 <style lang="postcss">
 .g-popper--horizontal .el-menu-item {
-  @apply text-sm;
+  @apply text-sm lg:text-base;
 }
 </style>

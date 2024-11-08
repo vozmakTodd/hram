@@ -33,7 +33,7 @@ export const checkPayment = async (paymentId: string) => {
           console.error(`Check payment - Error: ${e} :: `, new Date())
           clearInterval(paymentCheckInterval)
         }
-      }, 60000)
+      }, 540000)
     } else {
       throw new Error(`Order with paymentId: ${paymentId}`)
     }

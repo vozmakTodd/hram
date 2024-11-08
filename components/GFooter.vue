@@ -11,7 +11,6 @@ const iconSize = computed(() => (viewport.isLessThan('md') ? '16px' : '18px'))
     <span class="mr-0 md:mr-auto text-center md:text-start md:text-sm text-2sm"
       >Храм вмч. Георгия Победоносца в Куркине г. Москвы</span
     >
-    <ElButton type="primary" class="my-auto"> Помочь храму </ElButton>
     <ul class="flex items-center justify-center ml-0 md:ml-auto gap-4">
       <li>
         <ElButton size="large" circle link

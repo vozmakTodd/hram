@@ -32,13 +32,18 @@ useHead({
   >
     <GCard title="Контакты">
       <template #content>
-        <div class="flex gap-2 flex-col text-sm">
+        <div class="flex gap-2 flex-col text-sm lg:text-base">
           <p>
             <ElLink href="https://yandex.ru/maps/-/CDwOAINq" target="_blank">
               г. Москва, ул. Воротынская, д. 14 стр. 1
             </ElLink>
           </p>
           <p>Пн-Вс: с 08.00 до 20.00</p>
+          <p>
+            Для записи на проведение таинств Венчания, Крещения, Отпевания и для заказа требы на
+            освящение помещения/авто, звоните по телефону церковной лавки:
+            <ElLink href="tel:+79165000810">TODO</ElLink>
+          </p>
           <p>ТРАПЕЗНАЯ открыта с 11.00 до 17.00</p>
           <p><ElLink href="tel:+79165000810">+ 7 (916) 500-08-10</ElLink></p>
           <p><ElLink href="mailto:info@georgkurkino.ru">info@georgkurkino.ru</ElLink></p>
