@@ -38,8 +38,8 @@ yarn preview
 
 Make sure that you filled all necessary environment variables
 
-MONGODB_URI - Mongo db address (ex. "mongodb://admin:password@localhost:27017")
-NUXT_MAIL_HOST - smtp host (ex. "smtp.example.email")
+* MONGODB_URI - Mongo db address (ex. "mongodb://admin:password@localhost:27017")
+* NUXT_MAIL_HOST - smtp host (ex. "smtp.example.email")
 NUXT_MAIL_PORT - smtp port (ex. "587")
 NUXT_MAIL_USER - mail-box address (ex. "info@example.com")
 NUXT_MAIL_PASS - mail-box password
