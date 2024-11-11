@@ -28,9 +28,8 @@ export default defineNuxtConfig({
   },
   viewport: {
     breakpoints: {
-      xs: 320,
-      sm: 640,
-      md: 768,
+      sm: 320,
+      md: 640,
       lg: 1024,
       laptop: 1300,
       xl: 1280,

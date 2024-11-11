@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const route = useRoute()
+const viewport = useViewport()
 </script>
 
 <template>
@@ -10,7 +11,12 @@ const route = useRoute()
       <el-container class="pt-[70px] h-full items-end" direction="vertical">
         <el-main
           class="self-center w-full mx-auto max-w-[864px] p-0"
-          style="overflow: unset; min-height: calc(100vh - 70px - 60px)"
+          :style="{
+            overflow: 'unset',
+            'min-height': viewport.isLessThan('md')
+              ? 'calc(100vh - 70px - 86px)'
+              : 'calc(100vh - 70px - 60px)'
+          }"
         >
           <el-carousel
             v-if="route.name === 'index'"

@@ -29,7 +29,7 @@ export default defineEventHandler(async (event) => {
 
     if (news.type === ENewsType.TEXT) {
       news.images?.forEach((val) => {
-        fs.unlink(`public/news/${val.file}${val.extension}`, (err) => {
+        fs.unlink(`server/uploads/${val.file}${val.extension}`, (err) => {
           if (err) {
             console.error(
               `News - Error: Can't remove file ${val.file}${val.extension}: ${err} :: `,

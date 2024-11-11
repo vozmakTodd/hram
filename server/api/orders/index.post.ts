@@ -1,4 +1,3 @@
-import nodemailer from 'nodemailer'
 import { isDemandModel } from '~/components/typeguards'
 import { OrderModel } from '~/server/models/order.model'
 import { getDemandMailMessage } from '~/server/utils/getDemandMailMessage'
@@ -21,8 +20,6 @@ export default defineEventHandler<{
     )
 
     console.info(`Orders - Info: E-mail has been sent id: ${orderMail.messageId} :: `, new Date())
-
-    console.log(nodemailer.getTestMessageUrl(orderMail))
 
     return {
       id: res.id
