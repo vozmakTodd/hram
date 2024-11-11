@@ -115,7 +115,7 @@ const editNews = () => {
             </ElCarouselItem>
           </ElCarousel>
         </div>
-        <section class="news__content-wrapper">
+        <section class="news__content-wrapper p-3 md:p-0">
           <h2 class="news__title">{{ news!.res.title }}</h2>
           <div class="news__content">
             <GHtmlContent v-if="news!.res.description" :content="news!.res.description" />
@@ -129,7 +129,7 @@ const editNews = () => {
 
 <style scoped lang="postcss">
 .news {
-  @apply min-h-52 bg-white rounded-2xl px-6 pb-6 pt-4 mx-4 lg:mx-0 flex flex-col gap-4 w-full;
+  @apply min-h-52 bg-white rounded-2xl mx-4 lg:mx-0 p-0 md:px-6 md:pb-6 md:pt-4 flex flex-col w-full;
 }
 
 .news__video {
@@ -159,7 +159,7 @@ const editNews = () => {
 
 .news__images :deep(.el-image),
 .news__video iframe {
-  @apply rounded-2xl;
+  @apply rounded-t-2xl md:rounded-2xl;
 }
 
 .news__content-wrapper {
@@ -167,6 +167,6 @@ const editNews = () => {
 }
 
 .news__title {
-  @apply text-hram text-lg;
+  @apply text-hram text-base md:text-lg;
 }
 </style>

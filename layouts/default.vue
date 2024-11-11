@@ -4,7 +4,7 @@ const route = useRoute()
 
 <template>
   <div class="common-layout min-h-[100vh]">
-    <ElBacktop />
+    <ElBacktop class="right-0 left-6" />
     <el-container class="h-full" direction="vertical">
       <GHeader class="common-layout__header fixed z-50 w-full" />
       <el-container class="pt-[70px] h-full items-end" direction="vertical">
@@ -47,5 +47,10 @@ const route = useRoute()
 
 .common-layout :deep(.common-layout__carousel .el-carousel__indicators) {
   display: none;
+}
+</style>
+<style lang="postcss">
+.el-notification {
+  --el-notification-width: auto;
 }
 </style>

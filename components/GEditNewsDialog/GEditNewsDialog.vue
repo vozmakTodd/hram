@@ -28,7 +28,7 @@ const getFormatedNews = (
     return {
       ...news,
       images: news.images?.map((val) => {
-        const url = `/news/${val.file}${val.extension}`
+        const url = `/api/files/${val.file}${val.extension}`
 
         imageCashMap.set(url, val)
 

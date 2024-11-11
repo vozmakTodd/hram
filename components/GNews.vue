@@ -12,9 +12,9 @@ const articleRef = ref<HTMLInputElement | null>(null)
     ref="articleRef"
     class="news flex flex-col-reverse md:flex-row sm:h-[317px] md:h-[208px] lg:h-[202px] rounded-2xl"
   >
-    <div class="flex flex-col bg-white w-full py-4 px-6 pl-6 h-[157px] md:h-auto md:flex-[2_2]">
-      <h2 class="news__title text-hram text-lg font-bold">{{ news.title }}</h2>
-      <section class="news__text h-full overflow-hidden relative mb-2">
+    <div class="flex flex-col bg-white w-full p-3 min-h-[158px] md:h-auto md:flex-[2_2]">
+      <h2 class="news__title">{{ news.title }}</h2>
+      <section class="news__text h-full flex-grow overflow-hidden relative mb-2">
         <GHtmlContent v-if="news.description" :content="news.description" />
       </section>
       <div class="flex gap-2 mt-auto items-baseline">
@@ -79,6 +79,16 @@ const articleRef = ref<HTMLInputElement | null>(null)
 <style scoped lang="postcss">
 .news {
   @apply overflow-hidden relative;
+}
+
+.news__title {
+  @apply text-hram text-base md:text-lg flex-shrink-0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .news__images :deep(.el-carousel__item) .el-carousel__mask {
