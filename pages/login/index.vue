@@ -56,7 +56,7 @@ const onLogout = async () => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-5 overflow-auto bg-white rounded p-4">
+  <div class="flex flex-col gap-5 overflow-auto bg-white rounded p-3 md:px-6 md:pb-6 md:pt-4">
     <GCard v-if="auth.status.value === 'unauthenticated'" title="Авторизация">
       <template #content>
         <el-form

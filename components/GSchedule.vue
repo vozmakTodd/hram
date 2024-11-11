@@ -19,7 +19,7 @@ const isEdit = ref<boolean>(false)
 </script>
 
 <template>
-  <div class="flex flex-col gap-5 items-center">
+  <div class="schedule flex flex-col gap-5 items-center">
     <div class="flex justify-end w-full px-4 md:px-6 lg:px-0">
       <ElButton v-if="auth.status.value === 'authenticated'" type="primary" @click="isEdit = true"
         >Редактировать</ElButton
@@ -27,7 +27,7 @@ const isEdit = ref<boolean>(false)
     </div>
     <div
       v-loading="status === 'pending'"
-      class="bg-white rounded-2xl px-6 pb-6 pt-4 w-full min-h-[350px]"
+      class="bg-white rounded-2xl p-3 md:px-6 md:pb-6 md:pt-4 w-full min-h-[350px]"
     >
       <GCard :title>
         <template #content>
@@ -48,4 +48,4 @@ const isEdit = ref<boolean>(false)
   </div>
 </template>
 
-<style scoped></style>
+<style scoped lang="postcss"></style>

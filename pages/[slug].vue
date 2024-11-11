@@ -2,7 +2,7 @@
 
 <template>
   <div
-    class="g-page-content flex flex-col gap-4 overflow-auto bg-white rounded-2xl px-6 pb-6 pt-4"
+    class="g-page-content flex flex-col gap-4 overflow-auto bg-white rounded-2xl p-3 md:px-6 md:pb-6 md:pt-4"
     style="max-width: calc(1150px * 0.7)"
   >
     <ContentDoc class="prose text-sm lg:text-base max-w-full">
