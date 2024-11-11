@@ -47,7 +47,7 @@ export default defineEventHandler<{
           if (val._id && !body.deleteFiles!.includes(val._id.toString())) {
             acc.push(val)
           } else {
-            fs.unlink(`public/news/${val.file}${val.extension}`, (err) => {
+            fs.unlink(`server/uploads/${val.file}${val.extension}`, (err) => {
               if (err) {
                 console.error(
                   `News - Error: Can't remove file ${val.file}${val.extension}: ${err} :: `,
