@@ -64,12 +64,6 @@ const onRemove = (uploadFile: UploadFile) => {
   emit('deleteFile', uploadFile)
 }
 
-onUnmounted(() => {
-  value.value.images = []
-  value.value.title = ''
-  value.value.description = {}
-})
-
 defineExpose({
   validate
 })

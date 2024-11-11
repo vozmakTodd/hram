@@ -38,10 +38,10 @@ export default defineEventHandler<{
       })
     }
 
-    if (news.type === ENewsType.TEXT && body.news.type === ENewsType.TEXT) {
-      news.title = body.news.title
-      news.description = body.news.description
+    news.title = body.news.title
+    news.description = body.news.description
 
+    if (news.type === ENewsType.TEXT && body.news.type === ENewsType.TEXT) {
       if (body.deleteFiles && body.deleteFiles.length && news.images) {
         news.images = news.images.reduce((acc: IFileMongoModel[], val) => {
           if (val._id && !body.deleteFiles!.includes(val._id.toString())) {
@@ -67,7 +67,6 @@ export default defineEventHandler<{
         ...(body.news.images ? saveImages(body.news.images) : [])
       ]
     } else if (news.type === ENewsType.VIDEO && body.news.type === ENewsType.VIDEO) {
-      news.title = body.news.title
       news.link = body.news.link
     } else {
       console.error(`News - Error: News has wrong type :: `, new Date())
