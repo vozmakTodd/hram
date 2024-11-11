@@ -129,7 +129,7 @@ const editNews = () => {
 
 <style scoped lang="postcss">
 .news {
-  @apply min-h-52 bg-white rounded-2xl mx-4 lg:mx-0 p-0 md:px-6 md:pb-6 md:pt-4 flex flex-col w-full;
+  @apply min-h-52 bg-white rounded-2xl mx-4 gap-0 sm:gap-3 lg:mx-0 p-0 md:px-6 md:pb-6 md:pt-4 flex flex-col w-full;
 }
 
 .news__video {

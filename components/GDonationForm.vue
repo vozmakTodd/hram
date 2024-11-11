@@ -19,7 +19,16 @@ const form = reactive<{ price: number | undefined }>({
   price: props.defaultPrice
 })
 const rules = reactive<FormRules>({
-  price: [required()]
+  price: [
+    required(),
+    {
+      validator: (rule, value) => {
+        return props.orderId ? true : value >= 350
+      },
+      message: 'Минимальная сумма пожертвования 350 руб.',
+      trigger: 'change'
+    }
+  ]
 })
 
 const makePayment = async () => {

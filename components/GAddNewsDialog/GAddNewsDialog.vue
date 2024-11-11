@@ -110,6 +110,20 @@ const createVideoNews = async () => {
 watch(dialog, () => {
   news.value = getInitialDialogFieldsState()
 })
+
+watch(
+  () => news.value.type,
+  () => {
+    news.value.title = ''
+    news.value.description = {}
+
+    if (news.value.type === ENewsType.TEXT) {
+      news.value.images = []
+    } else {
+      news.value.link = ''
+    }
+  }
+)
 </script>
 
 <template>

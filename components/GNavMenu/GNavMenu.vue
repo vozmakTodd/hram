@@ -55,7 +55,7 @@ const links = useState<ILink[]>('links', () => [
         label: 'Социальное служение'
       },
       {
-        index: '/war',
+        index: '/front',
         label: 'Помощь фронту'
       }
     ]
