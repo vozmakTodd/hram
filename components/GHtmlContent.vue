@@ -14,7 +14,7 @@ defineProps<{
 
 <style scoped lang="postcss">
 .prose {
-  @apply text-sm;
+  @apply text-sm lg:text-base;
   max-width: unset;
 }
 

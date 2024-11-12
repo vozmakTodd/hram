@@ -35,7 +35,7 @@ const viewport = useViewport()
               <NuxtImg class="w-full" format="webp" fit="fill" src="/img/carousel/3.jpg" />
             </el-carousel-item>
           </el-carousel>
-          <div class="py-4 lg:py-6 px-4 md:px-6 lg:px-0">
+          <div class="py-4 lg:py-5 px-4 md:px-5 lg:px-0">
             <slot></slot>
           </div>
         </el-main>
