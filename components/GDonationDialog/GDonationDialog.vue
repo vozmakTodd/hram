@@ -9,7 +9,12 @@ const handleClose = () => {
 </script>
 
 <template>
-  <el-dialog v-model="value" title="Помочь храму" :fullscreen="viewport.isLessThan('md')">
+  <el-dialog
+    v-model="value"
+    title="Помочь храму"
+    width="300px"
+    :fullscreen="viewport.isLessThan('md')"
+  >
     <div class="flex flex-col w-full gap-4">
       <GDonationForm @close="handleClose" />
     </div>

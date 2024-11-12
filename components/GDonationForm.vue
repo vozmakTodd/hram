@@ -65,7 +65,7 @@ const makePayment = async () => {
     label-position="top"
     status-icon
   >
-    <el-form-item label="Сумма рекомендованного пожертвования" prop="price" class="min-h-24">
+    <el-form-item label="Сумма пожертвования" prop="price" class="min-h-24">
       <el-input-number v-model="form.price" :controls="false">
         <template #suffix>
           <span>РУБ.</span>
