@@ -66,37 +66,40 @@ const demandPrices = reactive<
 })
 
 const accept = async () => {
-  if (!(await ruleFormRef.value?.validate())) return
-  try {
-    loading.value = true
-    const names = demand.value.names.reduce((acc: string[], val) => {
-      if (val.value) {
-        acc.push(val.value)
+  await ruleFormRef.value?.validate(async (valid) => {
+    if (valid) {
+      try {
+        loading.value = true
+        const names = demand.value.names.reduce((acc: string[], val) => {
+          if (val.value) {
+            acc.push(val.value)
+          }
+          return acc
+        }, [])
+        const res = await orderRepo.post({
+          demand: {
+            demandType: demand.value.demandType!,
+            names
+          }
+        })
+        ElNotification({
+          title: 'Успех',
+          message: 'Заказ успешно отправлен',
+          type: 'success'
+        })
+        const typePrice = demandPrices[demand.value.demandType!].price
+        emit('accept', res.id, typeof typePrice === 'number' ? typePrice : typePrice(names.length))
+      } catch {
+        ElNotification({
+          title: 'Ошибка',
+          message: 'Ошибка при отправке заказа',
+          type: 'error'
+        })
+      } finally {
+        loading.value = false
       }
-      return acc
-    }, [])
-    const res = await orderRepo.post({
-      demand: {
-        demandType: demand.value.demandType!,
-        names
-      }
-    })
-    ElNotification({
-      title: 'Успех',
-      message: 'Заказ успешно отправлен',
-      type: 'success'
-    })
-    const typePrice = demandPrices[demand.value.demandType!].price
-    emit('accept', res.id, typeof typePrice === 'number' ? typePrice : typePrice(names.length))
-  } catch {
-    ElNotification({
-      title: 'Ошибка',
-      message: 'Ошибка при отправке заказа',
-      type: 'error'
-    })
-  } finally {
-    loading.value = false
-  }
+    }
+  })
 }
 </script>
 

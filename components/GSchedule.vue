@@ -34,7 +34,6 @@ const isEdit = ref<boolean>(false)
           <GHtmlContent
             v-if="status === 'success' && schedule?.res"
             :content="schedule.res.description"
-            class="min-w-[500px]"
           />
           <div v-else>Страница пока пуста</div>
         </template>

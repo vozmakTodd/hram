@@ -12,7 +12,7 @@ const articleRef = ref<HTMLInputElement | null>(null)
     ref="articleRef"
     class="news flex flex-col-reverse md:flex-row sm:h-[317px] md:h-[208px] lg:h-[202px] rounded-2xl"
   >
-    <div class="flex flex-col bg-white w-full p-3 min-h-[158px] md:h-auto md:flex-[2_2]">
+    <div class="flex flex-col bg-white p-3 min-h-[158px] w-full md:w-2/3 md:h-auto">
       <h2 class="news__title">{{ news.title }}</h2>
       <section class="news__text h-full flex-grow overflow-hidden relative mb-2">
         <GHtmlContent v-if="news.description" :content="news.description" />
@@ -38,10 +38,7 @@ const articleRef = ref<HTMLInputElement | null>(null)
         </NuxtLink>
       </div>
     </div>
-    <div
-      v-if="news.type === ENewsType.VIDEO"
-      class="news__video w-full md:w-[275px] md:flex-[1_1] bg-white"
-    >
+    <div v-if="news.type === ENewsType.VIDEO" class="news__video w-full md:w-1/3 bg-white">
       <iframe
         width="560"
         height="240"
@@ -54,7 +51,7 @@ const articleRef = ref<HTMLInputElement | null>(null)
         mozallowfullscreen
       ></iframe>
     </div>
-    <div v-else class="news__images w-full md:w-[275px] md:flex-[1_1] bg-white">
+    <div v-else class="news__images w-full md:w-1/3 bg-white">
       <ElCarousel
         v-if="news.images"
         class="h-[165px] md:h-full"

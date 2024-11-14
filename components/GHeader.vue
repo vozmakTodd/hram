@@ -33,7 +33,7 @@ const handleCommand = (type: EOrderDropdownCommand) => {
         <ElButton type="primary" class="my-auto" @click="donationDialog = true">
           Помочь храму
         </ElButton>
-        <el-dropdown @command="handleCommand">
+        <el-dropdown trigger="click" @command="handleCommand">
           <el-button type="primary">
             Заказать требы<el-icon class="el-icon--right"><Icon name="bx:chevron-down" /></el-icon>
           </el-button>

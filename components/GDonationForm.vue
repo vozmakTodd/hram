@@ -23,36 +23,39 @@ const rules = reactive<FormRules>({
     required(),
     {
       validator: (rule, value) => {
-        return props.orderId ? true : value >= 350
+        return props.orderId ? value >= 50 : value >= 350
       },
-      message: 'Минимальная сумма пожертвования 350 руб.',
+      message: `Минимальная сумма пожертвования ${props.orderId ? 50 : 350} руб.`,
       trigger: 'change'
     }
   ]
 })
 
 const makePayment = async () => {
-  if (!(await ruleFormRef.value?.validate())) return
-  try {
-    loading.value = true
+  await ruleFormRef.value?.validate(async (valid) => {
+    if (valid) {
+      try {
+        loading.value = true
 
-    const res = await paymentRepo.post({
-      id: props.orderId,
-      price: form.price!.toString()
-    })
+        const res = await paymentRepo.post({
+          id: props.orderId,
+          price: form.price!.toString()
+        })
 
-    await navigateTo(res.confirmationUrl, {
-      external: true
-    })
-  } catch {
-    ElNotification({
-      title: 'Ошибка',
-      message: 'Ошибка при создании оплаты',
-      type: 'error'
-    })
-  } finally {
-    loading.value = false
-  }
+        await navigateTo(res.confirmationUrl, {
+          external: true
+        })
+      } catch {
+        ElNotification({
+          title: 'Ошибка',
+          message: 'Ошибка при создании оплаты',
+          type: 'error'
+        })
+      } finally {
+        loading.value = false
+      }
+    }
+  })
 }
 </script>
 

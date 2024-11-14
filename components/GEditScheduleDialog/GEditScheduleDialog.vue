@@ -46,23 +46,29 @@ const schedule = computed<IScheduleModel>(() => ({
 const scheduleRepo = useScheduleRepo()
 
 const updateSchedule = async () => {
-  if (!(await ruleFormRef.value?.validate())) return
-  try {
-    await scheduleRepo.put(schedule.value)
-    ElNotification({
-      title: 'Успех',
-      message: 'Расписание успешно изменено',
-      type: 'success'
-    })
-    emit('change')
-    value.value = false
-  } catch {
-    ElNotification({
-      title: 'Ошибка',
-      message: 'Ошибка при редактировании расписания',
-      type: 'error'
-    })
-  }
+  await ruleFormRef.value?.validate(async (valid) => {
+    if (valid) {
+      try {
+        loading.value = true
+        await scheduleRepo.put(schedule.value)
+        ElNotification({
+          title: 'Успех',
+          message: 'Расписание успешно изменено',
+          type: 'success'
+        })
+        emit('change')
+        value.value = false
+      } catch {
+        ElNotification({
+          title: 'Ошибка',
+          message: 'Ошибка при редактировании расписания',
+          type: 'error'
+        })
+      } finally {
+        loading.value = false
+      }
+    }
+  })
 }
 
 const onDescriptionChange = (v: JSONContent) => {

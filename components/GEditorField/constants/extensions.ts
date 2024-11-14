@@ -32,7 +32,11 @@ export const EXTENSIONS = [
   }),
   History,
   Gapcursor,
-  Table.configure({
+  Table.extend({
+    renderHTML({ HTMLAttributes }) {
+      return ['div', { class: 'table-wrapper' }, ['table', HTMLAttributes, 0]]
+    }
+  }).configure({
     resizable: true
   }),
   TableRow,
