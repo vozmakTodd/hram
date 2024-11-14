@@ -29,7 +29,7 @@ const handleClose = () => {
     v-model="value"
     title="Заказ"
     destroy-on-close
-    :width="active === 0 ? undefined : '300px'"
+    :width="active === 0 ? '500px' : '300px'"
     :fullscreen="viewport.isLessThan('md')"
     @open="active = 0"
   >

@@ -18,20 +18,22 @@ defineProps<{
   max-width: unset;
 }
 
-.prose :deep(table) {
-  border-collapse: collapse;
-  margin: 0;
-  overflow: hidden;
-  table-layout: fixed;
-  width: 100%;
+.prose :deep(.table-wrapper) {
+  @apply overflow-x-auto;
 }
 
-.prose :deep(table td) {
+.prose :deep(.table-wrapper table) {
+  @apply m-0 min-w-[500px];
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.prose :deep(.table-wrapper table td) {
   @apply h-10 break-words;
 }
 
-.prose :deep(table td),
-.prose :deep(table th) {
+.prose :deep(.table-wrapper table td),
+.prose :deep(.table-wrapper table th) {
   border: 1px solid theme('colors.hram.light-4');
   box-sizing: border-box;
   min-width: 1em;
@@ -40,28 +42,22 @@ defineProps<{
   vertical-align: top;
 }
 
-.prose :deep(table p) {
+.prose :deep(.table-wrapper table p) {
   @apply m-0;
 }
 
-.prose :deep(table th > *),
-.prose :deep(table td > *) {
+.prose :deep(.table-wrapper table th > *),
+.prose :deep(.table-wrapper table td > *) {
   margin-bottom: 0;
 }
 
-.prose :deep(table th) {
+.prose :deep(.table-wrapper table th) {
   background-color: theme('colors.hram.light-5');
   font-weight: bold;
   text-align: left;
 }
 
-.prose :deep(table th) {
+.prose :deep(.table-wrapper table th) {
   color: theme('colors.hram.DEFAULT');
-}
-
-.prose :deep(table) {
-  @apply rounded;
-  margin: 1.5rem 0;
-  overflow-x: auto;
 }
 </style>

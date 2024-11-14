@@ -20,25 +20,28 @@ const rules = reactive<FormRules>({
 })
 
 const accept = async () => {
-  if (!(await ruleFormRef.value?.validate())) return
-  try {
-    loading.value = true
-    const res = await orderRepo.post(candles.value)
-    ElNotification({
-      title: 'Успех',
-      message: 'Заказ успешно отправлен',
-      type: 'success'
-    })
-    emit('accept', res.id, 50 * candles.value.candle.list.length)
-  } catch {
-    ElNotification({
-      title: 'Ошибка',
-      message: 'Ошибка при отправке заказа',
-      type: 'error'
-    })
-  } finally {
-    loading.value = false
-  }
+  await ruleFormRef.value?.validate(async (valid) => {
+    if (valid) {
+      try {
+        loading.value = true
+        const res = await orderRepo.post(candles.value)
+        ElNotification({
+          title: 'Успех',
+          message: 'Заказ успешно отправлен',
+          type: 'success'
+        })
+        emit('accept', res.id, 50 * candles.value.candle.list.length)
+      } catch {
+        ElNotification({
+          title: 'Ошибка',
+          message: 'Ошибка при отправке заказа',
+          type: 'error'
+        })
+      } finally {
+        loading.value = false
+      }
+    }
+  })
 }
 </script>
 

@@ -25,34 +25,34 @@ const rules = reactive<FormRules<ILoginReq>>({
   password: [required()]
 })
 
-if (route.query.error) {
-  ElNotification({
-    title: 'Ошибка авторизации',
-    message: 'Неправильный логин или пароль',
-    type: 'error'
-  })
-  await navigateTo({ query: {} }, { replace: true })
-}
-
 const ruleFormRef = ref<FormInstance>()
 
 const onSubmit = async () => {
-  if (ruleFormRef.value) {
-    await ruleFormRef.value.validate(async (valid) => {
-      if (valid) {
-        await auth.signIn('credentials', {
-          username: loginForm.login,
-          password: loginForm.password,
-          callbackUrl: '/'
-        })
-      }
-    })
-  }
+  await ruleFormRef.value?.validate(async (valid) => {
+    if (valid) {
+      await auth.signIn('credentials', {
+        username: loginForm.login,
+        password: loginForm.password,
+        callbackUrl: '/'
+      })
+    }
+  })
 }
 
 const onLogout = async () => {
   await auth.signOut()
 }
+
+onMounted(() => {
+  if (route.query.error) {
+    ElNotification({
+      title: 'Ошибка авторизации',
+      message: 'Неправильный логин или пароль',
+      type: 'error'
+    })
+    navigateTo({ query: {} }, { replace: true })
+  }
+})
 </script>
 
 <template>
