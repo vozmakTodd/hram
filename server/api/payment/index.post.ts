@@ -67,10 +67,10 @@ export default defineEventHandler<{
       confirmationUrl: payment.confirmation.confirmation_url
     }
   } catch (error) {
-    console.error(`Payment - Error: ${error} :: `, new Date())
+    console.error(`Payment - Error: ${typeof error === 'object' ? JSON.stringify(error) : error} :: `, new Date())
     return createError({
       statusCode: 400,
-      statusMessage: `${error}`
+      statusMessage: `${typeof error === 'object' ? JSON.stringify(error) : error}`
     })
   }
 })
