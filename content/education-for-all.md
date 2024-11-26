@@ -5,6 +5,9 @@ head:
   meta:
     - name: 'keywords'
       content: 'храм куркино, куркино, храм, школа для всех, школа'
+sitemap:
+  loc: /education-for-all
+  lastmod: 2024-11-26
 ---
 
 ::gCard

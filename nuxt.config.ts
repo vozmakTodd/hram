@@ -19,13 +19,10 @@ export default defineNuxtConfig({
     '@nuxt/content',
     '@nuxt/image',
     '@sidebase/nuxt-auth',
-    'nuxt-viewport'
+    'nuxt-viewport',
+    '@nuxtjs/robots',
+    '@nuxtjs/sitemap'
   ],
-  app: {
-    head: {
-      script: [{ src: 'https://yookassa.ru/checkout-widget/v1/checkout-widget.js' }]
-    }
-  },
   viewport: {
     breakpoints: {
       sm: 320,
@@ -79,5 +76,13 @@ export default defineNuxtConfig({
     provider: {
       type: 'authjs'
     }
+  },
+  robots: {
+    blockNonSeoBots: true,
+    disallow: ['/login']
+  },
+  site: {
+    url: 'https://georgkurkino.ru',
+    name: 'Храм вмч. Георгия Победоносца в Куркине г. Москвы'
   }
 })

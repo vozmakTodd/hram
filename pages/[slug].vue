@@ -1,16 +1,18 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div
-    class="g-page-content flex flex-col gap-4 overflow-auto bg-white rounded-2xl p-3 md:px-6 md:pb-6 md:pt-4"
-    style="max-width: calc(1150px * 0.7)"
-  >
-    <ContentDoc class="prose text-sm lg:text-base max-w-full">
-      <template #not-found>
-        <GPageError />
-      </template>
-    </ContentDoc>
-  </div>
+  <NuxtLayout>
+    <div
+      class="g-page-content flex flex-col gap-4 overflow-auto bg-white rounded-2xl p-3 md:px-6 md:pb-6 md:pt-4"
+      style="max-width: calc(1150px * 0.7)"
+    >
+      <ContentDoc class="prose text-sm lg:text-base max-w-full">
+        <template #not-found>
+          <GPageError />
+        </template>
+      </ContentDoc>
+    </div>
+  </NuxtLayout>
 </template>
 
 <style scoped lang="postcss">

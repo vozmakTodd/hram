@@ -5,6 +5,9 @@ head:
   meta:
     - name: 'keywords'
       content: 'храм куркино, куркино, храм, школа, воскресная школа'
+sitemap:
+  loc: /sunday-school
+  lastmod: 2024-11-26
 ---
 
 ::gCard

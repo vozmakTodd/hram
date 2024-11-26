@@ -5,6 +5,9 @@ head:
   meta:
     - name: 'keywords'
       content: 'храм куркино, куркино, храм, социальное служение, социальная служба'
+sitemap:
+  loc: /social-serve
+  lastmod: 2024-11-26
 ---
 
 ::gCard

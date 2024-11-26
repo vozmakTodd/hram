@@ -43,30 +43,32 @@ const onPageChange = async (val: number) => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-5 items-center">
-    <div v-if="auth.status.value === 'authenticated'" class="flex justify-end w-full">
-      <GAddNewsDialog @change="onPageChange(1)" />
+  <NuxtLayout>
+    <div class="flex flex-col gap-5 items-center">
+      <div v-if="auth.status.value === 'authenticated'" class="flex justify-end w-full">
+        <GAddNewsDialog @change="onPageChange(1)" />
+      </div>
+      <p
+        v-if="!news?.content?.length"
+        class="flex flex-col justify-center items-center h-full bg-white rounded-2xl w-full p-6"
+      >
+        <span class="text-xl">Новостей нет</span>
+      </p>
+      <ul class="w-full">
+        <li v-for="(n, index) in news?.content" :key="index" class="mb-6">
+          <GNews :news="n" />
+        </li>
+      </ul>
+      <el-pagination
+        background
+        hide-on-single-page
+        layout="prev, pager, next, total"
+        :current-page="page"
+        :total="news?.pagination?.total"
+        @current-change="onPageChange"
+      />
     </div>
-    <p
-      v-if="!news?.content?.length"
-      class="flex flex-col justify-center items-center h-full bg-white rounded-2xl w-full p-6"
-    >
-      <span class="text-xl">Новостей нет</span>
-    </p>
-    <ul class="w-full">
-      <li v-for="(n, index) in news?.content" :key="index" class="mb-6">
-        <GNews :news="n" />
-      </li>
-    </ul>
-    <el-pagination
-      background
-      hide-on-single-page
-      layout="prev, pager, next, total"
-      :current-page="page"
-      :total="news?.pagination?.total"
-      @current-change="onPageChange"
-    />
-  </div>
+  </NuxtLayout>
 </template>
 
 <style scoped></style>

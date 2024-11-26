@@ -73,58 +73,60 @@ const editNews = () => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-5 items-center">
-    <div
-      v-if="auth.status.value === 'authenticated'"
-      class="flex justify-end w-full px-4 md:px-6 lg:px-0"
-    >
-      <ElButton type="primary" @click="editNews">Редактировать</ElButton>
-      <ElButton type="primary" @click="deleteNews">Удалить</ElButton>
-    </div>
-    <article v-loading="status === 'pending'" class="news">
-      <GPageError v-if="status === 'error' || !news || !news.res" />
-      <template v-else-if="status === 'success' && news!.res">
-        <div v-if="news!.res.type === ENewsType.VIDEO" class="news__video">
-          <iframe
-            width="560"
-            height="240"
-            :src="news!.res.link"
-            :title="news!.res.title"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-            webkitAllowFullScreen
-            mozallowfullscreen
-          ></iframe>
-        </div>
-        <div v-else class="news__images">
-          <ElCarousel
-            v-if="news!.res.images"
-            :type="viewport.isLessThan('md') ? '' : 'card'"
-            :arrow="news!.res.images.length > 1 ? 'hover' : 'never'"
-            :autoplay="false"
-          >
-            <ElCarouselItem v-for="(image, index) in news!.res.images" :key="index">
-              <ElImage
-                :src="`/api/files/${image.file}${image.extension}`"
-                :preview-src-list="[`/api/files/${image.file}${image.extension}`]"
-                fit="cover"
-                class="h-full w-full"
-                preview-teleported
-              ></ElImage>
-            </ElCarouselItem>
-          </ElCarousel>
-        </div>
-        <section class="news__content-wrapper p-3 md:p-0">
-          <h2 class="news__title">{{ news!.res.title }}</h2>
-          <div class="news__content">
-            <GHtmlContent v-if="news!.res.description" :content="news!.res.description" />
+  <NuxtLayout>
+    <div class="flex flex-col gap-5 items-center">
+      <div
+        v-if="auth.status.value === 'authenticated'"
+        class="flex justify-end w-full px-4 md:px-6 lg:px-0"
+      >
+        <ElButton type="primary" @click="editNews">Редактировать</ElButton>
+        <ElButton type="primary" @click="deleteNews">Удалить</ElButton>
+      </div>
+      <article v-loading="status === 'pending'" class="news">
+        <GPageError v-if="status === 'error' || !news || !news.res" />
+        <template v-else-if="status === 'success' && news!.res">
+          <div v-if="news!.res.type === ENewsType.VIDEO" class="news__video">
+            <iframe
+              width="560"
+              height="240"
+              :src="news!.res.link"
+              :title="news!.res.title"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+              webkitAllowFullScreen
+              mozallowfullscreen
+            ></iframe>
           </div>
-        </section>
-      </template>
-    </article>
-    <GEditNewsDialog ref="editNewsDialogRef" @change="refresh" />
-  </div>
+          <div v-else class="news__images">
+            <ElCarousel
+              v-if="news!.res.images"
+              :type="viewport.isLessThan('md') ? '' : 'card'"
+              :arrow="news!.res.images.length > 1 ? 'hover' : 'never'"
+              :autoplay="false"
+            >
+              <ElCarouselItem v-for="(image, index) in news!.res.images" :key="index">
+                <ElImage
+                  :src="`/api/files/${image.file}${image.extension}`"
+                  :preview-src-list="[`/api/files/${image.file}${image.extension}`]"
+                  fit="cover"
+                  class="h-full w-full"
+                  preview-teleported
+                ></ElImage>
+              </ElCarouselItem>
+            </ElCarousel>
+          </div>
+          <section class="news__content-wrapper p-3 md:p-0">
+            <h2 class="news__title">{{ news!.res.title }}</h2>
+            <div class="news__content">
+              <GHtmlContent v-if="news!.res.description" :content="news!.res.description" />
+            </div>
+          </section>
+        </template>
+      </article>
+      <GEditNewsDialog ref="editNewsDialogRef" @change="refresh" />
+    </div>
+  </NuxtLayout>
 </template>
 
 <style scoped lang="postcss">

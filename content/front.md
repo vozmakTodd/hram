@@ -5,6 +5,9 @@ head:
   meta:
     - name: 'keywords'
       content: 'храм куркино, куркино, храм, помощь фронту'
+sitemap:
+  loc: /front
+  lastmod: 2024-11-26
 ---
 
 ::gCard

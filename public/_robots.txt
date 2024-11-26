@@ -1,0 +1,4 @@
+User-agent: *
+# block pagination
+Disallow: /*?page=
+Sitemap: https://georgkurkino.ru/sitemap.xml

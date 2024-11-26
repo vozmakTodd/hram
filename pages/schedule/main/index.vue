@@ -20,7 +20,9 @@ useHead({
 </script>
 
 <template>
-  <GSchedule title="Расписание богослужений" :type="EScheduleType.MAIN" />
+  <NuxtLayout>
+    <GSchedule title="Расписание богослужений" :type="EScheduleType.MAIN" />
+  </NuxtLayout>
 </template>
 
 <style lang="postcss" scoped></style>

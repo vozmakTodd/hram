@@ -51,6 +51,8 @@
     "@nuxt/eslint": "0.5.7",
     "@nuxt/icon": "1.5.1",
     "@nuxt/image": "1.8.1",
+    "@nuxtjs/robots": "5.0.0",
+    "@nuxtjs/sitemap": "7.0.0",
     "@nuxtjs/tailwindcss": "6.12.1",
     "@popperjs/core": "npm:@sxzz/popperjs-es@^2.11.7",
     "@sidebase/nuxt-auth": "0.9.4",

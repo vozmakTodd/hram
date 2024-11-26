@@ -5,6 +5,9 @@ head:
   meta:
     - name: 'keywords'
       content: 'храм куркино, куркино, храм, духовенство, отец, священик, иерей, настоятель, клирик'
+sitemap:
+  loc: /priesthood
+  lastmod: 2024-11-26
 ---
 
 ::gCard
