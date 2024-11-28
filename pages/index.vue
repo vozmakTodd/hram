@@ -6,21 +6,9 @@ useSeoMeta({
   title: 'Новости',
   ogTitle: 'Новости',
   description: 'Актуальные события и новости из жизни храма вмч. Георгия Победоносца в Куркино',
-  ogDescription: 'Актуальные события и новости из жизни храма вмч. Георгия Победоносца в Куркино',
-  robots: {
-    index: true,
-    follow: true
-  }
+  ogDescription: 'Актуальные события и новости из жизни храма вмч. Георгия Победоносца в Куркино'
 })
-useHead({
-  title: 'Новости',
-  meta: [
-    {
-      name: 'description',
-      content: 'Актуальные события и новости из жизни храма вмч. Георгия Победоносца в Куркино'
-    }
-  ]
-})
+
 const auth = useAuth()
 const newsRepo = useNewsRepo()
 const route = useRoute()

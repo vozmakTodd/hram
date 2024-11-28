@@ -26,13 +26,22 @@ const viewport = useViewport()
             motion-blur
           >
             <el-carousel-item class="h-auto">
-              <NuxtImg class="w-full" format="webp" fit="fill" src="/img/carousel/1.jpg" />
+              <NuxtImg
+                class="w-full"
+                format="webp"
+                fit="fill"
+                src="/img/carousel/1.jpg"
+                placeholder
+              />
             </el-carousel-item>
             <el-carousel-item class="h-auto">
-              <NuxtImg class="w-full" format="webp" fit="fill" src="/img/carousel/2.jpg" />
-            </el-carousel-item>
-            <el-carousel-item class="h-auto">
-              <NuxtImg class="w-full" format="webp" fit="fill" src="/img/carousel/3.jpg" />
+              <NuxtImg
+                class="w-full"
+                format="webp"
+                fit="fill"
+                src="/img/carousel/2.jpg"
+                placeholder
+              />
             </el-carousel-item>
           </el-carousel>
           <div class="py-4 lg:py-5 px-4 md:px-5 lg:px-0">

@@ -84,5 +84,17 @@ export default defineNuxtConfig({
   site: {
     url: 'https://georgkurkino.ru',
     name: 'Храм вмч. Георгия Победоносца в Куркине г. Москвы'
+  },
+  sitemap: {
+    urls: [
+      {
+        loc: '/schedule/main',
+        changefreq: 'monthly'
+      },
+      {
+        loc: '/schedule/education-for-all',
+        changefreq: 'monthly'
+      }
+    ]
   }
 })

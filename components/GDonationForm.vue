@@ -23,9 +23,9 @@ const rules = reactive<FormRules>({
     required(),
     {
       validator: (rule, value) => {
-        return props.orderId ? value >= 50 : value >= 350
+        return props.orderId ? value >= 50 : true
       },
-      message: `Минимальная сумма пожертвования ${props.orderId ? 50 : 350} руб.`,
+      message: `Минимальная сумма пожертвования 50 руб.`,
       trigger: 'change'
     }
   ]
