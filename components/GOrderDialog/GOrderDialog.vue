@@ -2,7 +2,7 @@
 import GDemandForm from '../GDemandForm.vue'
 import { EOrderDropdownCommand } from '~/types/common'
 
-defineProps<{
+const props = defineProps<{
   type: EOrderDropdownCommand
 }>()
 const value = defineModel<boolean>()
@@ -12,6 +12,20 @@ const viewport = useViewport()
 const active = ref<number>(0)
 
 const orderData = reactive<{ id?: string; price?: number }>({})
+
+const title = computed<string>(() => {
+  if (props.type === EOrderDropdownCommand.CANDLE) {
+    if (active.value === 1) {
+      return 'Ваша свеча поставлена'
+    }
+    return 'Кому поставить?'
+  } else {
+    if (active.value === 1) {
+      return 'Ваша записка передана в алтарь'
+    }
+    return 'Выбрать требы'
+  }
+})
 
 const formAccept = async (id: string, recommendedPrice: number) => {
   orderData.id = id
@@ -27,9 +41,9 @@ const handleClose = () => {
 <template>
   <el-dialog
     v-model="value"
-    title="Заказ"
+    :title
     destroy-on-close
-    :width="active === 0 ? '500px' : '300px'"
+    :width="active === 0 ? '500px' : '400px'"
     :fullscreen="viewport.isLessThan('md')"
     @open="active = 0"
   >

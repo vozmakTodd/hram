@@ -5,9 +5,9 @@ useSeoMeta({
   title: 'Контакты',
   ogTitle: 'Контакты',
   description:
-    'Адрес храма: Москва район Куркино ул. Воротынская д. 14 с. 1 Ближайшая станция метро: Планерная.',
+    'Адрес храма: Москва район Куркино ул. Воротынская д. 14/1 Ближайшая станция метро: Планерная.',
   ogDescription:
-    'Адрес храма: Москва район Куркино ул. Воротынская д. 14 с. 1 Ближайшая станция метро: Планерная.'
+    'Адрес храма: Москва район Куркино ул. Воротынская д. 14/1 Ближайшая станция метро: Планерная.'
 })
 </script>
 
@@ -21,18 +21,22 @@ useSeoMeta({
         <template #content>
           <div class="flex gap-2 flex-col text-sm lg:text-base">
             <p>
-              <ElLink href="https://yandex.ru/maps/-/CDwOAINq" target="_blank">
-                г. Москва, ул. Воротынская, д. 14 стр. 1
+              <ElLink href="https://yandex.ru/maps/-/CHASq4pn" target="_blank">
+                г. Москва, ул. Воротынская, д. 14/1
               </ElLink>
             </p>
             <p>Пн-Вс: с 08.00 до 20.00</p>
+            <p>ТРАПЕЗНАЯ открыта с 11.00 до 17.00</p>
             <p>
               Для записи на проведение таинств Венчания, Крещения, Отпевания и для заказа требы на
-              освящение помещения/авто, звоните по телефону церковной лавки:
-              <ElLink href="tel:+79165000810">TODO</ElLink>
+              освящение помещения/авто, звоните в церковную лавку.
             </p>
-            <p>ТРАПЕЗНАЯ открыта с 11.00 до 17.00</p>
-            <p><ElLink href="tel:+79165000810">+ 7 (916) 500-08-10</ElLink></p>
+            <p>ЦЕРКОВНАЯ ЛАВКА: <ElLink href="tel:+79955005840">+7 (995) 500-58-40</ElLink></p>
+            <p>Для записи на занятия для детей и взрослых звоните в воскресную школу.</p>
+            <p>
+              ВОСКРЕСНАЯ ШКОЛА:
+              <span><ElLink href="tel:+79262138716">+7 (926) 213-87-16</ElLink></span>
+            </p>
             <p><ElLink href="mailto:info@georgkurkino.ru">info@georgkurkino.ru</ElLink></p>
           </div>
         </template>
@@ -42,7 +46,7 @@ useSeoMeta({
           <iframe
             title="yandexMap"
             class="rounded"
-            src="https://yandex.ru/map-widget/v1/?um=constructor%3A268184a913b0a3534b946397c71b21328b7938761cf8d54991913139e6768868&amp;source=constructor"
+            src="https://yandex.ru/map-widget/v1/?um=constructor%3Aaf4d5522c13727ab82a544dd77240a8aeaadb0f0fbb6ca145a561ee082217a59&amp;source=constructor"
             width="100%"
             height="400"
             frameborder="0"
@@ -53,4 +57,8 @@ useSeoMeta({
   </NuxtLayout>
 </template>
 
-<style scoped></style>
+<style lang="postcss" scoped>
+:deep(.el-link) {
+  vertical-align: unset;
+}
+</style>

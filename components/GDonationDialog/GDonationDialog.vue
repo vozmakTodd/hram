@@ -12,7 +12,7 @@ const handleClose = () => {
   <el-dialog
     v-model="value"
     title="Помочь храму"
-    width="300px"
+    width="400px"
     :fullscreen="viewport.isLessThan('md')"
   >
     <div class="flex flex-col w-full gap-4">

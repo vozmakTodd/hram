@@ -60,6 +60,7 @@ const articleRef = ref<HTMLInputElement | null>(null)
       >
         <ElCarouselItem v-for="(image, index) in news.images" :key="index">
           <ElImage
+            :alt="`news-image-${image.file}`"
             :src="`/api/files/${image.file}${image.extension}`"
             :preview-src-list="[`/api/files/${image.file}${image.extension}`]"
             fit="cover"

@@ -27,6 +27,7 @@ const viewport = useViewport()
           >
             <el-carousel-item class="h-auto">
               <NuxtImg
+                alt="carousel-image-1"
                 class="w-full"
                 format="webp"
                 fit="fill"
@@ -36,6 +37,7 @@ const viewport = useViewport()
             </el-carousel-item>
             <el-carousel-item class="h-auto">
               <NuxtImg
+                alt="carousel-image-1"
                 class="w-full"
                 format="webp"
                 fit="fill"

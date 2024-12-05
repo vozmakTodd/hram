@@ -76,7 +76,7 @@ const makePayment = async () => {
       </el-input-number>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="emits('close')">Закрыть</el-button>
+      <el-button type="primary" @click="emits('close')">Не жертвовать</el-button>
       <el-button class="ml-auto" type="primary" @click="makePayment">Пожертвовать</el-button>
     </el-form-item>
   </el-form>

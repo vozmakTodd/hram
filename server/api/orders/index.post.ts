@@ -13,13 +13,18 @@ export default defineEventHandler<{
 
     console.info(`Orders - Info: Order has been created id: ${res.id} :: `, new Date())
 
-    const orderMail = await useTransporter.sendMail(
-      isDemandModel(body.model)
-        ? getDemandMailMessage(body.model.demand)
-        : getCandleMailMessage(body.model.candle.list)
-    )
-
-    console.info(`Orders - Info: E-mail has been sent id: ${orderMail.messageId} :: `, new Date())
+    useTransporter
+      .sendMail(
+        isDemandModel(body.model)
+          ? getDemandMailMessage(body.model.demand)
+          : getCandleMailMessage(body.model.candle.list)
+      )
+      .then((mail) => {
+        console.info(`Orders - Info: E-mail has been sent id: ${mail.messageId} :: `, new Date())
+      })
+      .catch((e) => {
+        console.error(`Orders - Error: E-mail hasn't been sent: ${e} :: `, new Date())
+      })
 
     return {
       id: res.id

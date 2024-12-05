@@ -65,34 +65,46 @@ const demandPrices = reactive<
   }
 })
 
+const demandPrice = computed(() => {
+  const names = demand.value.names.reduce((acc: string[], val) => {
+    if (val.value) {
+      acc.push(val.value)
+    }
+    return acc
+  }, [])
+  if (demand.value.demandType && names.length) {
+    const typePrice = demandPrices[demand.value.demandType].price
+    return typeof typePrice === 'number' ? typePrice : typePrice(names.length)
+  }
+  return 0
+})
+
 const accept = async () => {
   await ruleFormRef.value?.validate(async (valid) => {
     if (valid) {
       try {
         loading.value = true
-        const names = demand.value.names.reduce((acc: string[], val) => {
-          if (val.value) {
-            acc.push(val.value)
-          }
-          return acc
-        }, [])
         const res = await orderRepo.post({
           demand: {
             demandType: demand.value.demandType!,
-            names
+            names: demand.value.names.reduce((acc: string[], val) => {
+              if (val.value) {
+                acc.push(val.value)
+              }
+              return acc
+            }, [])
           }
         })
         ElNotification({
           title: 'Успех',
-          message: 'Заказ успешно отправлен',
+          message: 'Ваша записка передана в алтарь',
           type: 'success'
         })
-        const typePrice = demandPrices[demand.value.demandType!].price
-        emit('accept', res.id, typeof typePrice === 'number' ? typePrice : typePrice(names.length))
+        emit('accept', res.id, demandPrice.value)
       } catch {
         ElNotification({
           title: 'Ошибка',
-          message: 'Ошибка при отправке заказа',
+          message: 'Ошибка при отправке записки',
           type: 'error'
         })
       } finally {
@@ -147,6 +159,9 @@ const accept = async () => {
     </el-form-item>
     <el-form-item label="Имена" prop="names" class="g-demand-form__names">
       <el-input v-for="(name, index) in demand.names" :key="index" v-model="name.value" />
+    </el-form-item>
+    <el-form-item>
+      <span class="text-base md:text-lg text-hram">Итого: {{ demandPrice }} руб.</span>
     </el-form-item>
     <el-form-item>
       <el-button class="ml-auto" type="primary" :loading="loading" @click="accept">

@@ -17,7 +17,7 @@ const handleCommand = (type: EOrderDropdownCommand) => {
   <el-header class="bg-white" height="70px">
     <div class="flex h-full gap-3">
       <NuxtLink class="flex h-full gap-3 mr-auto" to="/">
-        <ElImage class="p-1" src="/img/logo.png" style="width: 70px" />
+        <NuxtImg alt="logo" class="p-1" src="/img/logo.png" format="webp" style="width: 70px" />
         <div class="flex flex-col justify-center md:text-sm text-2sm">
           <span>Храм вмч.</span>
           <span>Георгия Победоносца</span>

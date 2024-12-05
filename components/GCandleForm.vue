@@ -19,6 +19,8 @@ const rules = reactive<FormRules>({
   list: [required()]
 })
 
+const candlePrice = computed(() => 50 * candles.value.candle.list.length)
+
 const accept = async () => {
   await ruleFormRef.value?.validate(async (valid) => {
     if (valid) {
@@ -27,14 +29,14 @@ const accept = async () => {
         const res = await orderRepo.post(candles.value)
         ElNotification({
           title: 'Успех',
-          message: 'Заказ успешно отправлен',
+          message: 'Ваша свеча поставлена',
           type: 'success'
         })
-        emit('accept', res.id, 50 * candles.value.candle.list.length)
+        emit('accept', res.id, candlePrice.value)
       } catch {
         ElNotification({
           title: 'Ошибка',
-          message: 'Ошибка при отправке заказа',
+          message: 'Ошибка при отправке заказа свечей',
           type: 'error'
         })
       } finally {
@@ -71,6 +73,9 @@ const accept = async () => {
         <el-checkbox :label="CANDLE_MESSAGE[ECandle.GOLGOFA]" :value="ECandle.GOLGOFA" />
         <el-checkbox :label="CANDLE_MESSAGE[ECandle.KONON]" :value="ECandle.KONON" />
       </el-checkbox-group>
+    </el-form-item>
+    <el-form-item>
+      <span class="text-base md:text-lg text-hram">Итого: {{ candlePrice }} руб.</span>
     </el-form-item>
     <el-form-item>
       <el-button class="ml-auto" type="primary" :loading @click="accept">Подтвердить</el-button>

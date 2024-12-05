@@ -93,12 +93,14 @@ const onDescriptionChange = (v: JSONContent) => {
     >
       <el-form-item label="Описание" prop="description">
         <div class="overflow-x-auto">
-          <GEditorField
-            ref="scheduleDescriptionFieldRef"
-            class="min-w-[500px]"
-            :model-value="schedule.description"
-            @update:model-value="onDescriptionChange"
-          />
+          <client-only>
+            <GEditorField
+              ref="scheduleDescriptionFieldRef"
+              class="min-w-[500px]"
+              :model-value="schedule.description"
+              @update:model-value="onDescriptionChange"
+            />
+          </client-only>
         </div>
       </el-form-item>
     </el-form>
