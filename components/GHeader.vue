@@ -2,15 +2,45 @@
 import { EOrderDropdownCommand } from '~/types/common'
 
 const viewport = useViewport()
+const router = useRouter()
+const route = useRoute()
 const drawer = useState<boolean>('drawer', () => false)
 const orderType = useState<EOrderDropdownCommand>('orderType')
 const orderDialog = useState<boolean>('orderDialog', () => false)
 const donationDialog = useState<boolean>('donationDialog', () => false)
 
 const handleCommand = (type: EOrderDropdownCommand) => {
-  orderType.value = type
-  orderDialog.value = true
+  if (type === EOrderDropdownCommand.DEMAND) {
+    router.push({ query: { ...route.query, demand: 'true' } })
+  } else {
+    router.push({ query: { ...route.query, candle: 'true' } })
+  }
 }
+
+const donationBtnClick = () => {
+  router.push({ query: { ...route.query, donation: 'true' } })
+}
+
+const donationDialogClose = () => {
+  router.push({ query: { ...route.query, donation: undefined } })
+}
+
+const orderDialogClose = () => {
+  router.push({ query: { ...route.query, demand: undefined, candle: undefined } })
+}
+
+watch(
+  () => route.query,
+  () => {
+    donationDialog.value = !!route.query.donation
+
+    orderType.value = route.query.demand
+      ? EOrderDropdownCommand.DEMAND
+      : EOrderDropdownCommand.CANDLE
+    orderDialog.value = !!route.query.demand || !!route.query.candle
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
@@ -30,9 +60,7 @@ const handleCommand = (type: EOrderDropdownCommand) => {
         class="flex items-center h-full lg:border-b-2 px-5 laptop:px-0 gap-3"
         style="border-color: transparent"
       >
-        <ElButton type="primary" class="my-auto" @click="donationDialog = true">
-          Помочь храму
-        </ElButton>
+        <ElButton type="primary" class="my-auto" @click="donationBtnClick"> Помочь храму </ElButton>
         <el-dropdown trigger="click" @command="handleCommand">
           <el-button type="primary">
             Заказать требы<el-icon class="el-icon--right"><Icon name="bx:chevron-down" /></el-icon>
@@ -63,7 +91,7 @@ const handleCommand = (type: EOrderDropdownCommand) => {
           v-if="viewport.isLessThan('md')"
           class="flex flex-col gap-4 items-start lg:h-full lg:border-b-2 mt-5"
         >
-          <ElButton type="primary" class="my-auto h-[56px] w-full" @click="donationDialog = true">
+          <ElButton type="primary" class="my-auto h-[56px] w-full" @click="donationBtnClick">
             Помочь храму
           </ElButton>
           <ElButton
@@ -83,8 +111,13 @@ const handleCommand = (type: EOrderDropdownCommand) => {
         </div>
       </ElDrawer>
     </div>
-    <GOrderDialog v-if="orderType" v-model="orderDialog" :type="orderType" />
-    <GDonationDialog v-model="donationDialog" />
+    <GOrderDialog
+      v-if="orderType"
+      v-model="orderDialog"
+      :type="orderType"
+      @close="orderDialogClose"
+    />
+    <GDonationDialog v-model="donationDialog" @close="donationDialogClose" />
   </el-header>
 </template>
 

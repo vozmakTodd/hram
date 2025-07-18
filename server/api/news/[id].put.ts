@@ -64,7 +64,7 @@ export default defineEventHandler<{
 
       news.images = [
         ...(news.images ? news.images : []),
-        ...(body.news.images ? saveImages(body.news.images) : [])
+        ...(body.news.images ? await saveImages(body.news.images) : [])
       ]
     } else if (news.type === ENewsType.VIDEO && body.news.type === ENewsType.VIDEO) {
       news.link = body.news.link

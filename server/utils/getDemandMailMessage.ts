@@ -4,8 +4,6 @@ import type { IDemandModel } from '~/types/order'
 export const getDemandMailMessage = (demand: IDemandModel['demand']) => {
   const config = useRuntimeConfig()
 
-  console.log(demand)
-
   return {
     from: `"Храм вмч. Георгия Победоносца в Куркине г. Москвы" <${config.mailUser}>`,
     to: config.mailOrderRecipient,
