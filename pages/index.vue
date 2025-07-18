@@ -12,6 +12,7 @@ useSeoMeta({
 const auth = useAuth()
 const newsRepo = useNewsRepo()
 const route = useRoute()
+const viewport = useViewport()
 
 const page = ref<number>(1)
 
@@ -50,9 +51,10 @@ const onPageChange = async (val: number) => {
       <el-pagination
         background
         hide-on-single-page
-        layout="prev, pager, next, total"
+        layout="prev, pager, next"
         :current-page="page"
         :total="news?.pagination?.total"
+        :pager-count="!viewport.isLessThan('md') ? 7 : 2"
         @current-change="onPageChange"
       />
     </div>

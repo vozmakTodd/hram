@@ -34,7 +34,7 @@ export default defineEventHandler<{
         title: body.title,
         description: body.description,
         type: body.type,
-        images: body.images ? saveImages(body.images) : []
+        images: body.images ? await saveImages(body.images) : []
       }
 
       const res = await new NewsModel(data).save()
