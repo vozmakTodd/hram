@@ -50,7 +50,7 @@ watch(
         <NuxtImg alt="logo" class="p-1" src="/img/logo.png" format="webp" style="width: 70px" />
         <div class="flex flex-col justify-center md:text-sm text-2sm">
           <span>Храм вмч.</span>
-          <span>Георгия Победоносца</span>
+          <span>Георгия Победоносца </span>
           <span>в Куркине г. Москвы</span>
         </div>
       </NuxtLink>
