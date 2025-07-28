@@ -44,12 +44,12 @@ const demandPrices = reactive<
     price: 50
   },
   [EDemandType.MOLEBEN]: {
-    label: '50 руб.',
-    price: 50
+    label: '100 руб.',
+    price: 100
   },
   [EDemandType.MOLEBEN_SUTERDAY]: {
-    label: '50 руб.',
-    price: 50
+    label: '100 руб.',
+    price: 100
   },
   [EDemandType.PANIHIDA]: {
     label: '50 руб.',
