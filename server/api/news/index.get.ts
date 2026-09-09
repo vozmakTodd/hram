@@ -1,7 +1,7 @@
 import { NewsModel } from '~/server/models/news.model'
 
 export default defineEventHandler<{ query: { page: number } }>(async (event) => {
-  const PAGE_SIZE = 10
+  const PAGE_SIZE = 20
   const { page } = getQuery(event)
   try {
     const res = await NewsModel.find()

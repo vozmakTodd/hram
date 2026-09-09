@@ -55,6 +55,7 @@ const onPageChange = async (val: number) => {
         :current-page="page"
         :total="news?.pagination?.total"
         :pager-count="!viewport.isLessThan('md') ? 7 : 2"
+        :page-size="20"
         @current-change="onPageChange"
       />
     </div>
