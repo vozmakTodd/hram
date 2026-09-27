@@ -20,7 +20,13 @@ export default defineEventHandler<{
           : getCandleMailMessage(body.model.candle.list)
       )
       .then((mail) => {
-        console.info(`Orders - Info: E-mail has been sent id: ${mail.messageId} :: `, new Date())
+        console.info('Orders - Info: E-mail sent:', {
+          messageId: mail.messageId,
+          from: mail.envelope.from,
+          to: mail.envelope.to,
+          accepted: mail.accepted,
+          rejected: mail.rejected
+        })
       })
       .catch((e) => {
         console.error(`Orders - Error: E-mail hasn't been sent: ${e} :: `, new Date())
